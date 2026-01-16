@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,7 +41,7 @@
             background-size: 40px 40px; opacity: 0.6;
         }
 
-        /* NAV */
+        /* NAV (Desktop) */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
             display: flex; justify-content: center;
@@ -55,7 +54,7 @@
             text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
             display: flex; align-items: center; gap: 8px;
         }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--primary); }
         .nav-links a i { color: var(--primary); opacity: 0.8; }
 
         /* HEADER */
@@ -80,7 +79,6 @@
             background: rgba(10, 15, 30, 0.7); 
             border-radius: 24px; overflow: hidden;
             backdrop-filter: blur(20px); 
-            /* Bordure dégradée subtile */
             padding: 1px; /* Espace pour le gradient */
             background-image: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
@@ -91,7 +89,7 @@
 
         .card-inner {
             display: flex; width: 100%; height: 100%;
-            background: #020617; /* Fond interne pour masquer le gradient */
+            background: #020617; /* Fond interne */
             border-radius: 23px; overflow: hidden;
         }
 
@@ -153,20 +151,53 @@
         }
 
         /* --- STYLES SPÉCIFIQUES --- */
-        
-        /* Style Club (Bleu/Violet) */
         .card-club .role-badge { color: var(--secondary); }
         .card-club .description-list li::before { background: var(--secondary); box-shadow: 0 0 10px var(--secondary); }
         .card-club .tag:hover { color: var(--secondary); border-color: var(--secondary); background: rgba(67, 97, 238, 0.1); }
 
-        /* MOBILE */
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
+        /* --- FIX MOBILE : BARRE DE NAVIGATION EN HAUT --- */
+        @media (max-width: 1024px) {
+            /* Navbar en haut */
+            nav {
+                top: 0; width: 100%; padding: 0;
+                background: rgba(2, 6, 23, 0.98);
+                border-bottom: 1px solid #00f2ff;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
+
+            /* Forcer l'affichage Flex */
+            .nav-links { 
+                display: flex !important; 
+                justify-content: space-between;
+                padding: 10px 15px;
+                width: 100%; margin: 0;
+            }
+
+            .nav-links li { list-style: none; }
+            
+            .nav-links a {
+                flex-direction: column; 
+                font-size: 0.65rem; 
+                gap: 5px;
+                color: #94a3b8;
+            }
+
+            .nav-links a i { 
+                font-size: 1.3rem; 
+                color: #00f2ff;
+                display: block; 
+            }
+
+            /* Mise en page Mobile */
             .card-inner { flex-direction: column; }
             .card-visual { flex: none; width: 100%; height: 250px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .card-content { padding: 30px; }
+            .card-content { padding: 30px 20px; }
+            
+            .header-section { padding-top: 130px; } /* Espace menu */
             .header-section h1 { font-size: 2.5rem; }
             .company-name { font-size: 1.8rem; }
+            .exp-container { padding: 0 15px; gap: 40px; }
         }
     </style>
 </head>
@@ -197,7 +228,7 @@
         <div class="exp-card" data-aos="fade-up">
             <div class="card-inner">
                 <div class="card-visual">
-                    <img src="srmm.jpg" alt="SRM Maintenance" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=SRM+Photo'">
+                    <img src="srmm.jpg" alt="SRM Maintenance">
                 </div>
                 <div class="card-content">
                     <div class="exp-header">
@@ -223,7 +254,7 @@
         <div class="exp-card" data-aos="fade-up">
             <div class="card-inner">
                 <div class="card-visual">
-                    <img src="em.jpg" alt="EM Energie PFE" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=EM+Photo'">
+                    <img src="em.jpg" alt="EM Energie PFE">
                 </div>
                 <div class="card-content">
                     <div class="exp-header">
@@ -249,7 +280,7 @@
         <div class="exp-card" data-aos="fade-up">
             <div class="card-inner">
                 <div class="card-visual">
-                    <img src="zahri.jpg" alt="Ezzahri Techno" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=Zahri+Photo'">
+                    <img src="zahri.jpg" alt="Ezzahri Techno">
                 </div>
                 <div class="card-content">
                     <div class="exp-header">
@@ -275,7 +306,7 @@
         <div class="exp-card card-club" data-aos="fade-up">
             <div class="card-inner">
                 <div class="card-visual">
-                    <img src="club.jpg" alt="Club Robotique" onerror="this.src='https://via.placeholder.com/400x600/0f172a/4361ee?text=Club+Photo'">
+                    <img src="club.jpg" alt="Club Robotique">
                 </div>
                 <div class="card-content">
                     <div class="exp-header">
@@ -304,5 +335,3 @@
     <script> AOS.init({ duration: 800, once: true, offset: 50 }); </script>
 </body>
 </html>
-
-
