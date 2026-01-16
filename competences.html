@@ -124,7 +124,51 @@
         .card-purple:hover { border-color: var(--neon-purple); box-shadow: 0 0 40px rgba(188, 19, 254, 0.15); }
         .card-orange:hover { border-color: var(--neon-orange); box-shadow: 0 0 40px rgba(255, 170, 0, 0.15); }
         .card-green:hover { border-color: var(--neon-green); box-shadow: 0 0 40px rgba(0, 255, 157, 0.15); }
+/* --- FIX MOBILE : BARRE DE NAVIGATION EN HAUT --- */
+@media (max-width: 1024px) {
+    /* On réinitialise la navbar */
+    nav {
+        top: 0; width: 100%; padding: 0;
+        background: rgba(2, 6, 23, 0.98); /* Fond sombre */
+        border-bottom: 1px solid #00f2ff;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
 
+    /* On force l'affichage des liens */
+    .nav-links { 
+        display: flex !important; 
+        justify-content: space-between;
+        padding: 10px 15px;
+        width: 100%; margin: 0;
+    }
+
+    /* Style des liens pour mobile */
+    .nav-links li { list-style: none; }
+    
+    .nav-links a {
+        flex-direction: column; 
+        font-size: 0.65rem; /* Texte petit */
+        gap: 5px;
+        color: #94a3b8;
+    }
+
+    .nav-links a i { 
+        font-size: 1.3rem; 
+        color: #00f2ff;
+        display: block; /* On s'assure que l'icône est visible */
+    }
+
+    /* Ajustement du haut de page pour ne pas être caché par le menu */
+    .header-section {
+        padding-top: 130px; /* Plus d'espace car le menu est en haut */
+    }
+    
+    /* Ajustement grille projets/compétences */
+    .projects-container, .skills-grid, .contact-container {
+        padding: 0 15px;
+    }
+}
         /* EN-TÊTE */
         .card-header { 
             display: flex; align-items: center; gap: 20px; margin-bottom: 35px;
@@ -363,5 +407,6 @@
     </script>
 </body>
 </html>
+
 
 
