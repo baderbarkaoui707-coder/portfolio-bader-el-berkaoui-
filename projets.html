@@ -46,7 +46,7 @@
             background-size: 50px 50px; opacity: 0.4;
         }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (Desktop) --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
             display: flex; justify-content: center;
@@ -165,7 +165,7 @@
         }
         video { width: 100%; display: block; }
 
-        /* GRILLE PHOTO (Non coupée) */
+        /* GRILLE PHOTO */
         .photo-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;
         }
@@ -177,7 +177,7 @@
             transition: 0.3s;
         }
         .photo-item img {
-            max-width: 100%; max-height: 100%; /* GARANTIT LA VISIBILITÉ TOTALE */
+            max-width: 100%; max-height: 100%; 
             width: auto; height: auto;
             transition: transform 0.5s;
         }
@@ -210,10 +210,43 @@
         }
         .lightbox-close:hover { color: var(--primary); transform: rotate(90deg); }
 
-        /* MOBILE */
+        /* --- MOBILE FIX (BARRE EN HAUT) --- */
         @media (max-width: 1024px) {
-            .nav-links { display: none; }
+            /* Navbar fixée en haut */
+            nav {
+                top: 0; width: 100%; padding: 0;
+                background: rgba(2, 6, 23, 0.98);
+                border-bottom: 1px solid #00f2ff;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
+
+            /* Forcer l'affichage des liens */
+            .nav-links { 
+                display: flex !important; 
+                justify-content: space-between;
+                padding: 10px 15px;
+                width: 100%; margin: 0;
+            }
+
+            .nav-links li { list-style: none; }
+            
+            .nav-links a {
+                flex-direction: column; 
+                font-size: 0.65rem; 
+                gap: 5px;
+                color: #94a3b8;
+            }
+
+            .nav-links a i { 
+                font-size: 1.3rem; 
+                color: #00f2ff;
+                display: block; 
+            }
+
+            /* Ajustements Layout Mobile */
             .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+            .header-section { padding-top: 130px; } /* Espace pour le menu */
             .header-section h1 { font-size: 2.8rem; }
             .photo-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -297,7 +330,6 @@
             </div>
         </article>
 
-
         <article class="project-card reverse" data-aos="fade-up">
             <div class="project-content">
                 <div class="project-header">
@@ -338,7 +370,6 @@
                 </div>
             </div>
         </article>
-
 
         <article class="project-card" data-aos="fade-up">
             <div class="project-content">
@@ -382,7 +413,6 @@
                 </div>
             </div>
         </article>
-
 
         <article class="project-card reverse" data-aos="fade-up">
             <div class="project-content">
