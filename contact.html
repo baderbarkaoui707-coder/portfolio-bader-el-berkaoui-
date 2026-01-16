@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -51,7 +50,7 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; } 
         }
 
-        /* --- NAV --- */
+        /* --- NAV (Desktop) --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
             display: flex; justify-content: center;
@@ -171,10 +170,43 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* MOBILE */
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .contact-container { grid-template-columns: 1fr; gap: 40px; }
+        /* --- MOBILE FIX (BARRE EN HAUT) --- */
+        @media (max-width: 1024px) {
+            /* Barre fixée en haut */
+            nav {
+                top: 0; width: 100%; padding: 0;
+                background: rgba(2, 6, 23, 0.98);
+                border-bottom: 1px solid #00f2ff;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
+
+            /* Forcer l'affichage */
+            .nav-links { 
+                display: flex !important; 
+                justify-content: space-between;
+                padding: 10px 15px;
+                width: 100%; margin: 0;
+            }
+
+            .nav-links li { list-style: none; }
+            
+            .nav-links a {
+                flex-direction: column; 
+                font-size: 0.65rem; 
+                gap: 5px;
+                color: #94a3b8;
+            }
+
+            .nav-links a i { 
+                font-size: 1.3rem; 
+                color: #00f2ff;
+                display: block; 
+            }
+
+            /* Ajustements mise en page */
+            .contact-container { grid-template-columns: 1fr; gap: 40px; padding: 0 15px; }
+            .header-section { padding-top: 130px; } /* Espace pour le menu */
             .header-section h1 { font-size: 2.5rem; }
         }
     </style>
@@ -310,5 +342,3 @@
     </script>
 </body>
 </html>
-
-
