@@ -19,7 +19,7 @@
             --border: rgba(0, 243, 255, 0.2);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Curseur perso activé */ }
         
         body {
             font-family: 'Outfit', sans-serif;
@@ -31,7 +31,22 @@
             perspective: 1000px;
         }
 
-        /* --- FOND TUNNEL --- */
+        /* --- 1. CURSEUR FUTURISTE --- */
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+            border: 2px solid var(--primary); border-radius: 50%;
+            transform: translate(-50%, -50%); pointer-events: none; z-index: 9999;
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+        #cursor::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 4px; height: 4px; background: var(--primary);
+            border-radius: 50%; transform: translate(-50%, -50%);
+        }
+        body:active #cursor { width: 30px; height: 30px; background: rgba(0, 243, 255, 0.2); }
+
+        /* --- 2. FOND WARP SPEED (TUNNEL) --- */
         .warp-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(circle at center, #0a0a2e 0%, #000000 100%);
@@ -45,35 +60,43 @@
             to { transform: translateZ(1000px); opacity: 0; }
         }
 
-        /* --- NAVIGATION --- */
+        /* --- 3. NAVIGATION HUD (PC) --- */
         nav {
             position: fixed; top: 30px; width: 100%; display: flex; justify-content: center; z-index: 1000;
         }
-        
         .nav-glass {
-            background: rgba(10, 20, 40, 0.7); backdrop-filter: blur(20px);
+            background: rgba(10, 20, 40, 0.6); backdrop-filter: blur(20px);
             padding: 15px 50px; border-radius: 50px; border: 1px solid var(--border);
-            display: flex; gap: 40px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.15);
+            display: flex; gap: 40px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+            position: relative;
         }
+        .nav-glass::before {
+            content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 20%;
+            background: var(--primary); box-shadow: 0 0 10px var(--primary);
+            animation: scanMenu 4s ease-in-out infinite alternate;
+        }
+        @keyframes scanMenu { 0% { left: 10%; width: 10%; } 100% { left: 80%; width: 10%; } }
 
         .nav-link {
             color: #a0a0c0; text-decoration: none; font-family: 'Rajdhani', sans-serif;
             font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+            font-size: 0.9rem; transition: 0.3s; position: relative;
+            display: flex; align-items: center; gap: 8px;
         }
         
-        /* Icônes cachées sur PC pour le style "Clean" */
-        .nav-link i { display: none; font-size: 1.2rem; }
+        /* Sur PC, on cache les icônes dans le menu pour faire propre */
+        .nav-link i { display: none; }
         
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px var(--primary); }
 
-        /* --- HERO SECTION --- */
+        /* --- 4. HERO SECTION (L'INTERFACE) --- */
         .main-stage {
             flex: 1; display: grid; grid-template-columns: 1fr 1fr;
             align-items: center; max-width: 1600px; margin: 0 auto; width: 100%;
             padding: 0 5%; position: relative; z-index: 10;
         }
 
+        /* GAUCHE : TEXTE & DATA */
         .content-zone { padding-right: 50px; }
         
         .badge-pro {
@@ -81,6 +104,7 @@
             padding: 8px 20px; border: 1px solid var(--primary); border-radius: 4px;
             color: var(--primary); font-family: 'Rajdhani', sans-serif; font-weight: 700;
             background: rgba(0, 243, 255, 0.05); margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
         }
         
         h1 {
@@ -101,14 +125,15 @@
             position: relative; padding: 18px 45px; font-weight: 700; text-transform: uppercase;
             text-decoration: none; font-size: 0.9rem; letter-spacing: 2px; color: #fff;
             border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.02);
-            transition: 0.3s;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: 0.3s; overflow: hidden;
         }
         .btn-cyber:hover {
             background: var(--primary); color: #000; border-color: var(--primary);
             box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
         }
 
-        /* --- SYSTÈME SOLAIRE --- */
+        /* DROITE : SYSTÈME SOLAIRE */
         .visual-zone {
             display: flex; justify-content: center; align-items: center;
             position: relative; height: 600px;
@@ -130,18 +155,27 @@
             animation: rotateOrbit linear infinite;
         }
         .orbit-1 { width: 400px; height: 400px; animation-duration: 20s; }
-        .orbit-2 { width: 550px; height: 550px; animation-duration: 30s; animation-direction: reverse; }
+        .orbit-2 { width: 550px; height: 550px; animation-duration: 30s; border-color: rgba(255,255,255,0.05); animation-direction: reverse; }
 
         .planet {
             position: absolute; width: 60px; height: 60px; background: #0b1021;
             border: 1px solid var(--border); border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             color: var(--primary); font-size: 1.5rem; box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            transition: 0.3s;
+            transition: 0.3s; cursor: pointer;
         }
         .planet i { animation: counterRotate linear infinite; }
         .orbit-1 .planet i { animation-duration: 20s; }
         .orbit-2 .planet i { animation-duration: 30s; animation-direction: reverse; }
+
+        .planet:hover { background: var(--primary); color: #000; transform: scale(1.2); box-shadow: 0 0 30px var(--primary); z-index: 20; }
+        .planet::after {
+            content: attr(data-tooltip); position: absolute; bottom: -30px;
+            background: rgba(0,0,0,0.8); color: #fff; padding: 5px 10px;
+            border-radius: 4px; font-size: 0.8rem; opacity: 0; transition: 0.3s;
+            white-space: nowrap; pointer-events: none; border: 1px solid var(--primary);
+        }
+        .planet:hover::after { opacity: 1; bottom: -40px; }
 
         /* Position Planètes */
         .p1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
@@ -154,42 +188,77 @@
         @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes counterRotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-        /* --- MOBILE RESPONSIVE (LE FIX MAGIQUE) --- */
+        /* EFFET HUD */
+        .hud-line { position: absolute; background: rgba(0, 243, 255, 0.1); pointer-events: none; }
+        .hl-1 { width: 1px; height: 100vh; left: 10%; top: 0; }
+        .hl-2 { width: 1px; height: 100vh; right: 10%; top: 0; }
+        .hl-3 { height: 1px; width: 100vw; top: 15%; left: 0; }
+        
+        .footer-status {
+            position: fixed; bottom: 30px; left: 50px; display: flex; align-items: center; gap: 15px;
+            font-family: 'Rajdhani', sans-serif; color: #556;
+        }
+        .status-dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
+
+        /* --- MOBILE RESPONSIVE (BARRE EN HAUT FIXÉE) --- */
         @media (max-width: 1024px) {
             body { overflow-y: auto; height: auto; }
-            .main-stage { grid-template-columns: 1fr; text-align: center; padding-top: 50px; padding-bottom: 150px; }
+            
+            /* Ajustement pour que le contenu ne soit pas caché par la barre */
+            .main-stage { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+                padding-top: 100px; /* Espace pour la barre */
+                padding-bottom: 50px; 
+            }
+            
             .content-zone { padding-right: 0; margin-bottom: 50px; }
             h1 { font-size: 3rem; }
             .dynamic-txt-box { justify-content: center; font-size: 1rem; }
             .cta-container { justify-content: center; flex-direction: column; }
-            
-            /* Système solaire réduit sur mobile */
             .solar-system { width: 320px; height: 320px; transform: scale(0.9); margin: 0 auto; }
-            .orbit-2 { display: none; } /* On cache l'orbite lointaine sur mobile pour la place */
+            .orbit-2 { display: none; }
             .sun-wrapper { width: 200px; height: 200px; }
+            .hud-line { display: none; }
 
-            /* --- BARRE DE NAVIGATION MOBILE (TYPE APP) --- */
+            /* Navigation Mobile en HAUT */
             nav {
-                top: auto; bottom: 20px; /* En bas de l'écran */
-                width: 100%; padding: 0 20px;
+                top: 0; bottom: auto; width: 100%; padding: 0; z-index: 9999;
             }
+            
             .nav-glass {
-                width: 100%; padding: 15px 0;
+                width: 100%; padding: 10px 5px;
                 justify-content: space-around; gap: 0;
-                border-radius: 20px; background: rgba(5, 10, 25, 0.95);
-                border: 1px solid var(--primary);
+                background: rgba(3, 0, 20, 0.95); /* Fond sombre */
+                backdrop-filter: blur(15px);
+                border: none; border-bottom: 1px solid var(--primary);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 5px 20px rgba(0, 243, 255, 0.15);
             }
+            .nav-glass::before { display: none; } /* Enlève l'animation de scan sur mobile */
+
             .nav-link {
-                flex-direction: column; font-size: 0.7rem; gap: 5px;
+                flex-direction: column; align-items: center; gap: 4px; flex: 1;
             }
-            .nav-link span { display: none; } /* Cache le texte */
-            .nav-link i { display: block; font-size: 1.4rem; } /* Affiche les icônes */
+            
+            /* Sur mobile, on affiche les icônes et le texte en tout petit */
+            .nav-link i { display: block; font-size: 1.2rem; margin-bottom: 0; color: var(--primary); }
+            .nav-link span { display: block; font-size: 0.6rem; opacity: 0.7; }
         }
     </style>
 </head>
 <body>
 
+    <div id="cursor"></div>
     <div class="warp-container" id="warp-bg"></div>
+    <div class="hud-line hl-1"></div>
+    <div class="hud-line hl-2"></div>
+    <div class="hud-line hl-3"></div>
+
+    <div class="footer-status">
+        <div class="status-dot"></div>
+        <span>SYSTÈME EN LIGNE // V.2.0.26</span>
+    </div>
 
     <nav>
         <div class="nav-glass">
@@ -240,15 +309,15 @@
                 </div>
 
                 <div class="orbit orbit-1">
-                    <div class="planet p1"><i class="fas fa-car"></i></div>
-                    <div class="planet p2"><i class="fas fa-microchip"></i></div>
-                    <div class="planet p3"><i class="fas fa-robot"></i></div>
-                    <div class="planet p4"><i class="fas fa-tools"></i></div>
+                    <div class="planet p1" data-tooltip="Automobile"><i class="fas fa-car"></i></div>
+                    <div class="planet p2" data-tooltip="Systèmes Embarqués"><i class="fas fa-microchip"></i></div>
+                    <div class="planet p3" data-tooltip="Automatisme"><i class="fas fa-robot"></i></div>
+                    <div class="planet p4" data-tooltip="Maintenance"><i class="fas fa-tools"></i></div>
                 </div>
 
                 <div class="orbit orbit-2">
-                    <div class="planet p5"><i class="fas fa-solar-panel"></i></div>
-                    <div class="planet p6"><i class="fas fa-bolt"></i></div>
+                    <div class="planet p5" data-tooltip="Énergies Renouvelables"><i class="fas fa-solar-panel"></i></div>
+                    <div class="planet p6" data-tooltip="CFO / CFA"><i class="fas fa-bolt"></i></div>
                 </div>
             </div>
         </div>
@@ -278,6 +347,13 @@
             star.style.transform = `translate(${x}px, ${y}px)`;
             warpContainer.appendChild(star);
         }
+        
+        // Curseur
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
     </script>
 </body>
 </html>
