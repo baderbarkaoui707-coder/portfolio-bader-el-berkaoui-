@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours | Bader el Berkaoui</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --primary: #00f2ff; /* Cyan Électrique */
+            --secondary: #4361ee;
+            --gold: #ffd700;    /* Or pour le Major */
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- FOND PCB (Circuit Imprimé) --- */
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .tech-bg::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0) 0%, rgba(2, 6, 23, 1) 90%);
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 5%;
+            display: flex; justify-content: center;
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.8);
+        }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { 
+            color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a i { color: var(--primary); transition: 0.3s; }
+        .nav-links a:hover i { text-shadow: 0 0 10px var(--primary); }
+
+        /* --- HEADER --- */
+        .header-section {
+            padding: 150px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto;
+        }
+        .header-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; letter-spacing: -1px; }
+        .highlight { 
+            background: linear-gradient(to right, #00f2ff, #4361ee); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .intro-text { font-size: 1.15rem; color: #cbd5e1; line-height: 1.7; font-weight: 300; }
+
+        /* --- TIMELINE PRO --- */
+        .timeline {
+            position: relative; max-width: 1100px; margin: 0 auto 100px; padding: 0 20px;
+        }
+        /* Ligne centrale néon */
+        .timeline::after {
+            content: ''; position: absolute; width: 4px; background: var(--primary);
+            top: 0; bottom: 0; left: 50%; margin-left: -2px;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); border-radius: 2px;
+        }
+
+        .container {
+            padding: 10px 50px; position: relative; width: 50%;
+        }
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        /* Point Connecteur */
+        .connector {
+            position: absolute; width: 24px; height: 24px; right: -12px; background: var(--bg-dark);
+            border: 4px solid var(--primary); border-radius: 50%; top: 30px; z-index: 10;
+            box-shadow: 0 0 15px var(--primary); transition: 0.3s;
+        }
+        .right .connector { left: -12px; }
+        
+        .container:hover .connector { background: var(--primary); transform: scale(1.2); }
+
+        /* CARTE HOLOGRAPHIQUE 3D */
+        .content {
+            padding: 30px; background: rgba(15, 23, 42, 0.7); 
+            border: 1px solid var(--border); border-radius: 16px;
+            position: relative; backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d; /* Pour l'effet 3D */
+        }
+        
+        .content:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+        }
+
+        /* Badge Date */
+        .date {
+            display: inline-block; padding: 6px 15px; background: rgba(0, 242, 255, 0.1);
+            color: var(--primary); border-radius: 50px; font-weight: 700; font-size: 0.85rem;
+            margin-bottom: 15px; border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        /* Titres */
+        .content h2 { font-size: 1.6rem; margin-bottom: 5px; color: #fff; }
+        .school { color: #94a3b8; font-size: 1rem; margin-bottom: 20px; display: block; font-style: italic; }
+        .school i { color: var(--secondary); margin-right: 5px; }
+
+        /* Description */
+        .desc { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+
+        /* TAGS DE COMPÉTENCES (Le petit plus !) */
+        .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+        .tag {
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
+            background: rgba(255,255,255,0.05); color: #a0aec0; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tag:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 242, 255, 0.05); }
+
+        /* SPECIAL MAJOR */
+        .major-glow {
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+        }
+        .major-badge {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
+            color: var(--gold); font-weight: 800; text-transform: uppercase; font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; text-shadow: 0 0 10px var(--gold); } 100% { opacity: 0.8; } }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .timeline::after { left: 30px; }
+            .container { width: 100%; padding-left: 70px; padding-right: 10px; }
+            .container.left, .container.right { left: 0; }
+            .connector { left: 18px; }
+            .right .connector { left: 18px; }
+            .header-section h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tech-bg"></div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="parcours.html" class="active"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+            <li><a href="experiences.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+            <li><a href="competences.html"><i class="fas fa-microchip"></i> Compétences</a></li>
+            <li><a href="projets.html"><i class="fas fa-project-diagram"></i> Projets</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="header-section" data-aos="fade-down">
+        <h1>Mon <span class="highlight">Parcours Académique</span></h1>
+        <p class="intro-text">
+            Une trajectoire guidée par la passion de l'innovation et de l'ingénierie.
+            Chaque diplôme est une brique technique posée pour construire l'industrie de demain.
+        </p>
+    </section>
+
+    <div class="timeline">
+
+        <div class="container right" data-aos="fade-left">
+            <div class="connector"></div>
+            <div class="content js-tilt">
+                <span class="date">2024 - Présent</span>
+                <h2>Cycle Ingénieur d'État</h2>
+                <span class="school"><i class="fas fa-university"></i> FST Mohammedia</span>
+                <p class="desc">
+                    <strong>Génie Électrique et Contrôle Industriel (GECI)</strong>.<br>
+                    Formation d'élite axée sur la conception de systèmes complexes, l'automatisation avancée et l'efficacité énergétique.
+                </p>
+                <div class="skills-tags">
+                    <span class="tag">SCADA</span>
+                    <span class="tag">Automatisme Avancé</span>
+                    <span class="tag">Élec. Puissance</span>
+                    <span class="tag">Gestion de Projet</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container left" data-aos="fade-right">
+            <div class="connector" style="border-color: var(--gold); box-shadow: 0 0 15px var(--gold);"></div>
+            <div class="content major-glow js-tilt">
+                <span class="date" style="color:var(--gold); border-color:var(--gold);">2023 - 2024</span>
+                <h2>Licence Sciences et Techniques</h2>
+                <span class="school"><i class="fas fa-university"></i> FST Settat</span>
+                <p class="desc">
+                    <strong>Génie Électrique et Systèmes Automatisés</strong>.<br>
+                    Consécration d'une année d'excellence académique.
+                </p>
+                <div class="major-badge">
+                    <i class="fas fa-trophy"></i> Major de Promo - Mention Très Bien
+                </div>
+                <div class="skills-tags">
+                    <span class="tag">Régulation PID</span>
+                    <span class="tag">Grafcet</span>
+                    <span class="tag">Matlab/Simulink</span>
+                    <span class="tag">Microcontrôleurs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container right" data-aos="fade-left">
+            <div class="connector"></div>
+            <div class="content js-tilt">
+                <span class="date">2021 - 2023</span>
+                <h2>DEUST (Cycle Prépa)</h2>
+                <span class="school"><i class="fas fa-university"></i> FST Settat</span>
+                <p class="desc">
+                    <strong>Génie Électrique & Génie Mécanique</strong>.<br>
+                    Acquisition du socle scientifique fondamental (Maths, Physique) et des premières compétences techniques.
+                </p>
+                <div class="skills-tags">
+                    <span class="tag">Mécanique du solide</span>
+                    <span class="tag">Thermodynamique</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Circuits Électriques</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container left" data-aos="fade-right">
+            <div class="connector"></div>
+            <div class="content js-tilt">
+                <span class="date">2021</span>
+                <h2>Baccalauréat Technique</h2>
+                <span class="school"><i class="fas fa-school"></i> Lycée Technique Anoual, Casablanca</span>
+                <p class="desc">
+                    Option <strong>Sciences et Technologies Électriques</strong>.<br>
+                    Mention Bien. Le début de ma vocation pour l'ingénierie.
+                </p>
+                <div class="skills-tags">
+                    <span class="tag">Schémas Électriques</span>
+                    <span class="tag">Logique Combinatoire</span>
+                    <span class="tag">Moteurs</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+    
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Active l'effet 3D sur les cartes
+        VanillaTilt.init(document.querySelectorAll(".js-tilt"), {
+            max: 5,           // Inclinaison max légère
+            speed: 400,       // Vitesse
+            glare: true,      // Effet de reflet lumineux
+            "max-glare": 0.2  // Opacité du reflet
+        });
+    </script>
+</body>
+</html>
+

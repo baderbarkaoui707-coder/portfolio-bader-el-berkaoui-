@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bader el Berkaoui | Ingénieur Génie Électrique & Automatisme</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --primary: #38bdf8; /* Bleu Ciel Électrique */
+            --secondary: #818cf8; /* Indigo */
+            --accent: #2dd4bf; /* Teal pour l'aspect "Durable/Green" */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08) 0%, transparent 25%);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: var(--glass-border);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { 
+            color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; 
+            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-cv {
+            padding: 8px 20px; border: 1px solid var(--primary); color: var(--primary);
+            border-radius: 50px; text-decoration: none; transition: 0.3s; font-weight: 600;
+        }
+        .btn-cv:hover { background: var(--primary); color: var(--bg-dark); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; padding: 0 10%;
+            position: relative;
+        }
+        .hero-content { max-width: 800px; z-index: 2; }
+        .hero h1 { 
+            font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; 
+            background: linear-gradient(to right, #fff, var(--primary)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero h2 { font-size: 1.8rem; color: var(--text-muted); margin-bottom: 30px; font-weight: 400; }
+        .hero-stats {
+            display: flex; gap: 40px; margin-top: 50px; border-top: var(--glass-border); padding-top: 30px;
+        }
+        .stat-item h3 { font-size: 2.5rem; color: var(--primary); margin-bottom: 5px; }
+        .stat-item p { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; }
+
+        /* --- SECTION STYLES --- */
+        section { padding: 100px 10%; position: relative; }
+        .section-header { margin-bottom: 60px; }
+        .section-tag { color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+        .section-title { font-size: 3rem; margin-top: 10px; }
+
+        /* --- CARDS (GLASSMORPHISM) --- */
+        .glass-card {
+            background: var(--bg-card); border: var(--glass-border);
+            border-radius: 20px; padding: 30px; transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .glass-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        
+        /* --- TIMELINE (STAGES & ÉTUDES) --- */
+        .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .timeline-item { 
+            padding-left: 30px; border-left: 2px solid rgba(255,255,255,0.1); 
+            margin-bottom: 40px; position: relative; 
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px;
+            background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);
+        }
+        .t-date { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; display: block; }
+        .t-role { font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
+        .t-company { color: var(--text-muted); margin-bottom: 15px; font-style: italic; }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .skill-box {
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px;
+            text-align: center; border: 1px solid transparent; transition: 0.3s;
+        }
+        .skill-box:hover { border-color: var(--secondary); background: rgba(129, 140, 248, 0.1); }
+        .skill-box i { font-size: 2rem; color: var(--secondary); margin-bottom: 15px; }
+
+        /* --- PROJETS (GRID AVEC FOCUS) --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        
+        /* Style Spécial pour le Drone */
+        .featured-project { 
+            grid-column: 1 / -1; display: flex; gap: 40px; align-items: center; 
+            background: linear-gradient(145deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9));
+            border: 1px solid var(--accent);
+        }
+        .featured-content h3 { color: var(--accent); }
+        .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { 
+            padding: 5px 12px; font-size: 0.75rem; border-radius: 20px; 
+            background: rgba(255,255,255,0.1); color: #fff; 
+        }
+
+        /* --- CONTACT --- */
+        .contact-box { text-align: center; max-width: 600px; margin: 0 auto; }
+        .social-btn {
+            display: inline-flex; width: 50px; height: 50px; border-radius: 50%; 
+            background: rgba(255,255,255,0.05); color: #fff; align-items: center; justify-content: center;
+            font-size: 1.2rem; margin: 0 10px; transition: 0.3s; text-decoration: none;
+        }
+        .social-btn:hover { background: var(--primary); transform: scale(1.1); }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .timeline-grid { grid-template-columns: 1fr; }
+            .featured-project { flex-direction: column; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">BE.<span>Elec</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">Parcours</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#projects">Projets</a></li>
+        </ul>
+        <a href="assets/docs/CV-Bader.pdf" download class="btn-cv">
+            <i class="fas fa-download"></i> Mon CV
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <span class="section-tag">Ingénieur Génie Électrique & Contrôle</span>
+            <h1>Bader el Berkaoui</h1>
+            <h2>Innovation Durable & Systèmes Intelligents</h2>
+            <p style="color: var(--text-muted); line-height: 1.6; font-size: 1.1rem;">
+                Élève ingénieur passionné par l'automatisme avancé, les énergies renouvelables et l'IA embarquée. 
+                De la conception de drones multiservices à la régulation de systèmes thermiques complexes.
+            </p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>3</h3>
+                    <p>Stages Techniques</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5+</h3>
+                    <p>Projets Majeurs</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2026</h3>
+                    <p>Diplôme Ingénieur</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag">Mon Parcours</span>
+            <h2 class="section-title">Expérience & Formation</h2>
+        </div>
+
+        <div class="timeline-grid">
+            
+            <div data-aos="fade-right">
+                <h3 style="margin-bottom: 30px; color: var(--primary);"><i class="fas fa-briefcase"></i> Stages Professionnels</h3>
+                
+                <div class="timeline-item">
+                    <span class="t-date">Juil. 2025 - Août 2025</span>
+                    <h4 class="t-role">Stage Technique (DGA & HT)</h4>
+                    <p class="t-company">SRM Casablanca (Postes Sources)</p>
+                    <p style="font-size: 0.9rem; color: #ccc;">
+                        Analyse des gaz dissous (DGA) pour la surveillance des transformateurs HT (225KV/60KV).
+                        Contribution à la maintenance préventive critique.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="t-date">Mars 2024 - Juin 2024</span>
+                    <h4 class="t-role">Stage PFA (CFO/CFA)</h4>
+                    <p class="t-company">Groupe EM Énergie</p>
+                    <p style="font-size: 0.9rem; color: #ccc;">
+                        Étude complète d'un plateau de bureaux. Dimensionnement électrique (Caneco BT), 
+                        Simulation d'éclairage (Dialux ÉVO) et plans AutoCAD.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="t-date">2023</span>
+                    <h4 class="t-role">Stage d'Observation</h4>
+                    <p class="t-company">Auto-Hall (Ou Autre entreprise)</p>
+                    <p style="font-size: 0.9rem; color: #ccc;">
+                        Découverte des processus industriels et de la maintenance atelier.
+                    </p>
+                </div>
+            </div>
+
+            <div data-aos="fade-left">
+                <h3 style="margin-bottom: 30px; color: var(--secondary);"><i class="fas fa-graduation-cap"></i> Cursus Académique</h3>
+                
+                <div class="timeline-item">
+                    <span class="t-date">2024 - Présent (En cours)</span>
+                    <h4 class="t-role">Cycle d'Ingénieur d'État</h4>
+                    <p class="t-company">FST Mohammedia</p>
+                    <p style="font-size: 0.9rem; color: #ccc;">
+                        Génie Électrique et Contrôle Industriel. Automatisme avancé, Supervision, Systèmes Embarqués.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="t-date">2021 - 2024</span>
+                    <h4 class="t-role">Licence Sciences et Techniques</h4>
+                    <p class="t-company">FST Settat</p>
+                    <p style="font-size: 0.9rem; color: #ccc;">
+                        Génie Électrique et Systèmes Automatisés. <br>
+                        <strong>Major de promotion. Mention Très Bien.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">Projets d'Ingénierie</h2>
+        </div>
+
+        <div class="projects-grid">
+            
+            <article class="glass-card featured-project" data-aos="zoom-in">
+                <div style="flex: 1; text-align: center;">
+                    <i class="fas fa-drone" style="font-size: 5rem; color: var(--accent);"></i>
+                    </div>
+                <div class="featured-content" style="flex: 2;">
+                    <h3>Drone Multiservice "Maroc Durable"</h3>
+                    <p style="color: #ccc; margin: 15px 0;">
+                        Conception d'un système de drones autonomes pour la gestion des catastrophes naturelles (Séismes, Inondations, Feux de forêt).
+                    </p>
+                    <ul style="list-style: none; color: var(--text-muted); font-size: 0.95rem;">
+                        <li><i class="fas fa-check" style="color: var(--accent);"></i> Communication en essaim (Swarm Intelligence) entre drones.</li>
+                        <li><i class="fas fa-check" style="color: var(--accent);"></i> Détection thermique et transmission temps réel.</li>
+                        <li><i class="fas fa-check" style="color: var(--accent);"></i> Solution innovante pour la résilience territoriale.</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="tag">STM32/ESP32</span>
+                        <span class="tag">IoT & LoRa</span>
+                        <span class="tag">AI Vision</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card" data-aos="fade-up">
+                <i class="fas fa-temperature-high" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3>Régulation Échangeur Thermique</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    Contrôle avancé d'un système thermique tubulaire. Linéarisation du modèle et commande par retour d'état (Pole Placement) sous MATLAB.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">MATLAB / Simulink</span>
+                    <span class="tag">Automatique</span>
+                </div>
+            </article>
+
+            <article class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-water" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3>Smart Water Leak Detection</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    <strong>1er Prix Électrogenuis.</strong> Système IoT avec capteurs débit/pression et IA pour classifier les fuites. Interface Web temps réel.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">IoT</span>
+                    <span class="tag">Intelligence Artificielle</span>
+                </div>
+            </article>
+
+            <article class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-robot" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3>Robot Autonome (Vision)</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    Robot mobile basé sur Raspberry Pi avec traitement d'image OpenCV pour le suivi de ligne. Régulation PID moteur.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Raspberry Pi</span>
+                    <span class="tag">Python / OpenCV</span>
+                </div>
+            </article>
+
+            <article class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-desktop" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3>Supervision Industrielle</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    IHM WinCC et Automate Siemens S7-1200 pour un convoyeur industriel. Gestion des alarmes et simulation TIA Portal.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">TIA Portal</span>
+                    <span class="tag">SCADA</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="skills" style="background: rgba(0,0,0,0.2);">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">Outils & Technologies</h2>
+        </div>
+
+        <div class="skills-grid" data-aos="zoom-in">
+            <div class="skill-box">
+                <i class="fas fa-bolt"></i>
+                <h4>Caneco BT</h4>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-lightbulb"></i>
+                <h4>Dialux ÉVO</h4>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-drafting-compass"></i>
+                <h4>AutoCAD / SolidWorks</h4>
+            </div>
+            
+            <div class="skill-box">
+                <i class="fas fa-cogs"></i>
+                <h4>TIA Portal / Step 7</h4>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-project-diagram"></i>
+                <h4>WinCC / SCADA</h4>
+            </div>
+            
+            <div class="skill-box">
+                <i class="fas fa-microchip"></i>
+                <h4>STM32 / ESP32 / Arduino</h4>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-code"></i>
+                <h4>C / Python</h4>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-calculator"></i>
+                <h4>MATLAB / Simulink</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="padding-bottom: 80px;">
+        <div class="contact-box" data-aos="fade-up">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Prêt pour le futur ?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">
+                Actuellement en recherche de PFE ou d'opportunités de collaboration.
+                <br>Basé à Casablanca, Mobile.
+            </p>
+            
+            <a href="mailto:baderbarkaoui707@gmail.com" style="display: inline-block; padding: 15px 40px; background: var(--primary); color: #0f172a; border-radius: 50px; text-decoration: none; font-weight: bold; margin-bottom: 40px; transition: 0.3s;">
+                <i class="fas fa-paper-plane"></i> Me Contacter
+            </a>
+
+            <div>
+                <a href="https://www.linkedin.com/in/bader-el-berkaoui-6641bb26b/" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:baderbarkaoui707@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/baderbarkaoui707" class="social-btn"><i class="fab fa-github"></i></a>
+            </div>
+            
+            <p style="margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.2);">
+                &copy; 2026 Bader el Berkaoui. Tous droits réservés.
+            </p>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            offset: 100,
+            once: true
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expériences | Bader el Berkaoui</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --primary: #00f2ff;
+            --secondary: #4361ee;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* FOND ANIMÉ */
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 100%);
+        }
+        .grid-overlay {
+            position: absolute; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.6;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
+            display: flex; justify-content: center;
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(2, 6, 23, 0.8);
+        }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { 
+            color: #94a3b8; text-decoration: none; font-weight: 500; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a i { color: var(--primary); opacity: 0.8; }
+
+        /* HEADER */
+        .header-section {
+            padding: 140px 20px 70px; text-align: center; max-width: 900px; margin: 0 auto;
+        }
+        .header-section h1 { 
+            font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .intro-text { font-size: 1.15rem; color: #cbd5e1; font-weight: 300; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+        /* CONTAINER */
+        .exp-container {
+            max-width: 1100px; margin: 0 auto 100px; padding: 0 25px;
+            display: flex; flex-direction: column; gap: 80px;
+        }
+
+        /* --- CARTE DESIGN "CYBER-LUXE" --- */
+        .exp-card {
+            display: flex; position: relative;
+            background: rgba(10, 15, 30, 0.7); 
+            border-radius: 24px; overflow: hidden;
+            backdrop-filter: blur(20px); 
+            /* Bordure dégradée subtile */
+            padding: 1px; /* Espace pour le gradient */
+            background-image: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .exp-card:hover { transform: translateY(-5px); }
+
+        .card-inner {
+            display: flex; width: 100%; height: 100%;
+            background: #020617; /* Fond interne pour masquer le gradient */
+            border-radius: 23px; overflow: hidden;
+        }
+
+        /* IMAGE (GAUCHE) */
+        .card-visual {
+            flex: 0 0 35%; /* Largeur fixe 35% */
+            position: relative; overflow: hidden;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .card-visual img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: brightness(0.9) contrast(1.1);
+        }
+        .exp-card:hover .card-visual img { transform: scale(1.1); filter: brightness(1); }
+
+        /* CONTENU (DROITE) */
+        .card-content { 
+            flex: 1; padding: 45px; display: flex; flex-direction: column; 
+            position: relative;
+        }
+
+        /* En-tête */
+        .exp-header { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .company-name { 
+            font-size: 2rem; margin-bottom: 8px; color: #fff; letter-spacing: -0.5px; 
+            font-weight: 700;
+        }
+        .role-badge { 
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--primary); font-weight: 600; text-transform: uppercase; 
+            font-size: 0.85rem; letter-spacing: 1.5px;
+        }
+        .role-badge i { font-size: 1rem; }
+
+        /* Liste de tâches */
+        .description-list { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .description-list li {
+            position: relative; padding-left: 25px; margin-bottom: 15px;
+            color: #cbd5e1; line-height: 1.7; font-size: 1.05rem; font-weight: 300;
+        }
+        .description-list li::before {
+            content: ''; position: absolute; left: 0; top: 10px;
+            width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        .description-list strong { color: #fff; font-weight: 600; }
+
+        /* Tags */
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+        .tag {
+            padding: 6px 14px; background: rgba(255,255,255,0.03); border-radius: 6px;
+            font-size: 0.8rem; font-weight: 500; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .tag:hover { 
+            color: var(--primary); border-color: var(--primary); 
+            background: rgba(0, 242, 255, 0.08); 
+        }
+
+        /* --- STYLES SPÉCIFIQUES --- */
+        
+        /* Style Club (Bleu/Violet) */
+        .card-club .role-badge { color: var(--secondary); }
+        .card-club .description-list li::before { background: var(--secondary); box-shadow: 0 0 10px var(--secondary); }
+        .card-club .tag:hover { color: var(--secondary); border-color: var(--secondary); background: rgba(67, 97, 238, 0.1); }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .card-inner { flex-direction: column; }
+            .card-visual { flex: none; width: 100%; height: 250px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .card-content { padding: 30px; }
+            .header-section h1 { font-size: 2.5rem; }
+            .company-name { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tech-bg"><div class="grid-overlay"></div></div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="parcours.html"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+            <li><a href="experiences.html" class="active"><i class="fas fa-briefcase"></i> Expérience</a></li>
+            <li><a href="competences.html"><i class="fas fa-microchip"></i> Compétences</a></li>
+            <li><a href="projets.html"><i class="fas fa-project-diagram"></i> Projets</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="header-section" data-aos="fade-down">
+        <h1>Expériences Professionnelles</h1>
+        <p class="intro-text">
+            Un parcours technique diversifié : de la maintenance industrielle haute tension à la conception en bureau d'études, enrichi par un fort engagement associatif.
+        </p>
+    </section>
+
+    <div class="exp-container">
+
+        <div class="exp-card" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-visual">
+                    <img src="srmm.jpg" alt="SRM Maintenance" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=SRM+Photo'">
+                </div>
+                <div class="card-content">
+                    <div class="exp-header">
+                        <h2 class="company-name">Société Générale Multiservice (SRM)</h2>
+                        <span class="role-badge"><i class="fas fa-bolt"></i> Maintenance & Haute Tension</span>
+                    </div>
+                    <ul class="description-list">
+                        <li><strong>Diagnostic DGA :</strong> Analyse approfondie des gaz dissous dans l'huile des transformateurs pour anticiper les défauts internes (points chauds, arcs électriques).</li>
+                        <li><strong>Maintenance Postes Sources :</strong> Interventions techniques sur les équipements HTB/HTA (sectionneurs, disjoncteurs) pour garantir la fiabilité du réseau.</li>
+                        <li><strong>Optimisation GMAO :</strong> Implémentation de procédures de maintenance assistée par ordinateur pour le suivi rigoureux des actifs industriels.</li>
+                        <li><strong>Rapports Techniques :</strong> Rédaction de comptes-rendus d'expertise pour la prise de décision stratégique.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tag">Analyse DGA</span>
+                        <span class="tag">Maintenance HTB/HTA</span>
+                        <span class="tag">GMAO</span>
+                        <span class="tag">Diagnostic</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-visual">
+                    <img src="em.jpg" alt="EM Energie PFE" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=EM+Photo'">
+                </div>
+                <div class="card-content">
+                    <div class="exp-header">
+                        <h2 class="company-name">EM ENERGIE</h2>
+                        <span class="role-badge"><i class="fas fa-drafting-compass"></i> Stage PFE - Bureau d'Études</span>
+                    </div>
+                    <ul class="description-list">
+                        <li><strong>Conception Intégrale :</strong> Étude d'exécution pour une installation électrique industrielle complexe (Courants Forts & Faibles).</li>
+                        <li><strong>Dimensionnement Normatif :</strong> Calculs de sections de câbles et protections sous <strong>Caneco BT</strong> conformément à la norme NFC 15-100.</li>
+                        <li><strong>Plans & Schémas :</strong> Réalisation des plans d'implantation, chemins de câbles et schémas unifilaires sur <strong>AutoCAD</strong>.</li>
+                        <li><strong>Efficacité Énergétique :</strong> Simulation d'éclairage sur <strong>Dialux Evo</strong> pour optimiser le confort et la consommation.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tag">Caneco BT</span>
+                        <span class="tag">AutoCAD</span>
+                        <span class="tag">Dialux Evo</span>
+                        <span class="tag">NFC 15-100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-visual">
+                    <img src="zahri.jpg" alt="Ezzahri Techno" onerror="this.src='https://via.placeholder.com/400x600/0f172a/00f2ff?text=Zahri+Photo'">
+                </div>
+                <div class="card-content">
+                    <div class="exp-header">
+                        <h2 class="company-name">EZZAHRI TECHNO SARL</h2>
+                        <span class="role-badge"><i class="fas fa-microchip"></i> Automatisation & Câblage</span>
+                    </div>
+                    <ul class="description-list">
+                        <li><strong>Projet Smart Irrigation :</strong> Déploiement d'un système d'irrigation automatisé pour l'École d'Agriculture de Settat.</li>
+                        <li><strong>Câblage Industriel :</strong> Montage et raccordement d'armoires de puissance intégrant des <strong>variateurs de vitesse</strong>.</li>
+                        <li><strong>Pompage Solaire :</strong> Configuration de solutions de pompage hybride (Solaire/Réseau) pour l'autonomie énergétique.</li>
+                        <li><strong>Mise en Service :</strong> Tests à vide et en charge, réglage des paramètres PID des variateurs.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tag">Variateurs de Vitesse</span>
+                        <span class="tag">Câblage</span>
+                        <span class="tag">Pompage Solaire</span>
+                        <span class="tag">Automatisme</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card card-club" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-visual">
+                    <img src="club.jpg" alt="Club Robotique" onerror="this.src='https://via.placeholder.com/400x600/0f172a/4361ee?text=Club+Photo'">
+                </div>
+                <div class="card-content">
+                    <div class="exp-header">
+                        <h2 class="company-name">Club Robothings FSTM</h2>
+                        <span class="role-badge"><i class="fas fa-users"></i> Vice-Président & Formateur</span>
+                    </div>
+                    <ul class="description-list">
+                        <li><strong>Transmission du Savoir :</strong> Conception et animation de sessions de <strong>formation technique</strong> pour les étudiants (Programmation Arduino, Conception Mécanique 3D).</li>
+                        <li><strong>Mentorat :</strong> Encadrement des nouveaux membres pour la réalisation de leurs premiers projets robotiques.</li>
+                        <li><strong>Gestion de Projet :</strong> Supervision des équipes pour les compétitions nationales (Robots Sumo, Suiveurs de ligne).</li>
+                        <li><strong>Leadership :</strong> Organisation d'événements technologiques et hackathons au sein de l'université.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tag">Formation & Pédagogie</span>
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Robotique</span>
+                        <span class="tag">Gestion de Projet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ duration: 800, once: true, offset: 50 }); </script>
+</body>
+</html>
+
+

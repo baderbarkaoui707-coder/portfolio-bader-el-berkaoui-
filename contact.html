@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Bader el Berkaoui</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --primary: #00f2ff;
+            --secondary: #4361ee;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- FOND DYNAMIQUE --- */
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 50% 10%, #1e293b 0%, #020617 80%);
+        }
+        
+        /* Particules d'arrière-plan */
+        .particles {
+            position: absolute; width: 100%; height: 100%; overflow: hidden;
+        }
+        .particle {
+            position: absolute; background: var(--primary); border-radius: 50%;
+            opacity: 0.3; animation: floatUp 15s linear infinite;
+        }
+        @keyframes floatUp { 
+            0% { transform: translateY(100vh) scale(0); opacity: 0; } 
+            50% { opacity: 0.5; } 
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; } 
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
+            display: flex; justify-content: center;
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.9);
+        }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { 
+            color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 15px var(--primary); }
+        .nav-links a i { color: var(--primary); }
+
+        /* --- HEADER --- */
+        .header-section {
+            padding: 140px 20px 60px; text-align: center; max-width: 900px; margin: 0 auto;
+        }
+        .header-section h1 { 
+            font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .intro-text { font-size: 1.1rem; color: #cbd5e1; font-weight: 300; }
+
+        /* --- CONTAINER CONTACT --- */
+        .contact-container {
+            max-width: 1100px; margin: 0 auto 100px; padding: 0 25px;
+            display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px;
+            align-items: center;
+        }
+
+        /* --- GAUCHE : INFO CARDS --- */
+        .contact-info { display: flex; flex-direction: column; gap: 25px; }
+
+        .info-card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 25px; display: flex; align-items: center; gap: 20px;
+            transition: 0.3s; cursor: pointer; position: relative; overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        /* Effet au survol */
+        .info-card:hover { 
+            transform: translateX(10px); border-color: var(--primary); 
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+        }
+        .info-card:active { transform: scale(0.98); }
+
+        .icon-box {
+            width: 60px; height: 60px; border-radius: 15px;
+            background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; color: var(--primary); border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .info-card:hover .icon-box { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+
+        .info-content h3 { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .info-content p { font-size: 1.1rem; color: #fff; font-weight: 600; }
+
+        /* Notification de copie */
+        .copy-hint {
+            position: absolute; right: 20px; font-size: 0.8rem; color: var(--primary); opacity: 0;
+            transition: 0.3s; transform: translateX(10px);
+        }
+        .info-card:hover .copy-hint { opacity: 1; transform: translateX(0); }
+
+        /* --- DROITE : FORMULAIRE --- */
+        .contact-form-wrapper {
+            background: rgba(10, 15, 30, 0.8); border: 1px solid var(--border);
+            border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        /* Lueur décorative */
+        .contact-form-wrapper::before {
+            content: ''; position: absolute; inset: -1px; border-radius: 30px; padding: 1px;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.5;
+        }
+
+        .form-group { margin-bottom: 25px; position: relative; }
+        
+        .form-label {
+            position: absolute; left: 20px; top: 15px; color: var(--text-muted);
+            pointer-events: none; transition: 0.3s; font-size: 0.95rem; background: #0b1021; padding: 0 5px;
+        }
+
+        .form-input {
+            width: 100%; background: transparent; border: 1px solid var(--border);
+            border-radius: 12px; padding: 15px 20px; color: #fff; font-size: 1rem;
+            transition: 0.3s; font-family: 'Outfit', sans-serif;
+        }
+        .form-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); }
+        
+        /* Animation du label quand on écrit */
+        .form-input:focus ~ .form-label,
+        .form-input:not(:placeholder-shown) ~ .form-label {
+            top: -10px; font-size: 0.8rem; color: var(--primary);
+        }
+
+        textarea.form-input { height: 150px; resize: none; }
+
+        .btn-submit {
+            width: 100%; padding: 15px; border-radius: 12px; border: none;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3); }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--primary); color: #000; padding: 10px 25px; border-radius: 50px;
+            font-weight: 600; box-shadow: 0 10px 30px rgba(0, 242, 255, 0.4);
+            opacity: 0; transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 2000;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .contact-container { grid-template-columns: 1fr; gap: 40px; }
+            .header-section h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tech-bg">
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <div class="toast" id="toast">Informations copiées !</div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="parcours.html"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+            <li><a href="experiences.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+            <li><a href="competences.html"><i class="fas fa-microchip"></i> Compétences</a></li>
+            <li><a href="projets.html"><i class="fas fa-project-diagram"></i> Projets</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="header-section" data-aos="zoom-in">
+        <h1>Restons <span style="color:var(--primary)">Connectés</span></h1>
+        <p class="intro-text">
+            Un projet ambitieux ? Une opportunité de collaboration ? N'hésitez pas à me contacter pour discuter ingénierie et innovation.
+        </p>
+    </section>
+
+    <div class="contact-container">
+
+        <div class="contact-info">
+            
+            <div class="info-card" onclick="copyText('baderbarkaoui707@gmail.com')" data-aos="fade-right">
+                <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                <div class="info-content">
+                    <h3>Email</h3>
+                    <p>baderbarkaoui707@gmail.com</p>
+                </div>
+                <span class="copy-hint"><i class="far fa-copy"></i> Copier</span>
+            </div>
+
+            <div class="info-card" onclick="copyText('+212703476035')" data-aos="fade-right" data-aos-delay="100">
+                <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                <div class="info-content">
+                    <h3>Téléphone</h3>
+                    <p>+212 7 03 47 60 35</p>
+                </div>
+                <span class="copy-hint"><i class="far fa-copy"></i> Copier</span>
+            </div>
+
+            <div class="info-card" data-aos="fade-right" data-aos-delay="200">
+                <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-content">
+                    <h3>Localisation</h3>
+                    <p>Casablanca, Maroc</p>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:15px; margin-top:10px;">
+                <a href="#" class="info-card" style="padding:15px; flex:1; justify-content:center;" data-aos="fade-up">
+                    <i class="fab fa-linkedin-in" style="font-size:1.5rem; color:#fff;"></i>
+                </a>
+                <a href="#" class="info-card" style="padding:15px; flex:1; justify-content:center;" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fab fa-github" style="font-size:1.5rem; color:#fff;"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="contact-form-wrapper" data-aos="fade-left">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder=" " required>
+                    <label class="form-label">Nom Complet</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder=" " required>
+                    <label class="form-label">Adresse Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder=" " required>
+                    <label class="form-label">Sujet</label>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" placeholder=" " required></textarea>
+                    <label class="form-label">Votre Message</label>
+                </div>
+                <button type="submit" class="btn-submit">
+                    Envoyer le Message <i class="fas fa-paper-plane" style="margin-left:10px;"></i>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // --- SCRIPT DE COPIE MAGIQUE ---
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // --- GÉNÉRATEUR DE PARTICULES ---
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Taille aléatoire
+            const size = Math.random() * 5 + 2; 
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Position aléatoire
+            particle.style.left = `${Math.random() * 100}%`;
+            
+            // Délai aléatoire
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
+
+
