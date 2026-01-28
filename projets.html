@@ -15,13 +15,11 @@
             --primary: #00f3ff;
             --secondary: #4361ee;
             --accent: #bc13fe;
+            --gold: #ffd700;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --glass-card: rgba(15, 20, 35, 0.85);
             --border-glow: 1px solid rgba(0, 243, 255, 0.2);
-            --gold: #ffd700;
-            --silver: #e0e0e0;
-            --bronze: #cd7f32;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -40,7 +38,7 @@
             background: radial-gradient(circle at 50% 0%, #0f172a 0%, #02040a 100%);
         }
 
-        /* --- NAVIGATION DOCK (IDENTIQUE INDEX) --- */
+        /* --- NAVIGATION DOCK --- */
         nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
@@ -92,120 +90,114 @@
             text-align: center; padding: 100px 20px 60px;
         }
         .header-section h1 {
-            font-family: 'Orbitron'; font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-            color: #fff; text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            font-family: 'Orbitron'; font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
+            color: #fff; text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
         }
-        .header-section span { color: var(--primary); }
         .intro-text { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; font-family: 'Rajdhani'; }
 
-        /* --- CONTAINER PROJETS --- */
+        /* --- CONTENEUR PROJETS --- */
         .projects-container {
-            max-width: 1300px; margin: 0 auto; padding: 0 30px;
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
             display: flex; flex-direction: column; gap: 100px;
         }
 
         /* --- CARTE PROJET --- */
         .project-card {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
             background: var(--glass-card); border: var(--border-glow);
             border-radius: 24px; padding: 40px; position: relative; overflow: hidden;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
             transition: 0.4s;
         }
-        .project-card:hover { border-color: var(--primary); box-shadow: 0 0 40px rgba(0, 243, 255, 0.1); }
+        .project-card:hover { border-color: var(--primary); box-shadow: 0 0 50px rgba(0, 243, 255, 0.15); }
 
-        /* Inversement pour le rythme */
+        /* Inversion pour le rythme */
         .project-card.reverse { direction: rtl; }
-        .project-card.reverse .project-content { direction: ltr; }
-        .project-card.reverse .project-album { direction: ltr; }
+        .project-card.reverse .project-info { direction: ltr; }
 
-        /* CONTENU (GAUCHE/DROITE) */
-        .project-content { display: flex; flex-direction: column; justify-content: center; }
+        /* CONTENU INFO */
+        .project-info { z-index: 2; display: flex; flex-direction: column; justify-content: center; }
         
-        .subtitle { 
-            color: var(--primary); font-family: 'Rajdhani'; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+        .project-subtitle { 
+            color: var(--primary); font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
             display: flex; align-items: center; gap: 10px;
         }
-        .subtitle::before { content: ''; width: 30px; height: 2px; background: var(--primary); }
+        .project-subtitle::before { content:''; width: 30px; height: 2px; background: var(--primary); }
 
-        .project-header h2 { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.1; color: #fff; font-family: 'Orbitron'; }
+        h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.1; color: #fff; text-transform: uppercase; }
 
-        /* PRIX / RÉCOMPENSES */
-        .awards-list { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
-        .award-badge {
-            display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
-            border-radius: 50px; font-size: 0.8rem; font-weight: 700; color: #000;
-            font-family: 'Rajdhani';
-        }
-        .gold { background: linear-gradient(135deg, #ffd700, #ffe57f); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
-        .silver { background: linear-gradient(135deg, #e0e0e0, #ffffff); box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
-        .bronze { background: linear-gradient(135deg, #cd7f32, #ffcc99); box-shadow: 0 0 15px rgba(205, 127, 50, 0.4); }
-
-        /* DESCRIPTION TECHNIQUE */
         .tech-desc {
-            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05); margin-bottom: 25px;
+            background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border-left: 3px solid var(--secondary);
+            color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 25px;
         }
-        .tech-desc p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 15px; }
-        .tech-desc ul { padding-left: 20px; list-style: none; }
-        .tech-desc li { position: relative; margin-bottom: 5px; color: #ccc; font-size: 0.95rem; }
-        .tech-desc li::before { content: '▹'; position: absolute; left: -20px; color: var(--primary); }
+        .tech-desc strong { color: #fff; }
 
-        /* STACK TECH */
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; }
+        .award-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 15px; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; color: #000; font-family: 'Rajdhani';
+        }
+        .gold { background: linear-gradient(135deg, #ffd700, #ffecb3); }
+        .bronze { background: linear-gradient(135deg, #cd7f32, #ffccbc); }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
         .tag {
-            font-size: 0.75rem; padding: 5px 12px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px; color: #a0aec0; background: rgba(0,0,0,0.2); transition: 0.3s;
+            padding: 5px 15px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50px;
+            font-size: 0.8rem; color: #a0aec0; transition: 0.3s;
         }
         .tag:hover { border-color: var(--primary); color: #fff; background: rgba(0, 243, 255, 0.1); }
-        .tag i { margin-right: 5px; color: var(--primary); }
 
-        /* VISUEL (ALBUM) */
-        .project-album {
+        /* --- VISUEL / MÉDIA --- */
+        .project-visual {
             display: flex; flex-direction: column; gap: 15px;
         }
 
-        /* Grande image principale */
-        .photo-main {
-            width: 100%; height: 300px; border-radius: 12px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1); position: relative; cursor: zoom-in;
+        /* Cadre Vidéo / Image Principale */
+        .main-media {
+            width: 100%; height: 300px; border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1); background: #000;
+            display: flex; align-items: center; justify-content: center;
         }
-        .photo-main img, .video-box video {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
+        
+        .main-img {
+            width: 100%; height: 100%;
+            object-fit: contain; /* GARANTIT QUE L'IMAGE EST ENTIERE */
+            transition: transform 0.5s;
         }
-        .photo-main:hover img { transform: scale(1.05); }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Grille petites images */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .photo-item {
+        /* Grille miniatures */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+        }
+        .gallery-item {
             height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-            cursor: zoom-in; position: relative;
+            cursor: pointer; position: relative; background: #000;
         }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
-        .photo-item:hover { border-color: var(--primary); }
-        .photo-item:hover img { transform: scale(1.1); }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: 0.3s; opacity: 0.7;
+        }
+        .gallery-item:hover { border-color: var(--primary); }
+        .gallery-item:hover img { transform: scale(1.1); opacity: 1; }
 
-        /* LIGHTBOX (ZOOM) */
+        /* --- LIGHTBOX (ZOOM) --- */
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); z-index: 9999;
-            display: none; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.3s;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: none; justify-content: center; align-items: center; opacity: 0; transition: 0.3s;
         }
         .lightbox.active { display: flex; opacity: 1; }
         .lightbox img {
-            max-width: 90%; max-height: 90%; border: 2px solid var(--primary);
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); border-radius: 5px;
+            max-width: 95%; max-height: 90%; border: 2px solid var(--primary);
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
         }
         .close-lb {
-            position: absolute; top: 30px; right: 30px; font-size: 2.5rem; color: #fff; cursor: pointer;
+            position: absolute; top: 30px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer;
         }
 
         /* MOBILE */
         @media (max-width: 1024px) {
+            .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr !important; }
+            .project-card.reverse .project-info { direction: ltr; }
             .header-section h1 { font-size: 2.5rem; }
-            .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr !important; padding: 25px; }
-            .project-content { direction: ltr !important; }
-            .photo-grid { grid-template-columns: repeat(3, 1fr); }
             
             nav { width: 95%; bottom: 20px; }
             .nav-dock { padding: 12px 20px; justify-content: space-between; width: 100%; }
@@ -220,7 +212,7 @@
 
     <div class="lightbox" id="lightbox">
         <i class="fas fa-times close-lb"></i>
-        <img src="" alt="Zoom">
+        <img src="" alt="Full View">
     </div>
 
     <nav>
@@ -250,9 +242,9 @@
     </nav>
 
     <section class="header-section" data-aos="zoom-in">
-        <h1>Projets <span>Innovation</span></h1>
+        <h1>Projets <span style="color:var(--primary)">Innovants</span></h1>
         <p class="intro-text">
-            Une sélection de réalisations techniques alliant ingénierie de pointe, code embarqué et conception mécanique.
+            Une sélection de réalisations techniques alliant ingénierie, code et hardware. Cliquez sur les images pour les agrandir.
         </p>
     </section>
 
@@ -261,40 +253,40 @@
         <article class="project-card" data-aos="fade-up">
             <div class="project-content">
                 <div class="project-header">
-                    <span class="subtitle"><i class="fas fa-plane"></i> Robotique Aérienne</span>
-                    <h2>Drone "AMANA"</h2>
+                    <span class="subtitle">Robotique Aérienne</span>
+                    <h2>Drone AMANA</h2>
                 </div>
                 
                 <div class="awards-list">
                     <span class="award-badge gold"><i class="fas fa-trophy"></i> 1er Prix FS Ben M'sik</span>
-                    <span class="award-badge silver"><i class="fas fa-medal"></i> 2ème Prix ENSA Oujda</span>
                 </div>
 
                 <div class="tech-desc">
-                    <p>Drone modulaire autonome conçu pour les interventions en zones sinistrées. Capable d'adapter sa charge utile (bouées, médicaments) selon la mission.</p>
+                    <p>Drone modulaire autonome pour la gestion de catastrophes (inondations, séismes). Une innovation vitale pour l'accès aux zones isolées.</p>
                     <ul>
-                        <li><strong>Sauvetage :</strong> Largage précis via servomoteurs.</li>
-                        <li><strong>Vision IA :</strong> Détection thermique des victimes (OpenCV).</li>
-                        <li><strong>Hardware :</strong> Pixhawk 4 + Raspberry Pi 4.</li>
+                        <li><strong>Sauvetage :</strong> Système de largage précis de bouées.</li>
+                        <li><strong>Vision IA :</strong> Détection thermique via OpenCV.</li>
+                        <li><strong>Cœur :</strong> Flight Controller Pixhawk + Raspberry Pi.</li>
                     </ul>
                 </div>
 
-                <div class="tech-stack">
+                <div class="tech-tags">
                     <span class="tag"><i class="fas fa-microchip"></i> Pixhawk</span>
                     <span class="tag"><i class="fab fa-python"></i> Python</span>
                     <span class="tag"><i class="fas fa-eye"></i> Vision</span>
-                    <span class="tag"><i class="fas fa-print"></i> 3D Print</span>
                 </div>
             </div>
 
-            <div class="project-album">
-                <div class="photo-main" onclick="openLightbox('ar1.jpeg')">
-                    <img src="ar1.jpeg" alt="Drone Amana">
+            <div class="project-visual">
+                <div class="main-media">
+                    <video controls poster="ar1.jpeg">
+                        <source src="vid.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <div class="photo-grid">
-                    <div class="photo-item" onclick="openLightbox('ar2.jpeg')"><img src="ar2.jpeg" alt="Vue 2"></div>
-                    <div class="photo-item" onclick="openLightbox('ar3.jpeg')"><img src="ar3.jpeg" alt="Vue 3"></div>
-                    <div class="photo-item" onclick="openLightbox('ar4.jpeg')"><img src="ar4.jpeg" alt="Vue 4"></div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('ar1.jpeg')"><img src="ar1.jpeg" alt="Drone 1"></div>
+                    <div class="gallery-item" onclick="openLightbox('ar2.jpeg')"><img src="ar2.jpeg" alt="Drone 2"></div>
+                    <div class="gallery-item" onclick="openLightbox('ar3.jpeg')"><img src="ar3.jpeg" alt="Drone 3"></div>
                 </div>
             </div>
         </article>
@@ -302,8 +294,8 @@
         <article class="project-card reverse" data-aos="fade-up">
             <div class="project-content">
                 <div class="project-header">
-                    <span class="subtitle"><i class="fas fa-tint"></i> Smart Water (IoT)</span>
-                    <h2>Projet "TAWFIR"</h2>
+                    <span class="subtitle">Smart Water (IoT & IA)</span>
+                    <h2>Projet TAWFIR</h2>
                 </div>
 
                 <div class="awards-list">
@@ -311,29 +303,28 @@
                 </div>
 
                 <div class="tech-desc">
-                    <p>Solution IoT intelligente pour la détection précoce des fuites d'eau invisibles grâce à l'analyse comportementale de la consommation.</p>
+                    <p>Système intelligent de détection de fuites d'eau basé sur l'analyse comportementale de consommation.</p>
                     <ul>
-                        <li><strong>Algorithme :</strong> Isolation Forest (ML) pour détecter les anomalies.</li>
-                        <li><strong>Embarqué :</strong> ESP32 avec communication MQTT.</li>
-                        <li><strong>Full Stack :</strong> Dashboard Flask + MongoDB.</li>
+                        <li><strong>Algorithme :</strong> Isolation Forest pour détecter les anomalies.</li>
+                        <li><strong>Hardware :</strong> ESP32 + Capteurs de débit précis.</li>
+                        <li><strong>Cloud :</strong> Dashboard temps réel via MQTT.</li>
                     </ul>
                 </div>
 
-                <div class="tech-stack">
-                    <span class="tag"><i class="fas fa-brain"></i> ML / IA</span>
-                    <span class="tag"><i class="fas fa-wifi"></i> ESP32</span>
-                    <span class="tag"><i class="fab fa-python"></i> Flask</span>
+                <div class="tech-tags">
+                    <span class="tag"><i class="fas fa-brain"></i> ML</span>
+                    <span class="tag"><i class="fas fa-wifi"></i> IoT</span>
                     <span class="tag"><i class="fas fa-database"></i> MongoDB</span>
                 </div>
             </div>
 
-            <div class="project-album">
-                <div class="photo-main" onclick="openLightbox('ae1.jpeg')">
-                    <img src="ae1.jpeg" alt="Interface Tawfir">
+            <div class="project-visual">
+                <div class="main-media" onclick="openLightbox('ae1.jpeg')" style="cursor:zoom-in;">
+                    <img src="ae1.jpeg" alt="Interface Tawfir" class="main-img">
                 </div>
-                <div class="photo-grid">
-                    <div class="photo-item" onclick="openLightbox('ae2.jpeg')"><img src="ae2.jpeg" alt="Hardware"></div>
-                    <div class="photo-item" onclick="openLightbox('ae1.jpeg')"><img src="ae1.jpeg" alt="Zoom"></div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('ae1.jpeg')"><img src="ae1.jpeg" alt="Interface"></div>
+                    <div class="gallery-item" onclick="openLightbox('ae2.jpeg')"><img src="ae2.jpeg" alt="Hardware"></div>
                 </div>
             </div>
         </article>
@@ -341,7 +332,7 @@
         <article class="project-card" data-aos="fade-up">
             <div class="project-content">
                 <div class="project-header">
-                    <span class="subtitle"><i class="fas fa-robot"></i> Robotique Mobile</span>
+                    <span class="subtitle">Robotique Mobile</span>
                     <h2>Robot Autonome</h2>
                 </div>
 
@@ -350,29 +341,29 @@
                 </div>
 
                 <div class="tech-desc">
-                    <p>Robot mobile omnidirectionnel équipé d'un bras manipulateur 4 axes. Navigation et tri d'objets basés entièrement sur la vision par ordinateur.</p>
+                    <p>Robot mobile à navigation complexe utilisant la Vision par Ordinateur pour le tri d'objets.</p>
                     <ul>
-                        <li><strong>Vision :</strong> Traitement d'image temps réel (OpenCV).</li>
-                        <li><strong>Contrôle :</strong> Cinématique inverse pour le bras.</li>
-                        <li><strong>Architecture :</strong> Raspberry Pi Master + Arduino Slave.</li>
+                        <li><strong>Vision :</strong> Traitement d'image OpenCV temps réel.</li>
+                        <li><strong>Manipulation :</strong> Bras robotique 4 axes de précision.</li>
+                        <li><strong>Contrôle :</strong> Asservissement PID.</li>
                     </ul>
                 </div>
 
-                <div class="tech-stack">
+                <div class="tech-tags">
                     <span class="tag"><i class="fab fa-raspberry-pi"></i> Raspberry Pi</span>
                     <span class="tag"><i class="fas fa-code"></i> Python</span>
-                    <span class="tag"><i class="fas fa-cogs"></i> Cinématique</span>
+                    <span class="tag"><i class="fas fa-robot"></i> Robotique</span>
                 </div>
             </div>
 
-            <div class="project-album">
-                <div class="photo-main" onclick="openLightbox('az1.jpeg')">
-                    <img src="az1.jpeg" alt="Robot Global">
+            <div class="project-visual">
+                <div class="main-media" onclick="openLightbox('az1.jpeg')" style="cursor:zoom-in;">
+                    <img src="az1.jpeg" alt="Robot Global" class="main-img">
                 </div>
-                <div class="photo-grid">
-                    <div class="photo-item" onclick="openLightbox('az2.jpeg')"><img src="az2.jpeg" alt="Bras"></div>
-                    <div class="photo-item" onclick="openLightbox('az3.jpeg')"><img src="az3.jpeg" alt="Vision"></div>
-                    <div class="photo-item" onclick="openLightbox('az1.jpeg')"><img src="az1.jpeg" alt="Action"></div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('az1.jpeg')"><img src="az1.jpeg" alt="Vue 1"></div>
+                    <div class="gallery-item" onclick="openLightbox('az2.jpeg')"><img src="az2.jpeg" alt="Bras"></div>
+                    <div class="gallery-item" onclick="openLightbox('az3.jpeg')"><img src="az3.jpeg" alt="Vision"></div>
                 </div>
             </div>
         </article>
@@ -383,13 +374,13 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // Script Lightbox
+        // --- LIGHTBOX SCRIPT ---
         const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-        const closeBtn = document.querySelector('.lightbox-close');
+        const lbImg = lightbox.querySelector('img');
+        const closeBtn = document.querySelector('.close-lb');
 
         function openLightbox(src) {
-            lightboxImg.src = src;
+            lbImg.src = src;
             lightbox.classList.add('active');
         }
 
@@ -398,12 +389,10 @@
         });
 
         lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) {
-                lightbox.classList.remove('active');
-            }
+            if (e.target !== lbImg) lightbox.classList.remove('active');
         });
 
-        // Fond Particules (Identique Index)
+        // Fond Particules
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
