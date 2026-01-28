@@ -18,7 +18,7 @@
             --gold: #ffd700;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --glass-card: rgba(15, 20, 35, 0.85);
+            --glass-card: rgba(15, 20, 35, 0.9); /* Plus opaque pour lisibilité */
             --border-glow: 1px solid rgba(0, 243, 255, 0.2);
         }
 
@@ -29,7 +29,7 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             overflow-x: hidden;
-            padding-bottom: 120px; /* Espace pour le Dock */
+            padding-bottom: 120px;
         }
 
         /* --- FOND ANIMÉ --- */
@@ -45,12 +45,12 @@
         }
         
         .nav-dock {
-            background: rgba(10, 15, 30, 0.9);
+            background: rgba(10, 15, 30, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 30px; border-radius: 50px;
             display: flex; gap: 20px; align-items: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
         .nav-item {
@@ -97,36 +97,68 @@
 
         /* --- CONTENEUR PROJETS --- */
         .projects-container {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            max-width: 1300px; margin: 0 auto; padding: 0 20px;
             display: flex; flex-direction: column; gap: 100px;
         }
 
         /* --- CARTE PROJET --- */
         .project-card {
             background: var(--glass-card); border: var(--border-glow);
-            border-radius: 24px; padding: 40px; position: relative; overflow: hidden;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
+            border-radius: 24px; padding: 30px; position: relative; overflow: hidden;
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; /* Plus d'espace pour l'image */
             transition: 0.4s;
         }
-        .project-card:hover { border-color: var(--primary); box-shadow: 0 0 50px rgba(0, 243, 255, 0.15); }
+        .project-card:hover { border-color: var(--primary); box-shadow: 0 0 50px rgba(0, 243, 255, 0.1); }
 
-        /* Inversion pour le rythme */
         .project-card.reverse { direction: rtl; }
-        .project-card.reverse .project-info { direction: ltr; }
+        .project-card.reverse .project-content { direction: ltr; }
 
-        /* CONTENU INFO */
-        .project-info { z-index: 2; display: flex; flex-direction: column; justify-content: center; }
+        /* --- VISUEL / MÉDIA (LE CŒUR DU CHANGEMENT) --- */
+        .project-visual {
+            display: flex; flex-direction: column; gap: 15px;
+        }
+
+        /* Cadre Principal (Cinéma) */
+        .media-frame {
+            width: 100%; height: 400px; /* Grand cadre */
+            background: #000; /* Fond noir Cinéma */
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+        
+        /* IMAGE ET VIDEO 100% VISIBLES */
+        .full-fit {
+            width: 100%; height: 100%;
+            object-fit: contain; /* MAGIQUE : Affiche tout sans couper */
+            object-position: center;
+        }
+
+        /* Galerie Miniatures */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+        }
+        .gallery-item {
+            height: 80px; border-radius: 8px; overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); background: #000;
+            cursor: pointer; opacity: 0.7; transition: 0.3s;
+        }
+        .gallery-item:hover { opacity: 1; border-color: var(--primary); }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: contain; /* Même les miniatures ne sont pas coupées */
+        }
+
+        /* --- CONTENU TEXTE --- */
+        .project-content { display: flex; flex-direction: column; justify-content: center; }
         
         .project-subtitle { 
             color: var(--primary); font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
-            display: flex; align-items: center; gap: 10px;
         }
-        .project-subtitle::before { content:''; width: 30px; height: 2px; background: var(--primary); }
-
-        h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.1; color: #fff; text-transform: uppercase; }
+        h2 { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.1; color: #fff; text-transform: uppercase; }
 
         .tech-desc {
-            background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border-left: 3px solid var(--secondary);
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid var(--secondary);
             color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 25px;
         }
         .tech-desc strong { color: #fff; }
@@ -145,59 +177,34 @@
         }
         .tag:hover { border-color: var(--primary); color: #fff; background: rgba(0, 243, 255, 0.1); }
 
-        /* --- VISUEL / MÉDIA --- */
-        .project-visual {
-            display: flex; flex-direction: column; gap: 15px;
-        }
-
-        /* Cadre Vidéo / Image Principale */
-        .main-media {
-            width: 100%; height: 300px; border-radius: 15px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1); background: #000;
-            display: flex; align-items: center; justify-content: center;
-        }
-        
-        .main-img {
-            width: 100%; height: 100%;
-            object-fit: contain; /* GARANTIT QUE L'IMAGE EST ENTIERE */
-            transition: transform 0.5s;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Grille miniatures */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-        }
-        .gallery-item {
-            height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer; position: relative; background: #000;
-        }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover; transition: 0.3s; opacity: 0.7;
-        }
-        .gallery-item:hover { border-color: var(--primary); }
-        .gallery-item:hover img { transform: scale(1.1); opacity: 1; }
-
-        /* --- LIGHTBOX (ZOOM) --- */
+        /* --- LIGHTBOX (PLEIN ECRAN) --- */
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 9999;
-            display: none; justify-content: center; align-items: center; opacity: 0; transition: 0.3s;
+            display: none; justify-content: center; align-items: center;
         }
-        .lightbox.active { display: flex; opacity: 1; }
-        .lightbox img {
-            max-width: 95%; max-height: 90%; border: 2px solid var(--primary);
+        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
+        
+        .lightbox-content {
+            max-width: 95%; max-height: 95%;
+            object-fit: contain; /* S'assure que l'image zoomée est entière */
+            border: 1px solid var(--primary);
             box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
         }
+        
         .close-lb {
-            position: absolute; top: 30px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer;
+            position: absolute; top: 30px; right: 30px; font-size: 2.5rem; color: #fff; cursor: pointer;
+            z-index: 10000;
         }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* MOBILE */
         @media (max-width: 1024px) {
             .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr !important; }
-            .project-card.reverse .project-info { direction: ltr; }
+            .project-card.reverse .project-content { direction: ltr; }
             .header-section h1 { font-size: 2.5rem; }
+            .media-frame { height: 250px; } /* Plus petit sur mobile */
             
             nav { width: 95%; bottom: 20px; }
             .nav-dock { padding: 12px 20px; justify-content: space-between; width: 100%; }
@@ -210,9 +217,9 @@
 
     <canvas id="canvas-bg"></canvas>
 
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <i class="fas fa-times close-lb"></i>
-        <img src="" alt="Full View">
+        <img src="" alt="Full View" class="lightbox-content" id="lb-img">
     </div>
 
     <nav>
@@ -242,20 +249,37 @@
     </nav>
 
     <section class="header-section" data-aos="zoom-in">
-        <h1>Projets <span style="color:var(--primary)">Innovants</span></h1>
+        <h1>Galerie <span style="color:var(--primary)">Technologique</span></h1>
         <p class="intro-text">
-            Une sélection de réalisations techniques alliant ingénierie, code et hardware. Cliquez sur les images pour les agrandir.
+            Chaque projet est une réponse concrète à un défi complexe. Explorez les détails.
         </p>
     </section>
 
     <div class="projects-container">
 
         <article class="project-card" data-aos="fade-up">
-            <div class="project-content">
-                <div class="project-header">
-                    <span class="subtitle">Robotique Aérienne</span>
-                    <h2>Drone AMANA</h2>
+            <div class="project-visual">
+                <div class="media-frame">
+                    <video controls poster="ar1.jpeg" class="full-fit">
+                        <source src="vid.mp4" type="video/mp4">
+                    </video>
                 </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('ar1.jpeg')">
+                        <img src="ar1.jpeg" alt="Drone Vue 1">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('ar2.jpeg')">
+                        <img src="ar2.jpeg" alt="Drone Vue 2">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('ar3.jpeg')">
+                        <img src="ar3.jpeg" alt="Drone Vue 3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <span class="project-subtitle">Robotique Aérienne</span>
+                <h2>Drone AMANE</h2>
                 
                 <div class="awards-list">
                     <span class="award-badge gold"><i class="fas fa-trophy"></i> 1er Prix FS Ben M'sik</span>
@@ -265,8 +289,8 @@
                     <p>Drone modulaire autonome pour la gestion de catastrophes (inondations, séismes). Une innovation vitale pour l'accès aux zones isolées.</p>
                     <ul>
                         <li><strong>Sauvetage :</strong> Système de largage précis de bouées.</li>
-                        <li><strong>Vision IA :</strong> Détection thermique via OpenCV.</li>
-                        <li><strong>Cœur :</strong> Flight Controller Pixhawk + Raspberry Pi.</li>
+                        <li><strong>Vision IA :</strong> Détection thermique des victimes via OpenCV.</li>
+                        <li><strong>Hardware :</strong> Pixhawk 4 + Raspberry Pi.</li>
                     </ul>
                 </div>
 
@@ -276,27 +300,26 @@
                     <span class="tag"><i class="fas fa-eye"></i> Vision</span>
                 </div>
             </div>
-
-            <div class="project-visual">
-                <div class="main-media">
-                    <video controls poster="ar1.jpeg">
-                        <source src="vid.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox('ar1.jpeg')"><img src="ar1.jpeg" alt="Drone 1"></div>
-                    <div class="gallery-item" onclick="openLightbox('ar2.jpeg')"><img src="ar2.jpeg" alt="Drone 2"></div>
-                    <div class="gallery-item" onclick="openLightbox('ar3.jpeg')"><img src="ar3.jpeg" alt="Drone 3"></div>
-                </div>
-            </div>
         </article>
 
         <article class="project-card reverse" data-aos="fade-up">
-            <div class="project-content">
-                <div class="project-header">
-                    <span class="subtitle">Smart Water (IoT & IA)</span>
-                    <h2>Projet TAWFIR</h2>
+            <div class="project-visual">
+                <div class="media-frame" onclick="openLightbox('ae1.jpeg')" style="cursor:zoom-in">
+                    <img src="ae1.jpeg" alt="Interface Tawfir" class="full-fit">
                 </div>
+                <div class="gallery-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="gallery-item" onclick="openLightbox('ae1.jpeg')">
+                        <img src="ae1.jpeg" alt="Interface">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('ae2.jpeg')">
+                        <img src="ae2.jpeg" alt="Hardware">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <span class="project-subtitle">Smart Water (IoT & IA)</span>
+                <h2>Projet TAWFIR</h2>
 
                 <div class="awards-list">
                     <span class="award-badge bronze"><i class="fas fa-medal"></i> 3ème Prix ENSA El Jadida</span>
@@ -305,9 +328,9 @@
                 <div class="tech-desc">
                     <p>Système intelligent de détection de fuites d'eau basé sur l'analyse comportementale de consommation.</p>
                     <ul>
-                        <li><strong>Algorithme :</strong> Isolation Forest pour détecter les anomalies.</li>
-                        <li><strong>Hardware :</strong> ESP32 + Capteurs de débit précis.</li>
-                        <li><strong>Cloud :</strong> Dashboard temps réel via MQTT.</li>
+                        <li><strong>IA :</strong> Algorithme Isolation Forest pour les anomalies.</li>
+                        <li><strong>IoT :</strong> ESP32 + Capteurs de débit précis.</li>
+                        <li><strong>Data :</strong> Dashboard temps réel via MQTT.</li>
                     </ul>
                 </div>
 
@@ -317,24 +340,29 @@
                     <span class="tag"><i class="fas fa-database"></i> MongoDB</span>
                 </div>
             </div>
-
-            <div class="project-visual">
-                <div class="main-media" onclick="openLightbox('ae1.jpeg')" style="cursor:zoom-in;">
-                    <img src="ae1.jpeg" alt="Interface Tawfir" class="main-img">
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox('ae1.jpeg')"><img src="ae1.jpeg" alt="Interface"></div>
-                    <div class="gallery-item" onclick="openLightbox('ae2.jpeg')"><img src="ae2.jpeg" alt="Hardware"></div>
-                </div>
-            </div>
         </article>
 
         <article class="project-card" data-aos="fade-up">
-            <div class="project-content">
-                <div class="project-header">
-                    <span class="subtitle">Robotique Mobile</span>
-                    <h2>Robot Autonome</h2>
+            <div class="project-visual">
+                <div class="media-frame" onclick="openLightbox('az1.jpeg')" style="cursor:zoom-in">
+                    <img src="az1.jpeg" alt="Robot Global" class="full-fit">
                 </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('az1.jpeg')">
+                        <img src="az1.jpeg" alt="Vue 1">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('az2.jpeg')">
+                        <img src="az2.jpeg" alt="Bras">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('az3.jpeg')">
+                        <img src="az3.jpeg" alt="Vision">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <span class="project-subtitle">Robotique Mobile</span>
+                <h2>Robot Autonome</h2>
 
                 <div class="awards-list">
                     <span class="award-badge gold"><i class="fas fa-trophy"></i> 1er Prix ENIM Rabat</span>
@@ -344,7 +372,7 @@
                     <p>Robot mobile à navigation complexe utilisant la Vision par Ordinateur pour le tri d'objets.</p>
                     <ul>
                         <li><strong>Vision :</strong> Traitement d'image OpenCV temps réel.</li>
-                        <li><strong>Manipulation :</strong> Bras robotique 4 axes de précision.</li>
+                        <li><strong>Action :</strong> Bras robotique 4 axes de précision.</li>
                         <li><strong>Contrôle :</strong> Asservissement PID.</li>
                     </ul>
                 </div>
@@ -353,17 +381,6 @@
                     <span class="tag"><i class="fab fa-raspberry-pi"></i> Raspberry Pi</span>
                     <span class="tag"><i class="fas fa-code"></i> Python</span>
                     <span class="tag"><i class="fas fa-robot"></i> Robotique</span>
-                </div>
-            </div>
-
-            <div class="project-visual">
-                <div class="main-media" onclick="openLightbox('az1.jpeg')" style="cursor:zoom-in;">
-                    <img src="az1.jpeg" alt="Robot Global" class="main-img">
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox('az1.jpeg')"><img src="az1.jpeg" alt="Vue 1"></div>
-                    <div class="gallery-item" onclick="openLightbox('az2.jpeg')"><img src="az2.jpeg" alt="Bras"></div>
-                    <div class="gallery-item" onclick="openLightbox('az3.jpeg')"><img src="az3.jpeg" alt="Vision"></div>
                 </div>
             </div>
         </article>
@@ -375,22 +392,16 @@
         AOS.init({ duration: 800, once: true });
 
         // --- LIGHTBOX SCRIPT ---
-        const lightbox = document.getElementById('lightbox');
-        const lbImg = lightbox.querySelector('img');
-        const closeBtn = document.querySelector('.close-lb');
-
         function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
             lbImg.src = src;
             lightbox.classList.add('active');
         }
 
-        closeBtn.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target !== lbImg) lightbox.classList.remove('active');
-        });
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
 
         // Fond Particules
         const canvas = document.getElementById('canvas-bg');
