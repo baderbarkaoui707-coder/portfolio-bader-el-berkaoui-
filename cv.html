@@ -3,180 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV | Bader El Berkaoui</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>CV Professionnel | Bader El Berkaoui</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --bg-color: #f4f7f6;
+            --primary: #2c3e50; /* Bleu Nuit Profond */
+            --secondary: #34495e;
+            --accent: #2980b9; /* Bleu Ingénieur */
+            --bg-gray: #f5f6fa;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #555;
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
 
-        .container {
-            max-width: 900px;
+        /* Format A4 pour l'écran et l'impression */
+        .page {
             background: white;
-            margin: auto;
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            width: 21cm;
+            min-height: 29.7cm;
+            display: grid;
+            grid-template-columns: 30% 70%; /* Colonne gauche / Colonne droite */
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        header {
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 20px;
+        /* --- COLONNE GAUCHE (INFO & SKILLS) --- */
+        .left-col {
+            background: var(--primary);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .profile-pic-container {
+            text-align: center;
             margin-bottom: 30px;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            object-fit: cover;
+            background: #fff;
+        }
+
+        .left-section { margin-bottom: 35px; }
+
+        .left-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .contact-item i { width: 25px; color: var(--accent); }
+        .contact-item a { color: white; text-decoration: none; }
+
+        .skill-group { margin-bottom: 15px; }
+        .skill-name { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 5px;}
+        .skill-list { 
+            font-size: 0.85rem; 
+            color: #bdc3c7; 
+            line-height: 1.4; 
+        }
+
+        /* --- COLONNE DROITE (CONTENU PRINCIPAL) --- */
+        .right-col {
+            padding: 40px;
+            color: var(--text-dark);
+        }
+
+        .header-name h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            line-height: 1;
+        }
+        .header-name h2 {
+            margin: 5px 0 20px 0;
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .summary {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--bg-gray);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .experience-item, .project-item {
+            margin-bottom: 25px;
+        }
+
+        .exp-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: baseline;
+            margin-bottom: 5px;
         }
 
-        .header-info h1 {
+        .exp-title { font-weight: bold; font-size: 1.1rem; color: var(--secondary); }
+        .exp-date { font-size: 0.9rem; color: var(--accent); font-weight: bold; }
+        .exp-place { font-style: italic; color: var(--text-light); font-size: 0.95rem; margin-bottom: 8px; display: block;}
+
+        .exp-details {
             margin: 0;
-            color: var(--primary-color);
-            text-transform: uppercase;
+            padding-left: 18px;
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.5;
         }
+        .exp-details li { margin-bottom: 5px; }
 
-        .contact-info p { margin: 5px 0; font-size: 0.9em; }
-        
-        section { margin-bottom: 30px; }
-        
-        h2 {
-            color: var(--accent-color);
-            border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-            text-transform: uppercase;
-            font-size: 1.2em;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .project-item, .exp-item {
-            margin-bottom: 15px;
-        }
-
-        .date {
+        .tech-stack {
+            font-size: 0.85rem;
+            color: var(--accent);
             font-weight: bold;
-            color: #7f8c8d;
-            font-size: 0.85em;
+            margin-top: 5px;
         }
 
-        .skills-tag {
-            display: inline-block;
-            background: #e1f0fa;
-            color: var(--accent-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            margin: 3px;
-            font-weight: bold;
-        }
-
+        /* BOUTON IMPRIMER FLOTTANT */
         .btn-print {
-            background: var(--accent-color);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            float: right;
-            transition: 0.3s;
+            position: fixed; top: 20px; right: 20px;
+            background: var(--accent); color: white;
+            padding: 10px 20px; border-radius: 5px;
+            text-decoration: none; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .btn-print:hover { background: var(--primary); }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 800px) {
+            .page { grid-template-columns: 1fr; width: 100%; min-height: auto; }
+            .left-col { padding: 20px; text-align: center; }
+            .contact-item { justify-content: center; }
+            .right-col { padding: 20px; }
+            .header-name h1 { font-size: 2rem; }
+            body { background: white; padding: 0; display: block;}
         }
 
-        .btn-print:hover { background: var(--primary-color); }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-            header { flex-direction: column; text-align: center; }
-        }
-
+        /* --- IMPRESSION PDF PROPRE --- */
         @media print {
+            body { background: white; padding: 0; }
+            .page { width: 100%; box-shadow: none; margin: 0; height: 100%; }
             .btn-print { display: none; }
-            body { padding: 0; background: white; }
-            .container { box-shadow: none; width: 100%; }
+            /* Force les couleurs de fond à s'imprimer */
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Imprimer en PDF</a>
-    
-    <header>
-        <div class="header-info">
-            <h1>Bader El Berkaoui</h1>
-            <p><strong>Étudiant Ingénieur en Génie Électrique</strong></p>
-        </div>
-        <div class="contact-info">
-            <p><i class="fas fa-envelope"></i> bader.elberkaoui@email.com</p>
-            <p><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</p>
-            <p><i class="fab fa-github"></i> github.com/baderbarkaoui707-coder</p>
-        </div>
-    </header>
+    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Sauvegarder en PDF</a>
 
-    <section>
-        <h2><i class="fas fa-user"></i> Profil</h2>
-        <p>Futur ingénieur spécialisé en automatique et systèmes industriels. Expertise en modélisation MATLAB/Simulink et programmation VHDL. Orienté solutions et travail d'équipe.</p>
-    </section>
+    <div class="page">
+        <aside class="left-col">
+            <div class="profile-pic-container">
+                <img src="profilee.png" alt="Bader El Berkaoui" class="profile-img">
+            </div>
 
-    <div class="grid">
-        <section>
-            <h2><i class="fas fa-tools"></i> Compétences</h2>
-            <div>
-                <span class="skills-tag">MATLAB / Simulink</span>
-                <span class="skills-tag">VHDL / FPGA</span>
-                <span class="skills-tag">Langage C</span>
-                <span class="skills-tag">Automatique Linéaire</span>
-                <span class="skills-tag">Machines Électriques</span>
-                <span class="skills-tag">Quartus Prime</span>
-                <span class="skills-tag">AutoCAD</span>
-                <span class="skills-tag">LaTeX</span>
+            <div class="left-section">
+                <div class="left-title">Contact</div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i> <span>+212 6 XX XX XX XX</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i> <a href="mailto:bader.elberkaoui@email.com">bader.elberkaoui@email.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i> <span>Casablanca, Maroc</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i> <a href="#">linkedin.com/in/bader</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i> <a href="#">github.com/baderbarkaoui707-coder</a>
+                </div>
             </div>
-        </section>
 
-        <section>
-            <h2><i class="fas fa-graduation-cap"></i> Formation</h2>
-            <div class="exp-item">
-                <span class="date">2024 - Présent</span>
-                <p><strong>Cycle d'Ingénieur en Génie Électrique</strong></p>
+            <div class="left-section">
+                <div class="left-title">Compétences</div>
+                
+                <div class="skill-group">
+                    <span class="skill-name">Génie Électrique</span>
+                    <span class="skill-list">Machines Électriques (MCC, MAS), Électronique de puissance, Régimes de neutre, Protection des réseaux.</span>
+                </div>
+
+                <div class="skill-group">
+                    <span class="skill-name">Automatique</span>
+                    <span class="skill-list">Régulation PID, Représentation d'état, Stabilité Lyapunov, Simulink.</span>
+                </div>
+
+                <div class="skill-group">
+                    <span class="skill-name">Embarqué & VHDL</span>
+                    <span class="skill-list">FPGA (Cyclone IV), Quartus Prime, Programmation C (Microcontrôleurs).</span>
+                </div>
+
+                <div class="skill-group">
+                    <span class="skill-name">Logiciels</span>
+                    <span class="skill-list">MATLAB R2020a, AutoCAD, Proteus ISIS, Git/GitHub, LaTeX.</span>
+                </div>
             </div>
-            <div class="exp-item">
-                <span class="date">2022 - 2024</span>
-                <p><strong>Classes Préparatoires (CPGE)</strong></p>
+
+            <div class="left-section">
+                <div class="left-title">Langues</div>
+                <div class="skill-group">
+                    <span class="skill-name">Français</span>
+                    <span class="skill-list">Courant (Technique & Professionnel)</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-name">Anglais</span>
+                    <span class="skill-list">Intermédiaire Avancé (Technique)</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-name">Arabe</span>
+                    <span class="skill-list">Langue Maternelle</span>
+                </div>
             </div>
-        </section>
+        </aside>
+
+        <main class="right-col">
+            <header class="header-name">
+                <h1>Bader El Berkaoui</h1>
+                <h2>Élève Ingénieur en Génie Électrique</h2>
+            </header>
+
+            <div class="summary">
+                Futur ingénieur passionné par les systèmes embarqués et l'automatisme industriel. Fort d'une solide formation théorique et de projets pratiques en modélisation et contrôle. Je recherche un <strong>Stage de Fin d'Année (PFA)</strong> pour appliquer mes compétences en conception de systèmes complexes et contribuer à des projets innovants.
+            </div>
+
+            <section>
+                <div class="section-title"><i class="fas fa-graduation-cap"></i> Formation</div>
+                
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Cycle d'Ingénieur en Génie Électrique</span>
+                        <span class="exp-date">2024 - Présent</span>
+                    </div>
+                    <span class="exp-place">[Nom de ton École d'Ingénieur], Maroc</span>
+                    <ul class="exp-details">
+                        <li>Spécialisation : Systèmes Embarqués et Automatisme.</li>
+                        <li>Projets majeurs : Conception de cartes, régulation de systèmes dynamiques.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Classes Préparatoires aux Grandes Écoles (CPGE)</span>
+                        <span class="exp-date">2022 - 2024</span>
+                    </div>
+                    <span class="exp-place">Lycée [Nom de ton Lycée], [Ville]</span>
+                    <ul class="exp-details">
+                        <li>Filière : Physique et Sciences de l'Ingénieur (PSI) ou (MPSI/TSI).</li>
+                        <li>Formation intensive en Mathématiques, Physique et Sciences Industrielles.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title"><i class="fas fa-project-diagram"></i> Projets Académiques & Techniques</div>
+
+                <div class="project-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Modélisation et Contrôle d'un Échangeur Thermique</span>
+                        <span class="exp-date">Jan 2026</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li><strong>Analyse :</strong> Modélisation mathématique du système (équations différentielles).</li>
+                        <li><strong>Simulation :</strong> Implémentation sous <strong>MATLAB/Simulink</strong> et analyse de la réponse indicielle.</li>
+                        <li><strong>Régulation :</strong> Conception et réglage d'un correcteur <strong>PID</strong> pour stabiliser la température de sortie.</li>
+                    </ul>
+                    <div class="tech-stack">Compétences : MATLAB, Simulink, Automatique Linéaire, PID.</div>
+                </div>
+
+                <div class="project-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Conception de Circuits Logiques sur FPGA</span>
+                        <span class="exp-date">Déc 2025</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li><strong>Développement :</strong> Codage de fonctions logiques complexes en langage <strong>VHDL</strong>.</li>
+                        <li><strong>Hardware :</strong> Synthèse et implémentation sur carte FPGA Cyclone IV via <strong>Quartus Prime</strong>.</li>
+                        <li><strong>Validation :</strong> Simulation temporelle et tests physiques sur carte.</li>
+                    </ul>
+                    <div class="tech-stack">Compétences : VHDL, Quartus Prime, FPGA, Électronique Numérique.</div>
+                </div>
+
+                <div class="project-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Étude Complète d'une Machine à Courant Continu</span>
+                        <span class="exp-date">Nov 2025</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Relevé des caractéristiques électromécaniques en charge et à vide.</li>
+                        <li>Analyse du rendement et du comportement thermique.</li>
+                        <li>Rédaction d'un rapport technique professionnel sous <strong>LaTeX</strong>.</li>
+                    </ul>
+                    <div class="tech-stack">Compétences : Machines Électriques, Instrumentation, LaTeX.</div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title"><i class="fas fa-briefcase"></i> Expériences & Engagements</div>
+                
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <span class="exp-title">Projet Collaboratif & Soutien Scolaire</span>
+                        <span class="exp-date">2023 - 2024</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Organisation de sessions de révision pour étudiants en sciences de l'ingénieur.</li>
+                        <li>Travail d'équipe sur des projets de conception (Collaboration avec M. Hsiny).</li>
+                        <li>Développement de supports pédagogiques simplifiés.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
     </div>
-
-    <section>
-        <h2><i class="fas fa-project-diagram"></i> Projets Récents</h2>
-        <div class="project-item">
-            <p><strong>Échangeur Thermique Tubulaire :</strong> Modélisation dynamique et régulation de température sous MATLAB/Simulink.</p>
-        </div>
-        <div class="project-item">
-            <p><strong>Conception VHDL :</strong> Implémentation de fonctions logiques sur carte FPGA via Quartus 17.1.</p>
-        </div>
-        <div class="project-item">
-            <p><strong>Étude MCC :</strong> Analyse expérimentale et rédaction de rapports techniques sous LaTeX.</p>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-language"></i> Langues</h2>
-        <p>Arabe (Maternel) | Français (Courant) | Anglais (Technique)</p>
-    </section>
-</div>
-
 </body>
 </html>
