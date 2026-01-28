@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | Bader El Berkaoui</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            background: white;
+            margin: auto;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-info h1 {
+            margin: 0;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .contact-info p { margin: 5px 0; font-size: 0.9em; }
+        
+        section { margin-bottom: 30px; }
+        
+        h2 {
+            color: var(--accent-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            text-transform: uppercase;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .project-item, .exp-item {
+            margin-bottom: 15px;
+        }
+
+        .date {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.85em;
+        }
+
+        .skills-tag {
+            display: inline-block;
+            background: #e1f0fa;
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 3px;
+            font-weight: bold;
+        }
+
+        .btn-print {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            float: right;
+            transition: 0.3s;
+        }
+
+        .btn-print:hover { background: var(--primary-color); }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; text-align: center; }
+        }
+
+        @media print {
+            .btn-print { display: none; }
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Imprimer en PDF</a>
+    
+    <header>
+        <div class="header-info">
+            <h1>Bader El Berkaoui</h1>
+            <p><strong>Étudiant Ingénieur en Génie Électrique</strong></p>
+        </div>
+        <div class="contact-info">
+            <p><i class="fas fa-envelope"></i> bader.elberkaoui@email.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</p>
+            <p><i class="fab fa-github"></i> github.com/baderbarkaoui707-coder</p>
+        </div>
+    </header>
+
+    <section>
+        <h2><i class="fas fa-user"></i> Profil</h2>
+        <p>Futur ingénieur spécialisé en automatique et systèmes industriels. Expertise en modélisation MATLAB/Simulink et programmation VHDL. Orienté solutions et travail d'équipe.</p>
+    </section>
+
+    <div class="grid">
+        <section>
+            <h2><i class="fas fa-tools"></i> Compétences</h2>
+            <div>
+                <span class="skills-tag">MATLAB / Simulink</span>
+                <span class="skills-tag">VHDL / FPGA</span>
+                <span class="skills-tag">Langage C</span>
+                <span class="skills-tag">Automatique Linéaire</span>
+                <span class="skills-tag">Machines Électriques</span>
+                <span class="skills-tag">Quartus Prime</span>
+                <span class="skills-tag">AutoCAD</span>
+                <span class="skills-tag">LaTeX</span>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-graduation-cap"></i> Formation</h2>
+            <div class="exp-item">
+                <span class="date">2024 - Présent</span>
+                <p><strong>Cycle d'Ingénieur en Génie Électrique</strong></p>
+            </div>
+            <div class="exp-item">
+                <span class="date">2022 - 2024</span>
+                <p><strong>Classes Préparatoires (CPGE)</strong></p>
+            </div>
+        </section>
+    </div>
+
+    <section>
+        <h2><i class="fas fa-project-diagram"></i> Projets Récents</h2>
+        <div class="project-item">
+            <p><strong>Échangeur Thermique Tubulaire :</strong> Modélisation dynamique et régulation de température sous MATLAB/Simulink.</p>
+        </div>
+        <div class="project-item">
+            <p><strong>Conception VHDL :</strong> Implémentation de fonctions logiques sur carte FPGA via Quartus 17.1.</p>
+        </div>
+        <div class="project-item">
+            <p><strong>Étude MCC :</strong> Analyse expérimentale et rédaction de rapports techniques sous LaTeX.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-language"></i> Langues</h2>
+        <p>Arabe (Maternel) | Français (Courant) | Anglais (Technique)</p>
+    </section>
+</div>
+
+</body>
+</html>
