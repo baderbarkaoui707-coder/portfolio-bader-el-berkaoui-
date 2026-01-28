@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bader El Berkaoui | Ingénieur Expert</title>
+    <title>Bader El Berkaoui | Portfolio Ingénieur</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     
@@ -25,6 +25,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-deep);
@@ -32,6 +34,38 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
+
+        /* --- ÉCRAN DE BIENVENUE (INTRO) --- */
+        #welcome-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .welcome-content { text-align: center; }
+        
+        .loader-line {
+            width: 0; height: 2px; background: var(--primary);
+            margin: 20px auto; box-shadow: 0 0 20px var(--primary);
+            animation: loadLine 2s forwards;
+        }
+        
+        .welcome-text {
+            font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; letter-spacing: 3px;
+            text-transform: uppercase; opacity: 0; animation: fadeInTxt 0.5s 0.5s forwards;
+        }
+        
+        .welcome-sub {
+            font-family: 'Rajdhani'; color: var(--primary); font-size: 1rem; margin-top: 10px;
+            opacity: 0; animation: fadeInTxt 0.5s 1s forwards;
+        }
+
+        @keyframes loadLine { 0% { width: 0; } 100% { width: 200px; } }
+        @keyframes fadeInTxt { to { opacity: 1; } }
+
+        /* Classe pour cacher l'intro */
+        .hide-welcome { transform: translateY(-100%); }
 
         /* --- FOND IMMERSIF (CANVAS) --- */
         #canvas-bg {
@@ -52,23 +86,15 @@
             padding: 15px 30px; border-radius: 24px;
             display: flex; gap: 20px; align-items: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
-            position: relative; overflow: hidden;
         }
-
-        .nav-dock::before {
-            content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg); pointer-events: none; animation: shine 5s infinite;
-        }
-        @keyframes shine { 0% { left: -50%; } 20% { left: 150%; } 100% { left: 150%; } }
 
         .nav-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-decoration: none; color: var(--text-muted); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative; padding: 5px 12px; border-radius: 12px;
+            text-decoration: none; color: var(--text-muted); transition: all 0.3s;
+            position: relative; padding: 5px 12px;
         }
 
-        .nav-item i { font-size: 1.4rem; margin-bottom: 0; transition: 0.3s; z-index: 2; }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 0; transition: 0.3s; }
         .nav-item span { 
             font-size: 0px; opacity: 0; height: 0; 
             text-transform: uppercase; font-weight: 700; letter-spacing: 1px; transition: 0.3s;
@@ -80,18 +106,18 @@
         .nav-item:hover span { font-size: 0.7rem; opacity: 1; height: auto; margin-top: 5px; }
         
         .nav-item.active i { color: var(--primary); }
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -5px; width: 5px; height: 5px;
-            background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);
-        }
 
+        /* Bouton CV Pulsant */
         .cv-btn {
             background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: #fff !important; border-radius: 14px; padding: 10px 20px;
             box-shadow: 0 0 20px rgba(188, 19, 254, 0.3); border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse-cv 2s infinite;
         }
-        .cv-btn:hover { box-shadow: 0 0 30px rgba(188, 19, 254, 0.6); transform: scale(1.05) translateY(-5px); }
+        .cv-btn:hover { box-shadow: 0 0 30px rgba(188, 19, 254, 0.6); transform: scale(1.05); animation: none; }
         .cv-btn i { font-size: 1.2rem; }
+
+        @keyframes pulse-cv { 0% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(188, 19, 254, 0); } 100% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0); } }
 
         /* --- HERO SECTION --- */
         .hero-container {
@@ -123,7 +149,7 @@
         .skill-chip {
             font-family: 'Rajdhani'; font-weight: 700; font-size: 1rem; color: #fff;
             padding: 6px 14px; background: rgba(255,255,255,0.05); border-radius: 6px;
-            border-left: 2px solid var(--secondary); transition: 0.3s;
+            border-left: 2px solid var(--secondary); transition: 0.3s; cursor: default;
         }
         .skill-chip:hover { border-color: var(--primary); background: rgba(0, 243, 255, 0.1); transform: translateX(5px); }
 
@@ -150,7 +176,7 @@
         }
         .btn-transparent:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 243, 255, 0.05); }
 
-        /* --- VISUEL 3D PHOTO (AMÉLIORATION LUMIÈRE) --- */
+        /* --- VISUEL 3D PHOTO (PORTRAIT COMPLET) --- */
         .hero-visual {
             display: flex; justify-content: center; align-items: center; position: relative;
             animation: float 6s ease-in-out infinite;
@@ -161,33 +187,25 @@
             width: 360px; height: 500px; /* Format Vertical */
             position: relative; border-radius: 20px;
             padding: 10px; 
-            /* Fond plus lumineux et transparent au lieu du sombre */
             background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(67, 97, 238, 0.05));
             border: 1px solid rgba(0, 243, 255, 0.2);
             backdrop-filter: blur(10px);
-            /* Lueur externe cyan au lieu de l'ombre noire */
             box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
             transform-style: preserve-3d;
         }
 
-        /* Ajout d'un halo lumineux derrière le cadre */
-        .holo-frame::before {
-             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-             width: 80%; height: 80%; background: var(--primary); filter: blur(60px); opacity: 0.1; z-index: -1;
-        }
-        
         .img-wrapper {
             width: 100%; height: 100%; border-radius: 15px; overflow: hidden;
             position: relative; 
-            /* SUPPRESSION DU FOND NOIR ICi, REMPLACÉ PAR UN DÉGRADÉ SUBTIL */
-            background: linear-gradient(to bottom, rgba(0,243,255,0.1), transparent);
+            /* Fond dégradé subtil pour remplacer le noir */
+            background: linear-gradient(to bottom, rgba(20, 30, 50, 0.8), rgba(0,0,0,0.9));
             border: 1px solid rgba(0, 243, 255, 0.3);
         }
 
         .profile-img {
             width: 100%; height: 100%;
             object-fit: cover; 
-            object-position: top center; 
+            object-position: top center; /* Visage en priorité */
             transition: transform 0.5s;
         }
         .holo-frame:hover .profile-img { transform: scale(1.05); }
@@ -197,11 +215,10 @@
             position: absolute; width: 100px; height: 100px; border-radius: 50%;
             border: 2px dashed var(--primary); opacity: 0.4; top: -30px; right: -30px;
             animation: rotate 20s linear infinite; pointer-events: none; transform: translateZ(-20px);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
         @keyframes rotate { 100% { transform: translateZ(-20px) rotate(360deg); } }
 
-        /* --- SECTION PROJETS --- */
+        /* --- SECTION PROJETS (IMAGES ENTIÈRES) --- */
         .section-projects { padding: 80px 10% 150px; position: relative; z-index: 5; }
         .section-title {
             font-family: 'Orbitron'; font-size: 3rem; margin-bottom: 60px; color: #fff;
@@ -224,16 +241,20 @@
             box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); 
         }
 
+        /* CARD IMAGE BOX - CENTRAGE PARFAIT */
         .card-visual-box {
-            width: 100%; height: 260px; background: #02040a;
+            width: 100%; height: 260px; 
+            background: #02040a; /* Fond noir esthétique */
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden; position: relative;
+            overflow: hidden;
         }
         
         .p-img {
             width: 100%; height: 100%;
-            object-fit: contain; object-position: center;
+            /* contain = Image entière, pas de coupure */
+            object-fit: contain; 
+            object-position: center;
             transition: transform 0.6s;
         }
         .project-card:hover .p-img { transform: scale(1.05); }
@@ -256,6 +277,7 @@
         }
         .btn-link:hover { color: var(--primary); gap: 15px; transition: 0.3s; }
 
+        /* FOOTER */
         footer { 
             text-align: center; padding: 50px; 
             border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; 
@@ -281,6 +303,14 @@
     </style>
 </head>
 <body>
+
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <div class="welcome-text">INITIALISATION DU SYSTÈME</div>
+            <div class="loader-line"></div>
+            <div class="welcome-sub">BIENVENUE DANS MON UNIVERS</div>
+        </div>
+    </div>
 
     <canvas id="canvas-bg"></canvas>
 
@@ -411,12 +441,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     
     <script>
+        // Gestion de l'intro "Welcome"
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('welcome-screen').classList.add('hide-welcome');
+            }, 2500); // Durée de l'intro
+        });
+
         AOS.init({ duration: 800, once: true });
         
         VanillaTilt.init(document.querySelector(".js-tilt"), {
             max: 10, speed: 400, glare: true, "max-glare": 0.2
         });
 
+        // Fond Particules (Canvas)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
