@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contact | Bader El Berkaoui</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --bg-deep: #050a14;
+            --bg-deep: #050505;
             --primary: #00f3ff;
             --secondary: #4361ee;
             --accent: #bc13fe;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --glass: rgba(15, 25, 50, 0.7);
-            --border: 1px solid rgba(0, 243, 255, 0.2);
+            --glass-card: rgba(15, 20, 35, 0.7);
+            --border-glow: 1px solid rgba(0, 243, 255, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -37,7 +37,7 @@
             background: radial-gradient(circle at 50% 10%, #0f172a 0%, #02040a 100%);
         }
 
-        /* --- NAVIGATION DOCK (COHÉRENCE) --- */
+        /* --- NAVIGATION DOCK (IDENTIQUE INDEX) --- */
         nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
@@ -86,108 +86,102 @@
 
         /* --- HEADER --- */
         .header-section {
-            text-align: center; padding: 120px 20px 60px;
+            text-align: center; padding: 100px 20px 60px;
         }
         .header-section h1 {
-            font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase;
-            background: linear-gradient(180deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron'; font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            color: #fff;
         }
-        .header-section span { color: var(--primary); }
-        .intro-text { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .header-section span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
+        .intro-text { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-family: 'Rajdhani'; }
 
-        /* --- LAYOUT CONTACT --- */
+        /* --- LAYOUT --- */
         .contact-container {
             max-width: 1200px; margin: 0 auto; padding: 0 5%;
             display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
             align-items: start;
         }
 
-        /* CARTE INFOS */
+        /* --- CARTES INFO (GAUCHE) --- */
         .info-card {
-            background: var(--glass); border: var(--border);
+            background: var(--glass-card); border: var(--border-glow);
             border-radius: 20px; padding: 25px; display: flex; align-items: center; gap: 20px;
             transition: 0.3s; cursor: pointer; position: relative; overflow: hidden;
             margin-bottom: 20px;
         }
-        .info-card:hover { transform: translateX(10px); border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 243, 255, 0.1); }
+        .info-card:hover { transform: translateX(10px); border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); }
         
         .icon-box {
             width: 50px; height: 50px; border-radius: 12px;
-            background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center;
-            font-size: 1.4rem; color: var(--primary); border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 243, 255, 0.1); display: flex; justify-content: center; align-items: center;
+            font-size: 1.4rem; color: var(--primary); border: 1px solid rgba(0, 243, 255, 0.2);
             transition: 0.3s;
         }
         .info-card:hover .icon-box { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
 
-        .info-content h3 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .info-content p { font-size: 1rem; color: #fff; font-weight: 600; font-family: 'Rajdhani'; letter-spacing: 0.5px; }
+        .info-content h3 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-family: 'Orbitron'; }
+        .info-content p { font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'Rajdhani'; }
 
         .copy-hint {
             position: absolute; right: 20px; font-size: 0.8rem; color: var(--primary); opacity: 0;
-            transition: 0.3s; transform: translateX(20px);
+            transition: 0.3s; transform: translateX(20px); font-family: 'Rajdhani';
         }
         .info-card:hover .copy-hint { opacity: 1; transform: translateX(0); }
 
-        /* SOCIALS */
-        .social-row { display: flex; gap: 15px; margin-top: 10px; }
-        .social-btn {
-            flex: 1; background: var(--glass); border: var(--border); padding: 15px;
-            border-radius: 15px; display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 1.5rem; transition: 0.3s; text-decoration: none;
-        }
-        .social-btn:hover { border-color: var(--secondary); background: rgba(67, 97, 238, 0.1); transform: translateY(-5px); }
-
-        /* FORMULAIRE */
+        /* --- FORMULAIRE (DROITE) --- */
         .form-wrapper {
-            background: rgba(10, 15, 30, 0.6); border: var(--border);
+            background: rgba(10, 15, 30, 0.6); border: var(--border-glow);
             border-radius: 25px; padding: 40px; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
         }
         
-        .form-group { margin-bottom: 25px; position: relative; }
+        .form-group { margin-bottom: 30px; position: relative; }
         
         .form-input {
-            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; padding: 15px 20px; color: #fff; font-size: 1rem;
-            transition: 0.3s; font-family: 'Outfit', sans-serif;
+            width: 100%; background: transparent; 
+            border: none; border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding: 10px 5px; color: #fff; font-size: 1.1rem;
+            transition: 0.3s; font-family: 'Rajdhani'; font-weight: 600;
         }
-        .form-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px rgba(0, 243, 255, 0.1); background: rgba(0, 243, 255, 0.02); }
+        .form-input:focus { outline: none; border-bottom-color: var(--primary); }
         
         .form-label {
-            position: absolute; left: 20px; top: 15px; color: var(--text-muted);
-            pointer-events: none; transition: 0.3s; font-size: 0.95rem; 
-            background: transparent; padding: 0 5px;
+            position: absolute; left: 5px; top: 10px; color: var(--text-muted);
+            pointer-events: none; transition: 0.3s; font-size: 1rem; font-family: 'Rajdhani';
         }
         
         .form-input:focus ~ .form-label,
         .form-input:not(:placeholder-shown) ~ .form-label {
-            top: -22px; left: 10px; font-size: 0.8rem; color: var(--primary); font-weight: 700;
+            top: -20px; left: 0; font-size: 0.8rem; color: var(--primary);
         }
 
-        textarea.form-input { height: 150px; resize: none; }
+        textarea.form-input { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-top: 10px; }
+        textarea.form-input:focus { border-color: var(--primary); }
 
         .btn-submit {
-            width: 100%; padding: 15px; border-radius: 12px; border: none;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: #000; font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: 0.3s;
+            width: 100%; padding: 15px; border-radius: 8px; border: none;
+            background: var(--primary); color: #000; 
+            font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: 0.3s; font-family: 'Orbitron';
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(0, 243, 255, 0.4); color: #fff; }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0, 243, 255, 0.5); }
 
-        /* TOAST */
+        /* TOAST NOTIFICATION */
         .toast {
-            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(50px);
-            background: var(--primary); color: #000; padding: 10px 30px; border-radius: 50px;
-            font-weight: 700; box-shadow: 0 0 20px var(--primary);
-            opacity: 0; transition: 0.4s; pointer-events: none; z-index: 2000;
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 243, 255, 0.9); color: #000; padding: 12px 30px; border-radius: 50px;
+            font-weight: 700; box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+            opacity: 0; transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); pointer-events: none; z-index: 2000;
+            display: flex; align-items: center; gap: 10px; font-family: 'Rajdhani';
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         /* MOBILE */
         @media (max-width: 1024px) {
             .contact-container { grid-template-columns: 1fr; gap: 40px; }
-            .header-section { padding-top: 100px; }
-            h1 { font-size: 2.8rem; }
+            .header-section { padding-top: 80px; }
+            h1 { font-size: 2.5rem; }
             
             nav { width: 95%; bottom: 20px; }
             .nav-dock { padding: 12px 20px; justify-content: space-between; width: 100%; }
@@ -200,7 +194,7 @@
 
     <canvas id="canvas-bg"></canvas>
 
-    <div class="toast" id="toast"><i class="fas fa-check"></i> Copié dans le presse-papier</div>
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i> Info copiée avec succès !</div>
 
     <nav>
         <div class="nav-dock">
@@ -231,7 +225,7 @@
     <section class="header-section" data-aos="zoom-in">
         <h1>Restons <span>Connectés</span></h1>
         <p class="intro-text">
-            Un projet technique ? Une opportunité ? Discutons de la manière dont je peux apporter de la valeur à votre équipe.
+            Ingénierie, Innovation, Collaboration. Envoyez-moi un signal et construisons l'avenir ensemble.
         </p>
     </section>
 
@@ -239,38 +233,38 @@
 
         <div class="contact-info">
             
-            <div class="info-card" onclick="copyText('baderbarkaoui707@gmail.com')" data-aos="fade-right">
+            <div class="info-card js-tilt" onclick="copyText('baderbarkaoui707@gmail.com')" data-aos="fade-right">
                 <div class="icon-box"><i class="fas fa-envelope"></i></div>
                 <div class="info-content">
                     <h3>Email Professionnel</h3>
                     <p>baderbarkaoui707@gmail.com</p>
                 </div>
-                <span class="copy-hint"><i class="far fa-copy"></i> Copier</span>
+                <span class="copy-hint">Copier <i class="far fa-copy"></i></span>
             </div>
 
-            <div class="info-card" onclick="copyText('+212703476035')" data-aos="fade-right" data-aos-delay="100">
+            <div class="info-card js-tilt" onclick="copyText('+212703476035')" data-aos="fade-right" data-aos-delay="100">
                 <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
                 <div class="info-content">
                     <h3>Téléphone / WhatsApp</h3>
                     <p>+212 7 03 47 60 35</p>
                 </div>
-                <span class="copy-hint"><i class="far fa-copy"></i> Copier</span>
+                <span class="copy-hint">Copier <i class="far fa-copy"></i></span>
             </div>
 
-            <div class="info-card" data-aos="fade-right" data-aos-delay="200">
+            <div class="info-card js-tilt" data-aos="fade-right" data-aos-delay="200">
                 <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
                 <div class="info-content">
-                    <h3>Localisation</h3>
+                    <h3>QG Opérationnel</h3>
                     <p>Casablanca, Maroc</p>
                 </div>
             </div>
 
-            <div class="social-row">
-                <a href="https://linkedin.com/in/bader" class="social-btn" data-aos="fade-up">
-                    <i class="fab fa-linkedin-in"></i>
+            <div style="display:flex; gap:15px; margin-top:20px;">
+                <a href="https://linkedin.com/in/bader" class="info-card" style="flex:1; justify-content:center; margin:0;" data-aos="fade-up">
+                    <i class="fab fa-linkedin-in" style="font-size:1.5rem; color:#fff;"></i>
                 </a>
-                <a href="https://github.com/bader" class="social-btn" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fab fa-github"></i>
+                <a href="https://github.com/bader" class="info-card" style="flex:1; justify-content:center; margin:0;" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fab fa-github" style="font-size:1.5rem; color:#fff;"></i>
                 </a>
             </div>
 
@@ -280,22 +274,21 @@
             <form>
                 <div class="form-group">
                     <input type="text" class="form-input" placeholder=" " required>
-                    <label class="form-label">Nom Complet</label>
+                    <label class="form-label">Identifiant (Nom)</label>
                 </div>
                 <div class="form-group">
                     <input type="email" class="form-input" placeholder=" " required>
-                    <label class="form-label">Email</label>
+                    <label class="form-label">Canal de Réponse (Email)</label>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-input" placeholder=" " required>
-                    <label class="form-label">Sujet</label>
+                    <label class="form-label">Objet de la Mission</label>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-input" placeholder=" " required></textarea>
-                    <label class="form-label">Votre Message</label>
+                    <textarea class="form-input" placeholder="Décrivez votre projet..." required></textarea>
                 </div>
                 <button type="submit" class="btn-submit">
-                    Envoyer <i class="fas fa-paper-plane" style="margin-left:10px;"></i>
+                    Transmettre <i class="fas fa-satellite-dish" style="margin-left:10px;"></i>
                 </button>
             </form>
         </div>
@@ -303,26 +296,32 @@
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+    
     <script>
         AOS.init({ duration: 800, once: true });
+        
+        VanillaTilt.init(document.querySelectorAll(".js-tilt"), {
+            max: 10, speed: 400, glare: true, "max-glare": 0.1, scale: 1.02
+        });
 
         // Script Copie
         function copyText(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById('toast');
                 toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2000);
+                setTimeout(() => toast.classList.remove('show'), 2500);
             });
         }
 
-        // Particules Background
+        // Fond Particules (Canvas identique à Index)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         let particles = [];
-        for(let i=0; i<30; i++) {
+        for(let i=0; i<40; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -334,7 +333,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 243, 255, 0.2)';
+            ctx.fillStyle = 'rgba(0, 243, 255, 0.3)';
             particles.forEach(p => {
                 p.x += p.speedX; p.y += p.speedY;
                 if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
