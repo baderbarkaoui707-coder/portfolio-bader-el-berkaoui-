@@ -39,7 +39,7 @@
             background: radial-gradient(circle at 50% 0%, #0f172a 0%, #000000 100%);
         }
 
-        /* --- NAVIGATION "STARGATE" (Design Unique) --- */
+        /* --- NAVIGATION "STARGATE" --- */
         nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
@@ -55,7 +55,6 @@
             position: relative; overflow: hidden;
         }
 
-        /* Lueur animée sur le menu */
         .nav-dock::before {
             content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
@@ -76,7 +75,6 @@
             font-family: 'Rajdhani'; color: var(--primary);
         }
 
-        /* Interaction Navigation */
         .nav-item:hover { transform: translateY(-5px); }
         .nav-item:hover i { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
         .nav-item:hover span { font-size: 0.7rem; opacity: 1; height: auto; margin-top: 5px; }
@@ -87,7 +85,6 @@
             background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);
         }
 
-        /* Bouton CV Premium */
         .cv-btn {
             background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: #fff !important; border-radius: 14px; padding: 10px 20px;
@@ -153,7 +150,7 @@
         }
         .btn-transparent:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 243, 255, 0.05); }
 
-        /* --- VISUEL 3D PHOTO (PORTRAIT COMPLET) --- */
+        /* --- VISUEL 3D PHOTO (AMÉLIORATION LUMIÈRE) --- */
         .hero-visual {
             display: flex; justify-content: center; align-items: center; position: relative;
             animation: float 6s ease-in-out infinite;
@@ -164,23 +161,33 @@
             width: 360px; height: 500px; /* Format Vertical */
             position: relative; border-radius: 20px;
             padding: 10px; 
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-            border: 1px solid rgba(255,255,255,0.1);
+            /* Fond plus lumineux et transparent au lieu du sombre */
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(67, 97, 238, 0.05));
+            border: 1px solid rgba(0, 243, 255, 0.2);
             backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            /* Lueur externe cyan au lieu de l'ombre noire */
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
             transform-style: preserve-3d;
+        }
+
+        /* Ajout d'un halo lumineux derrière le cadre */
+        .holo-frame::before {
+             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+             width: 80%; height: 80%; background: var(--primary); filter: blur(60px); opacity: 0.1; z-index: -1;
         }
         
         .img-wrapper {
             width: 100%; height: 100%; border-radius: 15px; overflow: hidden;
-            position: relative; background: #000;
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative; 
+            /* SUPPRESSION DU FOND NOIR ICi, REMPLACÉ PAR UN DÉGRADÉ SUBTIL */
+            background: linear-gradient(to bottom, rgba(0,243,255,0.1), transparent);
+            border: 1px solid rgba(0, 243, 255, 0.3);
         }
 
         .profile-img {
             width: 100%; height: 100%;
-            object-fit: cover; /* Remplit le cadre */
-            object-position: top center; /* Focus tête/épaules */
+            object-fit: cover; 
+            object-position: top center; 
             transition: transform 0.5s;
         }
         .holo-frame:hover .profile-img { transform: scale(1.05); }
@@ -188,12 +195,13 @@
         /* Éléments déco 3D */
         .deco-circle {
             position: absolute; width: 100px; height: 100px; border-radius: 50%;
-            border: 2px dashed var(--primary); opacity: 0.3; top: -30px; right: -30px;
+            border: 2px dashed var(--primary); opacity: 0.4; top: -30px; right: -30px;
             animation: rotate 20s linear infinite; pointer-events: none; transform: translateZ(-20px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
         @keyframes rotate { 100% { transform: translateZ(-20px) rotate(360deg); } }
 
-        /* --- SECTION PROJETS (IMAGES ENTIÈRES) --- */
+        /* --- SECTION PROJETS --- */
         .section-projects { padding: 80px 10% 150px; position: relative; z-index: 5; }
         .section-title {
             font-family: 'Orbitron'; font-size: 3rem; margin-bottom: 60px; color: #fff;
@@ -216,26 +224,18 @@
             box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); 
         }
 
-        /* --- SOLUTION IMAGE "TOTALITÉ VISIBLE" --- */
         .card-visual-box {
-            width: 100%; 
-            height: 260px; /* Hauteur fixe pour aligner les cartes */
-            background: #02040a; /* Fond noir pour combler les vides */
+            width: 100%; height: 260px; background: #02040a;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; position: relative;
         }
         
         .p-img {
-            width: 100%; 
-            height: 100%;
-            /* contain = L'image s'affiche en entier sans être coupée */
-            object-fit: contain; 
-            object-position: center;
+            width: 100%; height: 100%;
+            object-fit: contain; object-position: center;
             transition: transform 0.6s;
         }
-        /* Effet zoom doux au survol */
         .project-card:hover .p-img { transform: scale(1.05); }
 
         .card-details { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -256,14 +256,13 @@
         }
         .btn-link:hover { color: var(--primary); gap: 15px; transition: 0.3s; }
 
-        /* FOOTER */
         footer { 
             text-align: center; padding: 50px; 
             border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; 
             color: var(--text-muted); font-size: 0.9rem; 
         }
 
-        /* RESPONSIVE MOBILE */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .hero-container { grid-template-columns: 1fr; text-align: center; padding-top: 80px; gap: 40px; }
             .hero-text { order: 2; }
@@ -412,15 +411,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     
     <script>
-        // Init Animations
         AOS.init({ duration: 800, once: true });
         
-        // Tilt Effect 3D
         VanillaTilt.init(document.querySelector(".js-tilt"), {
             max: 10, speed: 400, glare: true, "max-glare": 0.2
         });
 
-        // Canvas Particules (Fond Animé)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -458,7 +454,6 @@
             particles.forEach(p => {
                 p.update();
                 p.draw();
-                // Liens
                 particles.forEach(p2 => {
                     const dx = p.x - p2.x;
                     const dy = p.y - p2.y;
