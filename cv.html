@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Ingénieur Bader El Berkaoui</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sidebar-bg: #0f172a; /* Bleu Nuit très sombre (Professionnel) */
-            --main-text: #334155;
-            --accent: #3b82f6;     /* Bleu Roi vif pour les éléments importants */
-            --gold: #fbbf24;       /* Touche dorée discrète pour les distinctions */
-            --light-text: #94a3b8;
+            --primary: #0f172a; /* Bleu Nuit (Sérieux & Autorité) */
+            --accent: #2563eb;  /* Bleu roi (Innovation) */
+            --highlight: #ea580c; /* Orange brûlé (Pour les points critiques) */
+            --text-dark: #1e293b;
+            --text-grey: #475569;
+            --bg-sidebar: #f8fafc;
         }
 
         * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: #e2e8f0;
+            font-family: 'Roboto', sans-serif;
+            background: #525659;
             margin: 0;
             display: flex;
             justify-content: center;
             padding: 40px 0;
-            font-size: 9.5pt;
-            color: var(--main-text);
+            font-size: 10pt;
+            line-height: 1.5;
         }
 
         .page {
@@ -33,194 +34,188 @@
             min-height: 29.7cm;
             background: white;
             display: grid;
-            grid-template-columns: 32% 68%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            overflow: hidden; /* Garde tout propre */
+            grid-template-columns: 30% 70%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* --- COLONNE GAUCHE (EXPERTISE) --- */
+        /* --- COLONNE GAUCHE (INFOS & TECH) --- */
         .left-col {
-            background: var(--sidebar-bg);
+            background: var(--primary);
             color: white;
-            padding: 35px 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            padding: 30px 20px;
+            border-right: 4px solid var(--accent);
         }
 
-        /* PHOTO PRO (Arrondie et centrée) */
+        /* PHOTO DU PORTFOLIO */
         .photo-container {
             width: 160px;
             height: 160px;
             border-radius: 50%;
-            border: 4px solid rgba(255,255,255,0.1);
-            margin: 0 auto;
+            border: 3px solid white;
+            margin: 0 auto 30px auto;
             overflow: hidden;
             background: #fff;
             position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Centrage sur le visage */
+            /* Centre l'image de votre portfolio */
             object-position: center top; 
         }
 
         /* CONTACT */
-        .contact-group { display: flex; flex-direction: column; gap: 12px; }
-        .contact-item { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: #e2e8f0; }
+        .contact-item {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 14px; font-size: 0.9rem; color: #e2e8f0;
+        }
         .contact-item i { width: 18px; text-align: center; color: var(--accent); }
         .contact-item a { color: inherit; text-decoration: none; transition: 0.2s; }
-        .contact-item a:hover { color: var(--accent); }
+        .contact-item a:hover { color: var(--highlight); }
 
         /* TITRES GAUCHE */
         h3.side-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.25rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             color: white;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 8px;
-            margin: 10px 0 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+            margin-top: 35px;
+            margin-bottom: 15px;
         }
 
-        /* COMPÉTENCES */
-        .skill-box { margin-bottom: 15px; }
-        .skill-cat { font-weight: 700; color: var(--accent); font-size: 0.9rem; text-transform: uppercase; display: block; margin-bottom: 6px; }
-        .skill-list { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; text-align: left; }
+        /* LISTES TECH */
+        .tech-box { margin-bottom: 20px; }
+        .tech-cat { 
+            color: var(--accent); 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            display: block; 
+            margin-bottom: 5px; 
+            text-transform: uppercase;
+        }
+        .tech-list { 
+            font-size: 0.85rem; 
+            color: #cbd5e1; 
+            line-height: 1.5; 
+            text-align: left;
+        }
 
-        /* SOFT SKILLS (NOUVEAU) */
-        .soft-skill-tag {
-            display: inline-block;
+        /* BADGES NORMES */
+        .norm-badge {
+            display: block;
             background: rgba(255,255,255,0.1);
+            border-left: 3px solid var(--highlight);
             padding: 4px 10px;
-            border-radius: 20px;
+            margin-bottom: 6px;
             font-size: 0.8rem;
-            margin: 3px 2px;
-            border: 1px solid rgba(255,255,255,0.2);
+            color: #f1f5f9;
         }
 
-        /* QR CODE (MODERNE) */
-        .qr-box {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: auto; /* Pousse en bas si espace */
-        }
-        .qr-img {
-            width: 80px; height: 80px;
-            margin: 0 auto;
-            background-image: url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://linkedin.com/in/bader');
-            background-size: cover;
-        }
-        .qr-text { color: var(--sidebar-bg); font-size: 0.7rem; font-weight: 700; margin-top: 5px; text-transform: uppercase;}
-
-        /* --- COLONNE DROITE (CONTENU) --- */
+        /* --- COLONNE DROITE (CARRIÈRE) --- */
         .right-col { padding: 40px 35px; background: white; }
 
         /* EN-TÊTE */
-        .header { margin-bottom: 30px; border-left: 5px solid var(--sidebar-bg); padding-left: 20px; }
+        .header { 
+            margin-bottom: 30px; 
+            border-bottom: 2px solid #f1f5f9; 
+            padding-bottom: 20px; 
+        }
         h1 {
-            font-family: 'Oswald', sans-serif;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: 3rem;
             text-transform: uppercase;
-            color: var(--sidebar-bg);
+            color: var(--primary);
             margin: 0;
-            line-height: 1;
+            line-height: 0.9;
         }
         h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 500;
             color: var(--accent);
-            margin: 8px 0 0 0;
+            margin: 10px 0 0 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* PROFIL */
+        /* RÉSUMÉ PRO */
         .summary {
             font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--main-text);
+            color: var(--text-grey);
             margin-bottom: 35px;
             text-align: justify;
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 6px;
+            line-height: 1.6;
         }
 
-        /* TITRES PRINCIPAUX */
+        /* TITRES SECTIONS */
         h3.main-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.4rem;
-            color: var(--sidebar-bg);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem;
             text-transform: uppercase;
+            color: var(--primary);
             margin-top: 35px;
             margin-bottom: 20px;
-            display: flex; align-items: center; gap: 12px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            background: #f8fafc;
+            padding-top: 8px; padding-bottom: 8px;
         }
         h3.main-title i { color: var(--accent); }
 
-        /* ITEMS (Formation/Exp) */
-        .item { margin-bottom: 25px; }
-        .item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
-        .item-title { font-weight: 700; font-size: 1.1rem; color: #000; }
-        .item-org { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
-        .item-date { font-weight: 700; font-size: 0.85rem; color: var(--main-text); background: #f1f5f9; padding: 2px 8px; border-radius: 4px; }
+        /* BLOCS EXPÉRIENCES */
+        .exp-item { margin-bottom: 25px; }
+        .exp-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; }
+        .exp-role { font-weight: 700; font-size: 1.1rem; color: #000; }
+        .exp-company { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+        .exp-date { font-weight: 700; font-size: 0.85rem; color: #fff; background: var(--primary); padding: 2px 8px; border-radius: 2px;}
 
-        .item-desc { 
-            margin: 8px 0 0 0; 
-            padding-left: 18px; 
-            font-size: 0.95rem; 
-            line-height: 1.5;
-            color: #475569;
-        }
-        .item-desc li { margin-bottom: 5px; }
+        .exp-desc { margin: 8px 0 0 0; padding-left: 15px; font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; }
+        .exp-desc li { margin-bottom: 5px; }
 
-        /* PROJETS (Cartes esthétiques) */
+        /* PROJETS INNOVANTS */
         .proj-card {
             border: 1px solid #e2e8f0;
-            border-left: 4px solid var(--sidebar-bg);
-            padding: 12px 15px;
-            margin-bottom: 15px;
             background: #fff;
-            transition: 0.3s;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .proj-title { font-weight: 700; color: var(--sidebar-bg); font-size: 1rem; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .proj-tag { font-size: 0.75rem; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-weight: normal; }
-        .proj-desc { font-size: 0.9rem; margin-top: 8px; text-align: justify; color: #475569; }
-        .tech-stack { font-size: 0.8rem; margin-top: 8px; color: var(--accent); font-weight: 600; display: block; }
+        .proj-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .proj-title { font-weight: 800; color: var(--primary); font-size: 1rem; text-transform: uppercase; }
+        .proj-tag { font-size: 0.75rem; background: var(--accent); color: white; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        
+        .proj-text { font-size: 0.92rem; color: var(--text-grey); text-align: justify; margin-bottom: 8px; }
+        .tech-stack { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); border-top: 1px dashed #cbd5e1; padding-top: 6px; display: block; }
 
         /* BOUTON PDF */
         .btn-print {
             position: fixed; top: 20px; right: 20px;
-            background: var(--accent); color: white;
-            padding: 12px 25px; border-radius: 30px;
-            text-decoration: none; font-weight: 700;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-            transition: transform 0.2s;
+            background: var(--primary); color: white;
+            padding: 12px 25px; border-radius: 4px;
+            text-decoration: none; font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        .btn-print:hover { transform: translateY(-2px); }
 
         @media print {
             body { padding: 0; background: white; }
             .page { width: 100%; box-shadow: none; margin: 0; }
             .btn-print { display: none; }
             .left-col { background-color: #0f172a !important; -webkit-print-color-adjust: exact; }
-            .proj-card { break-inside: avoid; }
+            h3.main-title { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
-    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-file-pdf"></i> Enregistrer en PDF</a>
+    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-file-pdf"></i> Imprimer le CV</a>
 
     <div class="page">
         <aside class="left-col">
@@ -231,148 +226,158 @@
                      alt="Bader El Berkaoui" class="profile-img">
             </div>
 
-            <h3 class="side-title">Contact</h3>
-            <div class="contact-group">
-                <div class="contact-item"><i class="fas fa-phone"></i> 0703476035</div>
-                <div class="contact-item"><i class="fas fa-envelope"></i> baderbarkaoui707@gmail.com</div>
-                <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</div>
-                <div class="contact-item"><i class="fab fa-linkedin"></i> linkedin.com/in/bader</div>
-                <div class="contact-item"><i class="fab fa-github"></i> github.com/bader...</div>
-            </div>
+            <h3 class="side-title">Coordonnées</h3>
+            <div class="contact-item"><i class="fas fa-phone"></i> 0703476035</div>
+            <div class="contact-item"><i class="fas fa-envelope"></i> baderbarkaoui707@gmail.com</div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</div>
+            <div class="contact-item"><i class="fab fa-linkedin"></i> linkedin.com/in/bader</div>
+            <div class="contact-item"><i class="fab fa-github"></i> github.com/bader...</div>
 
-            <h3 class="side-title">Compétences Clés</h3>
+            <h3 class="side-title">Compétences Techniques</h3>
             
-            <div class="skill-box">
-                <span class="skill-cat">Génie Électrique</span>
-                <div class="skill-list">
-                    • Dimensionnement CFO/CFA<br>
-                    • Haute Tension / Basse Tension<br>
-                    • Analyse Qualité Énergie<br>
-                    • Normes NF C 15-100 / 13-100
+            <div class="tech-box">
+                <span class="tech-cat">Études Électriques</span>
+                <div class="tech-list">
+                    • <strong>Caneco BT :</strong> Dimensionnement, Icc, Sélectivité.<br>
+                    • <strong>Dialux EVO :</strong> Étude photométrique, Norme EN 12464.<br>
+                    • <strong>AutoCAD Elec :</strong> Schémas unifilaires, Plans d'implantation.<br>
+                    • <strong>Simulation :</strong> PSIM, MATLAB, Proteus.
                 </div>
             </div>
 
-            <div class="skill-box">
-                <span class="skill-cat">Logiciels Études</span>
-                <div class="skill-list">
-                    Caneco BT, Dialux EVO, AutoCAD Electrical, PSIM, SolidWorks.
+            <div class="tech-box">
+                <span class="tech-cat">Automatisme & SNCC</span>
+                <div class="tech-list">
+                    • <strong>Siemens :</strong> TIA Portal (S7-1200/1500), WinCC SCADA.<br>
+                    • <strong>Schneider :</strong> Unity Pro, PL7.<br>
+                    • <strong>Langages :</strong> Ladder, Grafcet, GEMMA.
                 </div>
             </div>
 
-            <div class="skill-box">
-                <span class="skill-cat">Automatisme & IoT</span>
-                <div class="skill-list">
-                    Siemens TIA Portal, WinCC, Grafcet, Python, C/C++, MQTT, STM32.
+            <div class="tech-box">
+                <span class="tech-cat">IoT & Systèmes Embarqués</span>
+                <div class="tech-list">
+                    • <strong>Hardware :</strong> Raspberry Pi 5, STM32, ESP32.<br>
+                    • <strong>Dev :</strong> C/C++ Embedded, Python (OpenCV), VHDL.
                 </div>
             </div>
 
-            <h3 class="side-title">Savoir-Être</h3>
-            <div>
-                <span class="soft-skill-tag">Leadership</span>
-                <span class="soft-skill-tag">Gestion de Projet</span>
-                <span class="soft-skill-tag">Rigueur</span>
-                <span class="soft-skill-tag">Esprit d'analyse</span>
-                <span class="soft-skill-tag">Travail d'équipe</span>
-            </div>
+            <h3 class="side-title">Normes & Standards</h3>
+            <span class="norm-badge">NF C 15-100 (Installations BT)</span>
+            <span class="norm-badge">NF C 13-100 (Postes HT)</span>
+            <span class="norm-badge">IEC 61131 (Automates)</span>
+            <span class="norm-badge">Habilitation Électrique</span>
 
-            <div style="flex-grow: 1;"></div> <div class="qr-box">
-                <div class="qr-img"></div>
-                <div class="qr-text">Mon Profil LinkedIn</div>
-            </div>
+            <h3 class="side-title">Langues</h3>
+            <div class="contact-item" style="justify-content: space-between;"><span>Arabe</span> <strong>Natif</strong></div>
+            <div class="contact-item" style="justify-content: space-between;"><span>Français</span> <strong>Courant</strong></div>
+            <div class="contact-item" style="justify-content: space-between;"><span>Anglais</span> <strong>Technique</strong></div>
         </aside>
 
         <main class="right-col">
             
             <header class="header">
                 <h1>Bader El Berkaoui</h1>
-                <h2>Ingénieur en Génie Électrique & Contrôle Industriel</h2>
+                <h2>Ingénieur Génie Électrique & Contrôle Industriel</h2>
             </header>
 
             <div class="summary">
-                Élève ingénieur passionné par l'efficacité énergétique et l'industrie 4.0. Fort d'un parcours académique d'excellence et d'une expertise technique couvrant la distribution électrique (HT/BT) et l'automatisme, je conçois des solutions innovantes intégrant l'IoT et l'Intelligence Artificielle. Mon objectif : fiabiliser les installations industrielles grâce à la maintenance prédictive.
+                Élève ingénieur passionné par les défis énergétiques et l'automatisation industrielle. Fort d'une expertise en <strong>Courants Forts (CFO)</strong> et <strong>Systèmes Embarqués</strong>, je conçois des solutions alliant conformité normative (NF C 15-100) et innovation technologique (IoT). Rigoureux et orienté terrain, je souhaite mettre mes compétences techniques au service de projets industriels d'envergure.
             </div>
 
             <section>
-                <h3 class="main-title"><i class="fas fa-graduation-cap"></i> Formation</h3>
+                <h3 class="main-title"><i class="fas fa-university"></i> Formation Académique</h3>
                 
-                <div class="item">
-                    <div class="item-header">
-                        <span class="item-title">Cycle d'Ingénieur d'État</span>
-                        <span class="item-date">2024 - Présent</span>
+                <div class="exp-item">
+                    <div class="exp-head">
+                        <span class="exp-role">Cycle d'Ingénieur d'État (GECI)</span>
+                        <span class="exp-date">2024 - Présent</span>
                     </div>
-                    <div class="item-org">Faculté des Sciences et Techniques Mohammedia</div>
-                    <div class="item-desc">
-                        Spécialité : Génie Électrique et Contrôle Industriel (GECI).<br>
-                        <em>Modules : Électronique de puissance, Machines électriques, Régulation.</em>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-header">
-                        <span class="item-title">Licence Génie Électrique & Systèmes Automatisés</span>
-                        <span class="item-date">2021 - 2024</span>
-                    </div>
-                    <div class="item-org">Faculté des Sciences et Techniques Settat</div>
-                    <div class="item-desc">
-                        <strong>Major de Promotion</strong> | Mention Très Bien.<br>
-                        <em>Projet de fin d'études axé sur l'optimisation énergétique.</em>
+                    <span class="exp-company">Faculté des Sciences et Techniques Mohammedia</span>
+                    <div class="exp-desc">
+                        Génie Électrique et Contrôle Industriel.
+                        <br>Modules clés : Électronique de puissance, Machines électriques, Régulation industrielle, Automatisme avancé.
                     </div>
                 </div>
-            </section>
 
-            <section>
-                <h3 class="main-title"><i class="fas fa-briefcase"></i> Expérience Professionnelle</h3>
-
-                <div class="item">
-                    <div class="item-header">
-                        <span class="item-title">Stagiaire Technique (Maintenance HT/BT)</span>
-                        <span class="item-date">Juil - Août 2025</span>
+                <div class="exp-item">
+                    <div class="exp-head">
+                        <span class="exp-role">Licence Génie Électrique & Systèmes Automatisés</span>
+                        <span class="exp-date">2021 - 2024</span>
                     </div>
-                    <div class="item-org">SRM Casablanca (Société de Réalisations Mécaniques)</div>
-                    <ul class="item-desc">
-                        <li>Diagnostic des transformateurs de puissance par <strong>Analyse des Gaz Dissous (DGA)</strong> selon norme IEC 60599 (Détection points chauds/arcs).</li>
-                        <li>Maintenance préventive des postes sources Haute Tension (60kV/225kV) et inspection thermographique.</li>
-                        <li>Analyse de la qualité de l'énergie et conformité des protections électriques.</li>
-                    </ul>
-                </div>
-
-                <div class="item">
-                    <div class="item-header">
-                        <span class="item-title">Stage Bureau d'Études Électriques</span>
-                        <span class="item-date">Mars - Juin 2024</span>
+                    <span class="exp-company">Faculté des Sciences et Techniques Settat</span>
+                    <div class="exp-desc">
+                        <strong>Major de Promotion</strong> (Classé 1er) | Mention Très Bien.
                     </div>
-                    <div class="item-org">EM ÉNERGIE (Groupe EM) - Projet Borj Attijari</div>
-                    <ul class="item-desc">
-                        <li>Dimensionnement des installations BT sous <strong>Caneco BT</strong> : Calcul des sections de câbles, Icc et sélectivité.</li>
-                        <li>Étude d'éclairement des locaux sous <strong>Dialux EVO</strong> pour optimisation énergétique.</li>
-                        <li>Réalisation des dossiers d'exécution : Schémas unifilaires et plans d'implantation sous <strong>AutoCAD</strong>.</li>
-                    </ul>
                 </div>
             </section>
 
             <section>
-                <h3 class="main-title"><i class="fas fa-rocket"></i> Innovation & R&D</h3>
+                <h3 class="main-title"><i class="fas fa-briefcase"></i> Expériences Professionnelles</h3>
+
+                <div class="exp-item">
+                    <div class="exp-head">
+                        <span class="exp-role">Stagiaire Technique (Maintenance HT/BT)</span>
+                        <span class="exp-date">Juil - Août 2025</span>
+                    </div>
+                    <span class="exp-company">SRM Casablanca (Société de Réalisations Mécaniques)</span>
+                    <ul class="exp-desc">
+                        <li>Diagnostic prédictif des transformateurs de puissance par <strong>Analyse des Gaz Dissous (DGA)</strong> selon la norme IEC 60599 (Détection de points chauds et arcs internes).</li>
+                        <li>Maintenance préventive des postes sources Haute Tension (60kV/225kV) et inspection des disjoncteurs SF6.</li>
+                        <li>Analyse de la qualité de l'énergie et vérification de la sélectivité des protections.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-head">
+                        <span class="exp-role">Stage Bureau d'Études Électriques</span>
+                        <span class="exp-date">Mars - Juin 2024</span>
+                    </div>
+                    <span class="exp-company">EM ÉNERGIE (Groupe EM) - Projet Borj Attijari</span>
+                    <ul class="exp-desc">
+                        <li>Dimensionnement complet des câbles et protections Basse Tension sous <strong>Caneco BT</strong> (Calcul des courants de court-circuit Icc, chute de tension).</li>
+                        <li>Étude d'éclairement et optimisation de l'efficacité énergétique sous <strong>Dialux EVO</strong>.</li>
+                        <li>Réalisation des carnets de câbles, schémas unifilaires et plans d'implantation sur <strong>AutoCAD</strong>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="main-title"><i class="fas fa-rocket"></i> Projets & Innovation</h3>
 
                 <div class="proj-card">
-                    <div class="proj-title">Plateforme GMAO 4.0 Automatisée <span class="proj-tag">Maintenance Prédictive</span></div>
-                    <div class="proj-desc">
-                        Conception d'un écosystème complet de maintenance connectée. Automatisation de la chaîne de valeur : détection d'anomalie vibratoire via capteurs IoT → Analyse spectrale par IA → Création automatique d'ordre de travail.
+                    <div class="proj-head">
+                        <span class="proj-title">Drone "Amana" - Solution Multitâche Adaptative</span>
+                        <span class="proj-tag">SÉCURITÉ CIVILE</span>
                     </div>
-                    <span class="tech-stack">PYTHON • SQL • MQTT • ANALYSE VIBRATOIRE (FFT) • DASHBOARD WEB</span>
+                    <div class="proj-text">
+                        Conception d'un drone modulaire à architecture interchangeable pour la gestion de catastrophes.
+                        <br>• <strong>Inondations :</strong> Module de largage automatique de bouées de sauvetage et étanchéité IP67.
+                        <br>• <strong>Séismes :</strong> Module de cartographie thermique pour la détection de victimes sous décombres et livraison de kits de secours.
+                    </div>
+                    <span class="tech-stack">Technologies : Contrôleur de vol • Vision Thermique • GPS Différentiel • Matériaux Composites</span>
                 </div>
 
                 <div class="proj-card">
-                    <div class="proj-title">Drone "Amana" - Intervention Séisme <span class="proj-tag">Robotique Mobile</span></div>
-                    <div class="proj-desc">
-                        Drone modulaire pour zones sinistrées. Fusion de capteurs (Vision Thermique + LiDAR) pour la détection autonome de victimes et livraison de kits de secours.
+                    <div class="proj-head">
+                        <span class="proj-title">Projet "Tawfir" - Gestion de l'Eau IoT & IA</span>
+                        <span class="proj-tag">SMART CITY</span>
                     </div>
+                    <div class="proj-text">
+                        Système intelligent de détection de fuites d'eau. Utilisation de l'Intelligence Artificielle sur microcontrôleur ESP32 pour analyser les profils de débit en temps réel et alerter via Cloud.
+                    </div>
+                    <span class="tech-stack">Technologies : ESP32 • Machine Learning • Capteurs Débit/Pression • MQTT</span>
                 </div>
 
                 <div class="proj-card">
-                    <div class="proj-title">Système "Tawfir" - Gestion Eau <span class="proj-tag">IoT & IA</span></div>
-                    <div class="proj-desc">
-                        Solution de détection de fuites d'eau par analyse de débit (Machine Learning sur ESP32). Alerting temps réel via Cloud.
+                    <div class="proj-head">
+                        <span class="proj-title">Robot Mobile Autonome & Bras Manipulateur</span>
+                        <span class="proj-tag">INDUSTRIE 4.0</span>
                     </div>
+                    <div class="proj-text">
+                        Conception d'un robot mobile avec bras articulé piloté par <strong>Raspberry Pi 5</strong>. Intégration de la <strong>Vision par Ordinateur (OpenCV)</strong> pour le suivi de ligne précis et la reconnaissance d'objets à saisir.
+                    </div>
+                    <span class="tech-stack">Technologies : Raspberry Pi 5 • Python • OpenCV • Régulation PID • Servomoteurs</span>
                 </div>
 
             </section>
