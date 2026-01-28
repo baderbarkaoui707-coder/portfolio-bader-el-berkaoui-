@@ -17,6 +17,7 @@
             --text: #ffffff;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(0, 243, 255, 0.2);
+            --cv-color: #ff9f43; /* Nouvelle couleur pour le CV */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Curseur perso activé */ }
@@ -69,12 +70,12 @@
             padding: 15px 50px; border-radius: 50px; border: 1px solid var(--border);
             display: flex; gap: 40px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
             position: relative;
+            align-items: center;
         }
         .nav-glass::before {
             content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 20%;
             background: var(--primary); box-shadow: 0 0 10px var(--primary);
             animation: scanMenu 4s ease-in-out infinite alternate;
-            <a href="cv.html">Mon CV</a>
         }
         @keyframes scanMenu { 0% { left: 10%; width: 10%; } 100% { left: 80%; width: 10%; } }
 
@@ -85,8 +86,21 @@
             display: flex; align-items: center; gap: 8px;
         }
         
-        /* Sur PC, on cache les icônes dans le menu pour faire propre */
-        .nav-link i { display: none; }
+        /* Style Spécial pour le bouton CV */
+        .nav-link.cv-btn {
+            color: var(--cv-color);
+            border: 1px solid var(--cv-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .nav-link.cv-btn:hover {
+            background: var(--cv-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--cv-color);
+        }
+        
+        /* Sur PC, on cache les icônes dans le menu pour faire propre, sauf pour le CV */
+        .nav-link:not(.cv-btn) i { display: none; }
         
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px var(--primary); }
 
@@ -245,6 +259,12 @@
             /* Sur mobile, on affiche les icônes et le texte en tout petit */
             .nav-link i { display: block; font-size: 1.2rem; margin-bottom: 0; color: var(--primary); }
             .nav-link span { display: block; font-size: 0.6rem; opacity: 0.7; }
+            
+            /* Style spécifique mobile pour CV */
+            .nav-link.cv-btn { border: none; padding: 0; }
+            .nav-link.cv-btn:hover { background: transparent; box-shadow: none; }
+            .nav-link.cv-btn i { color: var(--cv-color); }
+            .nav-link.cv-btn span { color: var(--cv-color); opacity: 1; font-weight: bold; }
         }
     </style>
 </head>
@@ -278,6 +298,10 @@
             <a href="projets.html" class="nav-link">
                 <i class="fas fa-project-diagram"></i> <span>Projets</span>
             </a>
+            <a href="cv.html" class="nav-link cv-btn">
+                <i class="fas fa-file-pdf"></i> <span>Mon CV</span>
+            </a>
+            
             <a href="contact.html" class="nav-link">
                 <i class="fas fa-envelope"></i> <span>Contact</span>
             </a>
@@ -358,4 +382,3 @@
     </script>
 </body>
 </html>
-
