@@ -3,351 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bader El Berkaoui | Portfolio 2026</title>
+    <title>Bader El Berkaoui | Ingénieur Expert</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #050505;
-            --card: #101010;
-            --border: rgba(255,255,255,0.08);
-            --primary: #2f54eb; /* Bleu électrique moderne */
-            --accent: #00ff9d;  /* Vert Cyber */
+            --bg-deep: #02040a;
+            --primary: #00f3ff;
+            --secondary: #7000ff;
             --text: #ffffff;
-            --text-gray: #888;
-            --dock-bg: rgba(20, 20, 20, 0.6);
+            --text-muted: #a0a0c0;
+            --glass: rgba(10, 20, 40, 0.6);
+            --border: 1px solid rgba(0, 243, 255, 0.2);
+            --card-bg: rgba(5, 10, 25, 0.8);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
+        
         body {
-            background-color: var(--bg);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep);
             color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
             overflow-x: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         }
 
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
+        /* --- PRELOADER (Écran de chargement) --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out;
         }
-        .cursor-dot { width: 8px; height: 8px; background: white; }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        .loader-ring {
+            width: 80px; height: 80px; border: 4px solid transparent;
+            border-top-color: var(--primary); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
-        body:hover .cursor-outline { width: 50px; height: 50px; }
+        .loader-text {
+            font-family: 'Rajdhani'; letter-spacing: 4px; color: var(--primary);
+            animation: blink 1.5s infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* --- LAYOUT GRID (BENTO) --- */
-        .main-container {
-            max-width: 1400px; margin: 0 auto; padding: 40px 20px 120px; /* Padding bottom pour le dock */
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto auto;
-            gap: 20px;
+        /* --- FOND ANIMÉ (CANVAS) --- */
+        #star-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 50% 0%, #1a1a40 0%, #000000 100%);
         }
 
-        /* --- CARDS GÉNÉRIQUES --- */
-        .bento-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 30px; padding: 30px; position: relative; overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            display: flex; flex-direction: column;
-        }
-        .bento-card:hover {
-            transform: translateY(-5px); border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        
-        /* Grids Spanning */
-        .col-span-2 { grid-column: span 2; }
-        .col-span-4 { grid-column: span 4; }
-        .row-span-2 { grid-row: span 2; }
-
-        /* --- CONTENU SPÉCIFIQUE --- */
-        
-        /* 1. HERO PROFILE */
-        .profile-card {
-            display: flex; align-items: center; justify-content: space-between;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-        }
-        .profile-info h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; line-height: 1.1; }
-        .profile-info p { color: var(--text-gray); font-size: 1.1rem; max-width: 400px; }
-        .status-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(0, 255, 157, 0.1); color: var(--accent);
-            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;
-            margin-bottom: 15px; border: 1px solid rgba(0, 255, 157, 0.2);
-        }
-        .status-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite; }
-        
-        .profile-img-box {
-            width: 150px; height: 150px; border-radius: 50%; overflow: hidden;
-            border: 4px solid rgba(255,255,255,0.1);
-        }
-        .profile-img-box img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
-
-        /* 2. MAP LOCATION */
-        .map-card {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg');
-            background-size: cover; background-position: center; filter: invert(1) opacity(0.1);
-            display: flex; align-items: flex-end; justify-content: flex-start;
-        }
-        .location-pin {
-            position: absolute; top: 40%; left: 45%; /* Approx Maroc */
-            color: var(--primary); font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
-        .location-text { z-index: 2; font-weight: 700; font-size: 1.2rem; }
-
-        /* 3. TERMINAL */
-        .terminal-card {
-            font-family: 'JetBrains Mono', monospace; background: #000;
-            border: 1px solid #333; padding: 20px;
-        }
-        .terminal-header { display: flex; gap: 6px; margin-bottom: 15px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-        
-        .code-line { color: var(--accent); margin-bottom: 5px; font-size: 0.9rem; }
-        .code-line span { color: white; }
-        .cursor-blink { animation: blink 1s step-end infinite; }
-
-        /* 4. PROJET VEDETTE (Drone) */
-        .project-highlight {
-            background: radial-gradient(circle at top right, rgba(47, 84, 235, 0.2), transparent);
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .project-img-wrapper {
-            width: 100%; height: 180px; border-radius: 15px; overflow: hidden; margin-top: 20px;
-            position: relative;
-        }
-        .project-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .project-highlight:hover img { transform: scale(1.1); }
-        .arrow-btn {
-            position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
-            background: white; border-radius: 50%; color: black; display: flex;
-            align-items: center; justify-content: center; font-size: 1.2rem;
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
+            display: flex; justify-content: center;
+            background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
             transition: 0.3s;
         }
-        .bento-card:hover .arrow-btn { transform: rotate(45deg); }
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a { 
+            color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px; font-family: 'Rajdhani', sans-serif;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--primary); }
+        .nav-links a i { color: var(--primary); transition: 0.3s; }
 
-        /* 5. SKILLS MARQUEE */
-        .skills-card { overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
-        .marquee-content { display: flex; gap: 20px; animation: marquee 15s linear infinite; }
-        .skill-tag {
-            padding: 8px 20px; background: rgba(255,255,255,0.05); border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #ccc;
+        /* BOUTON CV DISTINCT */
+        .cv-btn {
+            border: 1px solid var(--primary); padding: 6px 20px; border-radius: 50px;
+            color: var(--primary) !important; font-weight: 800 !important;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+        .cv-btn:hover { 
+            background: var(--primary); color: #000 !important; 
+            box-shadow: 0 0 30px var(--primary); 
+        }
+        .cv-btn i { color: inherit !important; }
+
+        /* --- HERO SECTION (SYSTEME SOLAIRE) --- */
+        .hero-section {
+            min-height: 100vh; display: grid; grid-template-columns: 1.2fr 0.8fr;
+            align-items: center; padding: 100px 10% 0; position: relative;
         }
 
-        /* 6. SOCIALS */
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .social-item {
-            background: rgba(255,255,255,0.03); border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: white; text-decoration: none; transition: 0.3s;
-            height: 80px; border: 1px solid transparent;
-        }
-        .social-item:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
-        .linkedin:hover { color: #0077b5; }
-        .github:hover { color: #fff; }
-
-        /* --- DOCK NAVIGATION (L'élément "Wow") --- */
-        .dock-container {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: var(--dock-bg); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 20px; border-radius: 20px;
-            display: flex; gap: 15px; align-items: center; z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .hero-content { z-index: 2; }
+        
+        .badge-pro {
+            display: inline-block; padding: 8px 16px; border-left: 3px solid var(--primary);
+            color: var(--primary); font-family: 'Rajdhani', sans-serif; font-weight: 700;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent); 
+            margin-bottom: 25px; letter-spacing: 2px; font-size: 0.9rem;
         }
 
-        .dock-item {
-            position: relative; list-style: none; display: flex; flex-direction: column; align-items: center;
-            width: 50px; height: 50px; justify-content: center;
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border-radius: 12px;
+        h1 {
+            font-size: 5rem; line-height: 1; margin-bottom: 20px; font-family: 'Outfit', sans-serif; font-weight: 800;
+            background: linear-gradient(180deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .typed-box {
+            font-size: 1.8rem; color: var(--text-muted); font-family: 'Rajdhani'; 
+            display: flex; gap: 10px; align-items: center; margin-bottom: 40px; height: 30px;
+        }
+
+        .cta-box { display: flex; gap: 20px; }
+        .btn-hero {
+            padding: 15px 40px; border-radius: 4px; font-weight: bold; text-decoration: none; 
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0, 243, 255, 0.5); }
+        
+        .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: #fff; background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); background: rgba(112, 0, 255, 0.1); }
+
+        /* ZONE VISUELLE (SOLAR SYSTEM) */
+        .visual-zone { 
+            display: flex; justify-content: center; align-items: center; position: relative; height: 500px;
         }
         
-        .dock-link {
-            font-size: 1.5rem; color: #bbb; transition: 0.2s; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+        .solar-system { 
+            width: 450px; height: 450px; position: relative; 
+            display: flex; justify-content: center; align-items: center; 
         }
         
-        .dock-item:hover { width: 65px; height: 65px; margin-top: -15px; }
-        .dock-item:hover .dock-link { color: white; font-size: 2rem; }
-        
-        /* Tooltip simple */
-        .dock-item::after {
-            content: attr(data-title); position: absolute; top: -35px;
-            background: rgba(0,0,0,0.8); color: white; padding: 4px 8px;
-            border-radius: 4px; font-size: 0.75rem; opacity: 0; transition: 0.2s;
-            pointer-events: none; white-space: nowrap;
+        .sun-wrapper {
+            width: 240px; height: 240px; border-radius: 50%; z-index: 10; padding: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 80px rgba(0, 243, 255, 0.4);
+            position: relative; overflow: hidden;
         }
-        .dock-item:hover::after { opacity: 1; top: -45px; }
+        
+        /* Image de profil sécurisée */
+        .profile-img { 
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%; 
+            border: 4px solid #000; 
+            /* Ajustement pour centrer sur le visage si l'image est un buste */
+            object-position: center 20%; 
+        }
 
-        /* CV Button Special */
-        .dock-cv { background: var(--primary); border-radius: 12px; }
-        .dock-cv .dock-link { color: white; font-weight: bold; font-size: 1rem; }
-        .dock-cv:hover { background: white; }
-        .dock-cv:hover .dock-link { color: black; }
+        .orbit { position: absolute; border: 1px dashed rgba(255,255,255,0.1); border-radius: 50%; animation: rotate 30s linear infinite; }
+        .orbit-1 { width: 360px; height: 360px; }
+        .orbit-2 { width: 540px; height: 540px; animation-duration: 45s; animation-direction: reverse; }
+        
+        .planet {
+            position: absolute; width: 60px; height: 60px; background: #050a14;
+            border: 1px solid var(--primary); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: var(--primary);
+            box-shadow: 0 0 20px rgba(0,243,255,0.2); transition: 0.3s;
+            cursor: pointer;
+        }
+        .planet:hover { background: var(--primary); color: #000; transform: scale(1.2); box-shadow: 0 0 40px var(--primary); z-index: 100; }
+        
+        /* Tooltips Planètes */
+        .planet::after {
+            content: attr(data-title); position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem;
+            color: #fff; opacity: 0; transition: 0.3s; pointer-events: none; white-space: nowrap; border: 1px solid var(--primary);
+        }
+        .planet:hover::after { opacity: 1; bottom: -40px; }
 
-        /* --- ANIMATIONS --- */
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(0, 255, 157, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); } }
-        @keyframes blink { 50% { opacity: 0; } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        /* Positions */
+        .p1 { top: 0; left: 50%; margin-top: -30px; margin-left: -30px; } 
+        .p2 { bottom: 0; left: 50%; margin-bottom: -30px; margin-left: -30px; }
+        .p3 { top: 50%; left: 0; margin-top: -30px; margin-left: -30px; }
+        .p4 { top: 50%; right: 0; margin-top: -30px; margin-right: -30px; }
+        .p5 { top: 15%; left: 15%; } 
+        .p6 { bottom: 15%; right: 15%; }
+        
+        @keyframes rotate { from{transform: rotate(0deg);} to{transform: rotate(360deg);} }
+
+        /* --- STATS SECTION --- */
+        .stats-bar {
+            display: flex; justify-content: space-around; padding: 40px 0; margin: 80px 10%;
+            border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+        }
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 3rem; font-weight: 800; color: #fff; display: block; }
+        .stat-label { color: var(--primary); font-family: 'Rajdhani'; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- TEASER PROJETS (Holographic Cards) --- */
+        .section-preview { padding: 100px 10%; }
+        .section-title { 
+            font-family: 'Rajdhani'; font-size: 3rem; text-transform: uppercase; color: #fff; 
+            margin-bottom: 60px; border-left: 5px solid var(--primary); padding-left: 20px;
+        }
+        
+        .holo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        
+        .holo-card {
+            background: var(--card-bg); border: var(--border); padding: 30px; border-radius: 20px;
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .holo-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 50px rgba(0, 243, 255, 0.1); }
+        
+        .card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .card-tags { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tag { font-size: 0.75rem; padding: 4px 10px; background: rgba(255,255,255,0.1); border-radius: 4px; color: var(--primary); }
+        
+        .holo-card h3 { font-size: 1.5rem; margin-bottom: 10px; font-family: 'Rajdhani'; }
+        .holo-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .btn-card { color: #fff; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-card:hover { color: var(--primary); gap: 15px; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 50px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); }
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .main-container { grid-template-columns: 1fr; }
-            .col-span-2, .col-span-4 { grid-column: span 1; }
-            .profile-card { flex-direction: column; text-align: center; gap: 20px; }
-            .dock-container { padding: 10px; width: 90%; justify-content: space-between; }
-            .dock-item:hover { width: 50px; height: 50px; margin-top: 0; } /* Désactiver effet dock sur mobile */
+            .hero-section { grid-template-columns: 1fr; text-align: center; padding-top: 140px; }
+            .content-zone { order: 2; }
+            .visual-zone { order: 1; transform: scale(0.85); margin-bottom: 40px; }
+            h1 { font-size: 3.5rem; }
+            .cta-box { justify-content: center; }
+            .typed-box { justify-content: center; }
+            
+            nav { bottom: 0; top: auto; padding: 10px 0; background: #000; border-top: 1px solid var(--primary); }
+            .nav-links { width: 100%; justify-content: space-around; gap: 0; }
+            .nav-links a { flex-direction: column; font-size: 0.7rem; gap: 2px; }
+            .nav-links a i { font-size: 1.2rem; }
+            .cv-btn { background: transparent; border: none; box-shadow: none; padding: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <div id="preloader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">INITIALISATION DU SYSTÈME...</div>
+    </div>
 
-    <main class="main-container">
-        
-        <div class="bento-card col-span-2 profile-card">
-            <div class="profile-info">
-                <div class="status-badge"><div class="status-dot"></div> Open to Work</div>
-                <h1>Bader El<br>Berkaoui</h1>
-                <p>Ingénieur Génie Électrique & Automatisme. <br>Major de Promotion.</p>
+    <canvas id="star-canvas"></canvas>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="parcours.html"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+            <li><a href="experiences.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+            <li><a href="competences.html"><i class="fas fa-microchip"></i> Compétences</a></li>
+            <li><a href="projets.html"><i class="fas fa-rocket"></i> Projets</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="cv.html" class="cv-btn"><i class="fas fa-file-pdf"></i> CV PDF</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <div class="content-zone" data-aos="fade-right">
+            <span class="badge-pro">INGÉNIEUR GÉNIE ÉLECTRIQUE</span>
+            <h1>BADER EL<br>BERKAOUI</h1>
+            
+            <div class="typed-box">
+                <i class="fas fa-chevron-right" style="color:var(--primary)"></i>
+                <span id="typed-text"></span>
             </div>
-            <div class="profile-img-box">
-                <img src="https://baderbarkaoui707-coder.github.io/portfolio-bader-el-berkaoui-/profilee.png" 
-                     onerror="this.src='profilee.png'" alt="Bader">
-            </div>
-        </div>
 
-        <div class="bento-card map-card">
-            <i class="fas fa-map-marker-alt location-pin"></i>
-            <div class="location-text">Casablanca, MA</div>
-        </div>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 500px; line-height: 1.6; margin-bottom: 40px;">
+                Expert en automatismes industriels, systèmes embarqués (IoT) et haute tension.
+                Je transforme la complexité technique en solutions durables et innovantes.
+            </p>
 
-        <div class="bento-card terminal-card">
-            <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-            <div class="code-line">> initializing_system...</div>
-            <div class="code-line">> load_modules: <span>[IoT, SCADA, AI]</span></div>
-            <div class="code-line">> status: <span>READY</span><span class="cursor-blink">_</span></div>
-        </div>
-
-        <div class="bento-card" style="justify-content:center; align-items:center; text-align:center;">
-            <h2 style="font-size:3.5rem; color:var(--primary);">5+</h2>
-            <p style="text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Projets Majeurs</p>
-        </div>
-
-        <a href="projets.html" class="bento-card col-span-2 project-highlight" style="text-decoration:none; color:white;">
-            <div class="arrow-btn"><i class="fas fa-arrow-right"></i></div>
-            <div>
-                <h3 style="font-size:1.5rem;">Drone "Amana"</h3>
-                <p style="color:#aaa;">Sauvetage & Sécurité Civile</p>
-            </div>
-            <div class="project-img-wrapper">
-                <img src="ar1.jpeg" alt="Drone Amana">
-            </div>
-        </a>
-
-        <div class="bento-card col-span-4 skills-card">
-            <div class="marquee-content">
-                <span class="skill-tag">Caneco BT</span>
-                <span class="skill-tag">Dialux EVO</span>
-                <span class="skill-tag">TIA Portal</span>
-                <span class="skill-tag">WinCC SCADA</span>
-                <span class="skill-tag">Python & OpenCV</span>
-                <span class="skill-tag">STM32 Embedded</span>
-                <span class="skill-tag">Haute Tension</span>
-                <span class="skill-tag">IoT & MQTT</span>
-                <span class="skill-tag">Caneco BT</span>
-                <span class="skill-tag">Dialux EVO</span>
-                <span class="skill-tag">TIA Portal</span>
-                <span class="skill-tag">WinCC SCADA</span>
+            <div class="cta-box">
+                <a href="projets.html" class="btn-hero btn-primary">Mes Réalisations</a>
+                <a href="contact.html" class="btn-hero btn-outline">Me Contacter</a>
             </div>
         </div>
 
-        <div class="bento-card">
-            <div class="social-grid" style="height:100%;">
-                <a href="https://linkedin.com/in/bader" class="social-item linkedin"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/bader" class="social-item github"><i class="fab fa-github"></i></a>
-                <a href="mailto:bader@gmail.com" class="social-item" style="grid-column:span 2;"><i class="fas fa-envelope"></i></a>
+        <div class="visual-zone" data-aos="zoom-in">
+            <div class="solar-system">
+                <div class="sun-wrapper">
+                    <img src="https://baderbarkaoui707-coder.github.io/portfolio-bader-el-berkaoui-/profilee.png" 
+                         onerror="this.src='profilee.png'" 
+                         alt="Bader" class="profile-img">
+                </div>
+                
+                <div class="orbit orbit-1">
+                    <div class="planet p1" data-title="Automatisme"><i class="fas fa-cogs"></i></div>
+                    <div class="planet p2" data-title="Embarqué"><i class="fas fa-microchip"></i></div>
+                    <div class="planet p3" data-title="IoT"><i class="fas fa-wifi"></i></div>
+                    <div class="planet p4" data-title="Robotique"><i class="fas fa-robot"></i></div>
+                </div>
+                <div class="orbit orbit-2">
+                    <div class="planet p5" data-title="Energie"><i class="fas fa-solar-panel"></i></div>
+                    <div class="planet p6" data-title="Haute Tension"><i class="fas fa-bolt"></i></div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <a href="projets.html" class="bento-card project-highlight" style="text-decoration:none; color:white; background: radial-gradient(circle at top right, rgba(0, 255, 157, 0.1), transparent);">
-            <div class="arrow-btn"><i class="fas fa-arrow-right"></i></div>
-            <div>
-                <h3 style="font-size:1.5rem;">Tawfir IoT</h3>
-                <p style="color:#aaa;">Smart Water Management</p>
-            </div>
-            <div class="project-img-wrapper">
-                <img src="ae1.jpeg" alt="Projet Tawfir">
-            </div>
-        </a>
-
-    </main>
-
-    <div class="dock-container">
-        <div class="dock-item" data-title="Accueil">
-            <a href="index.html" class="dock-link"><i class="fas fa-home"></i></a>
+    <div class="stats-bar" data-aos="fade-up">
+        <div class="stat-item">
+            <span class="stat-num" data-val="100">Major</span>
+            <span class="stat-label">De Promotion</span>
         </div>
-        <div class="dock-item" data-title="Parcours">
-            <a href="parcours.html" class="dock-link"><i class="fas fa-graduation-cap"></i></a>
+        <div class="stat-item">
+            <span class="stat-num" data-val="5">5+</span>
+            <span class="stat-label">Projets Innovants</span>
         </div>
-        <div class="dock-item" data-title="Compétences">
-            <a href="competences.html" class="dock-link"><i class="fas fa-microchip"></i></a>
-        </div>
-        <div class="dock-item" data-title="Projets">
-            <a href="projets.html" class="dock-link"><i class="fas fa-project-diagram"></i></a>
-        </div>
-        <div class="dock-item" data-title="Contact">
-            <a href="contact.html" class="dock-link"><i class="fas fa-envelope"></i></a>
-        </div>
-        <div class="dock-item dock-cv" data-title="Télécharger CV">
-            <a href="cv.html" class="dock-link">CV</a>
+        <div class="stat-item">
+            <span class="stat-num" data-val="3">3</span>
+            <span class="stat-label">Stages Techniques</span>
         </div>
     </div>
 
+    <section class="section-preview">
+        <h2 class="section-title" data-aos="fade-right">Projets <span>À la Une</span></h2>
+        
+        <div class="holo-grid">
+            <div class="holo-card" data-aos="fade-up">
+                <img src="ar1.jpeg" alt="Drone" class="card-img">
+                <div class="card-tags">
+                    <span class="tag">Sécurité</span>
+                    <span class="tag">IoT</span>
+                </div>
+                <h3>Drone "Amana"</h3>
+                <p>Drone modulaire pour la gestion de catastrophes. Vision thermique et largage de bouées.</p>
+                <a href="projets.html" class="btn-card">Voir détails <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="holo-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="ae1.jpeg" alt="Tawfir" class="card-img">
+                <div class="card-tags">
+                    <span class="tag">Smart City</span>
+                    <span class="tag">IA</span>
+                </div>
+                <h3>Projet "Tawfir"</h3>
+                <p>Système de détection de fuites d'eau par Intelligence Artificielle sur ESP32.</p>
+                <a href="projets.html" class="btn-card">Voir détails <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="holo-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="az1.jpeg" alt="Robot" class="card-img">
+                <div class="card-tags">
+                    <span class="tag">Vision</span>
+                    <span class="tag">Python</span>
+                </div>
+                <h3>Robot Autonome</h3>
+                <p>Robot mobile avec bras manipulateur piloté par Raspberry Pi et OpenCV.</p>
+                <a href="projets.html" class="btn-card">Voir détails <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Bader El Berkaoui. Ingénierie & Innovation.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    
     <script>
-        // Curseur personnalisé
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
+        // 1. Initialisation AOS
+        AOS.init({ duration: 1000, once: true });
 
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot suit instantanément
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Outline suit avec délai (effet smooth)
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Animation d'entrée des cartes
-        document.querySelectorAll('.bento-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
+        // 2. Preloader Disparition
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100 * index);
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                }, 800);
+            }, 1000);
         });
+
+        // 3. Texte dactylographié
+        var typed = new Typed('#typed-text', {
+            strings: ["Automatisme Industriel", "Systèmes Embarqués", "Haute Tension", "Smart Grids"],
+            typeSpeed: 50, backSpeed: 30, backDelay: 2000, loop: true
+        });
+
+        // 4. Fond Étoilé (Canvas optimisé)
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+
+        function initStars() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            stars = [];
+            for(let i=0; i<100; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'white';
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+                ctx.fill();
+                star.y -= star.speed;
+                if(star.y < 0) star.y = height;
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        initStars();
+        animateStars();
+        window.addEventListener('resize', initStars);
     </script>
 </body>
 </html>
