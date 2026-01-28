@@ -17,7 +17,7 @@
             --accent: #bc13fe;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --glass-card: rgba(15, 20, 35, 0.8);
+            --glass-card: rgba(15, 20, 35, 0.85);
             --border-glow: 1px solid rgba(0, 243, 255, 0.2);
         }
 
@@ -37,7 +37,7 @@
             background: radial-gradient(circle at 50% 0%, #0f172a 0%, #02040a 100%);
         }
 
-        /* --- NAVIGATION DOCK (IDENTIQUE INDEX) --- */
+        /* --- NAVIGATION DOCK --- */
         nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
@@ -90,66 +90,85 @@
         }
         .header-section h1 {
             font-family: 'Orbitron'; font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
-            color: #fff; text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            color: #fff;
         }
+        .header-section span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 243, 255, 0.3); }
         .intro-text { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; font-family: 'Rajdhani'; }
 
         /* --- TIMELINE CONTAINER --- */
         .timeline-container {
-            max-width: 1000px; margin: 0 auto; padding: 0 20px; position: relative;
+            max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative;
         }
-        /* Ligne centrale */
-        .timeline-container::before {
-            content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+        /* Ligne Verticale */
+        .timeline-line {
+            position: absolute; left: 30px; top: 0; bottom: 0; width: 2px;
             background: linear-gradient(to bottom, transparent, var(--primary), transparent);
-            transform: translateX(-50%); opacity: 0.3;
+            box-shadow: 0 0 10px var(--primary); z-index: 1;
         }
 
         /* --- CARTE EXPÉRIENCE --- */
         .exp-card {
             background: var(--glass-card); border: var(--border-glow);
-            border-radius: 20px; overflow: hidden; margin-bottom: 60px;
+            border-radius: 20px; overflow: hidden; margin-bottom: 50px; margin-left: 60px; /* Espace pour la ligne */
             position: relative; transition: 0.4s; z-index: 2;
-            display: grid; grid-template-columns: 250px 1fr; /* Image + Contenu */
+            display: grid; grid-template-columns: 280px 1fr; /* Image 280px | Reste Texte */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
-        .exp-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 40px rgba(0, 243, 255, 0.1); }
+        .exp-card:hover { 
+            transform: translateX(10px); 
+            border-color: var(--primary); 
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15); 
+        }
 
-        /* IMAGE INTELLIGENTE (Gauche) */
+        /* POINT CONNECTEUR */
+        .timeline-dot {
+            position: absolute; left: -39px; top: 30px; /* Alignement avec le Header de la carte */
+            width: 20px; height: 20px; background: var(--bg-deep);
+            border: 2px solid var(--primary); border-radius: 50%; z-index: 5;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .exp-card:hover .timeline-dot { background: var(--primary); transform: scale(1.2); }
+
+        /* IMAGE (GAUCHE) */
         .card-visual {
             position: relative; height: 100%; min-height: 250px;
             border-right: 1px solid rgba(255,255,255,0.1); overflow: hidden;
+            background: #000;
         }
         .card-img {
             width: 100%; height: 100%;
-            object-fit: cover; object-position: center; /* Image centrée et remplie */
-            transition: transform 0.6s;
+            /* Cover = remplit la zone. Top Center = focalise sur le haut/centre */
+            object-fit: cover; object-position: center; 
+            transition: transform 0.6s; opacity: 0.9;
         }
-        .exp-card:hover .card-img { transform: scale(1.1); }
+        .exp-card:hover .card-img { transform: scale(1.1); opacity: 1; }
 
-        /* CONTENU (Droite) */
-        .card-content { padding: 30px; }
+        /* CONTENU (DROITE) */
+        .card-content { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
         
         .card-header {
             display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;
         }
         
-        .company-name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 5px; font-family: 'Rajdhani'; text-transform: uppercase; }
+        .company-name { font-size: 1.8rem; font-weight: 800; color: #fff; margin: 0; font-family: 'Rajdhani'; text-transform: uppercase; line-height: 1; }
         .role-badge { 
-            display: inline-block; font-size: 0.9rem; color: var(--primary); font-weight: 700; 
-            background: rgba(0, 243, 255, 0.1); padding: 4px 10px; border-radius: 4px;
+            display: block; font-size: 1rem; color: var(--primary); font-weight: 700; margin-top: 5px; letter-spacing: 1px;
         }
-        .date-badge { font-family: 'Rajdhani'; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-align: right; }
+        .date-badge { 
+            font-family: 'Rajdhani'; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; 
+            background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);
+        }
 
         /* LISTE TÂCHES */
         .task-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
         .task-list li {
-            position: relative; padding-left: 20px; margin-bottom: 10px; 
+            position: relative; padding-left: 20px; margin-bottom: 8px; 
             color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;
         }
         .task-list li::before {
-            content: '▹'; position: absolute; left: 0; color: var(--primary); top: 0;
+            content: '▹'; position: absolute; left: 0; color: var(--primary); top: 0; font-weight: bold;
         }
         .task-list strong { color: #fff; }
 
@@ -157,25 +176,24 @@
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; }
         .tech-pill {
             font-size: 0.75rem; padding: 4px 12px; border-radius: 50px;
-            background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            background: rgba(0, 243, 255, 0.05); color: var(--primary); 
+            border: 1px solid rgba(0, 243, 255, 0.2); transition: 0.3s;
         }
-        .exp-card:hover .tech-pill { border-color: var(--secondary); color: var(--secondary); }
+        .exp-card:hover .tech-pill { background: rgba(0, 243, 255, 0.15); box-shadow: 0 0 10px rgba(0, 243, 255, 0.1); }
 
-        /* POINT SUR LA TIMELINE */
-        .timeline-dot {
-            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            width: 16px; height: 16px; background: var(--bg-deep);
-            border: 2px solid var(--primary); border-radius: 50%; z-index: 5;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* MOBILE */
-        @media (max-width: 1024px) {
-            .timeline-container::before { left: 20px; }
-            .exp-card { grid-template-columns: 1fr; margin-left: 40px; }
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .header-section h1 { font-size: 2.5rem; }
+            
+            /* Passage en colonne sur mobile */
+            .exp-card { grid-template-columns: 1fr; margin-left: 30px; margin-bottom: 40px; }
             .card-visual { height: 200px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            .timeline-dot { left: 20px; top: 30px; }
+            .timeline-line { left: 15px; }
+            .timeline-dot { left: -24px; top: 20px; }
+            
+            /* Ajustement Header Carte Mobile */
+            .card-header { flex-direction: column; gap: 10px; }
+            .date-badge { align-self: flex-start; }
             
             nav { width: 95%; bottom: 20px; }
             .nav-dock { padding: 12px 20px; justify-content: space-between; width: 100%; }
@@ -217,122 +235,116 @@
     <section class="header-section" data-aos="zoom-in">
         <h1>Expériences <span>Pro</span></h1>
         <p class="intro-text">
-            De la maintenance haute tension à la conception en bureau d'études. Un parcours terrain exigeant et formateur.
+            Un parcours technique validé sur le terrain : de la maintenance haute tension à la conception en bureau d'études.
         </p>
     </section>
 
     <div class="timeline-container">
+        
+        <div class="timeline-line"></div>
 
-        <div style="position:relative;">
+        <article class="exp-card" data-aos="fade-up">
             <div class="timeline-dot"></div>
-            <article class="exp-card" data-aos="fade-up">
-                <div class="card-visual">
-                    <img src="srmm.jpg" alt="SRM" class="card-img">
-                </div>
-                <div class="card-content">
-                    <div class="card-header">
-                        <div>
-                            <h2 class="company-name">SRM Casablanca</h2>
-                            <span class="role-badge">Stagiaire Technique</span>
-                        </div>
-                        <span class="date-badge">Juil - Août 2025</span>
+            <div class="card-visual">
+                <img src="srmm.jpg" alt="SRM Casablanca" class="card-img">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div>
+                        <h2 class="company-name">SRM Casablanca</h2>
+                        <span class="role-badge">Stagiaire Technique</span>
                     </div>
-                    <ul class="task-list">
-                        <li><strong>Diagnostic DGA :</strong> Analyse des gaz dissous pour maintenance prédictive des transformateurs.</li>
-                        <li><strong>Haute Tension :</strong> Intervention sur disjoncteurs et sectionneurs (HTB/HTA).</li>
-                        <li><strong>GMAO :</strong> Optimisation des processus de maintenance assistée.</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-pill">Maintenance HT</span>
-                        <span class="tech-pill">DGA</span>
-                        <span class="tech-pill">GMAO</span>
-                    </div>
+                    <span class="date-badge">Juil - Août 2025</span>
                 </div>
-            </article>
-        </div>
+                <ul class="task-list">
+                    <li><strong>Diagnostic DGA :</strong> Analyse des gaz dissous pour la maintenance prédictive des transformateurs de puissance.</li>
+                    <li><strong>Haute Tension :</strong> Interventions techniques sur les équipements HTB/HTA (Disjoncteurs, Sectionneurs).</li>
+                    <li><strong>GMAO :</strong> Optimisation des processus de maintenance et reporting technique.</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-pill">Maintenance HT</span>
+                    <span class="tech-pill">Analyse DGA</span>
+                    <span class="tech-pill">Réseaux</span>
+                </div>
+            </div>
+        </article>
 
-        <div style="position:relative;">
+        <article class="exp-card" data-aos="fade-up" data-aos-delay="100">
             <div class="timeline-dot"></div>
-            <article class="exp-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-visual">
-                    <img src="em.jpg" alt="EM Energie" class="card-img">
-                </div>
-                <div class="card-content">
-                    <div class="card-header">
-                        <div>
-                            <h2 class="company-name">EM Énergie</h2>
-                            <span class="role-badge">Bureau d'Études (PFE)</span>
-                        </div>
-                        <span class="date-badge">Mars - Juin 2024</span>
+            <div class="card-visual">
+                <img src="em.jpg" alt="EM Energie" class="card-img">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div>
+                        <h2 class="company-name">EM Énergie</h2>
+                        <span class="role-badge">Bureau d'Études (Stage PFE)</span>
                     </div>
-                    <ul class="task-list">
-                        <li><strong>Dimensionnement :</strong> Calculs normatifs (NFC 15-100) sous <strong>Caneco BT</strong>.</li>
-                        <li><strong>Conception :</strong> Plans d'implantation et schémas unifilaires sur <strong>AutoCAD</strong>.</li>
-                        <li><strong>Éclairage :</strong> Étude photométrique complète sous <strong>Dialux Evo</strong>.</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-pill">Caneco BT</span>
-                        <span class="tech-pill">AutoCAD</span>
-                        <span class="tech-pill">Dialux</span>
-                    </div>
+                    <span class="date-badge">Mars - Juin 2024</span>
                 </div>
-            </article>
-        </div>
+                <ul class="task-list">
+                    <li><strong>Conception :</strong> Étude complète d'une installation industrielle (Courants Forts & Faibles).</li>
+                    <li><strong>Dimensionnement :</strong> Calculs normatifs (NFC 15-100) des câbles et protections sous <strong>Caneco BT</strong>.</li>
+                    <li><strong>Efficacité :</strong> Étude d'éclairage photométrique sur <strong>Dialux Evo</strong> et plans AutoCAD.</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-pill">Caneco BT</span>
+                    <span class="tech-pill">AutoCAD</span>
+                    <span class="tech-pill">Dialux</span>
+                </div>
+            </div>
+        </article>
 
-        <div style="position:relative;">
+        <article class="exp-card" data-aos="fade-up" data-aos-delay="200">
             <div class="timeline-dot"></div>
-            <article class="exp-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-visual">
-                    <img src="zahri.jpg" alt="Ezzahri Techno" class="card-img">
-                </div>
-                <div class="card-content">
-                    <div class="card-header">
-                        <div>
-                            <h2 class="company-name">Ezzahri Techno</h2>
-                            <span class="role-badge">Automatisation & Câblage</span>
-                        </div>
-                        <span class="date-badge">Stage Technique</span>
+            <div class="card-visual">
+                <img src="zahri.jpg" alt="Ezzahri Techno" class="card-img">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div>
+                        <h2 class="company-name">Ezzahri Techno</h2>
+                        <span class="role-badge">Automatisation & Câblage</span>
                     </div>
-                    <ul class="task-list">
-                        <li><strong>Smart Irrigation :</strong> Installation système automatisé pour l'agriculture.</li>
-                        <li><strong>Câblage :</strong> Montage d'armoires industrielles et variateurs de vitesse.</li>
-                        <li><strong>Solaire :</strong> Configuration de pompage hybride (PV/Réseau).</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-pill">Variateurs</span>
-                        <span class="tech-pill">Câblage</span>
-                        <span class="tech-pill">Solaire</span>
-                    </div>
+                    <span class="date-badge">Stage Technique</span>
                 </div>
-            </article>
-        </div>
+                <ul class="task-list">
+                    <li><strong>Smart Irrigation :</strong> Installation et configuration d'un système automatisé agricole.</li>
+                    <li><strong>Câblage :</strong> Montage d'armoires de puissance avec variateurs de vitesse.</li>
+                    <li><strong>Pompage Solaire :</strong> Mise en œuvre de solutions hybrides (PV/Réseau).</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-pill">Variateurs</span>
+                    <span class="tech-pill">Câblage</span>
+                    <span class="tech-pill">Solaire</span>
+                </div>
+            </div>
+        </article>
 
-        <div style="position:relative;">
-            <div class="timeline-dot" style="border-color:var(--accent); box-shadow:0 0 10px var(--accent);"></div>
-            <article class="exp-card" data-aos="fade-up" data-aos-delay="300" style="border-color:rgba(188,19,254,0.3);">
-                <div class="card-visual">
-                    <img src="club.jpg" alt="Club Robothings" class="card-img">
-                </div>
-                <div class="card-content">
-                    <div class="card-header">
-                        <div>
-                            <h2 class="company-name">Club Robothings</h2>
-                            <span class="role-badge" style="color:var(--accent);">Vice-Président</span>
-                        </div>
-                        <span class="date-badge">2023 - 2024</span>
+        <article class="exp-card" data-aos="fade-up" data-aos-delay="300" style="border-color:rgba(188,19,254,0.3);">
+            <div class="timeline-dot" style="border-color:var(--accent); box-shadow:0 0 15px var(--accent);"></div>
+            <div class="card-visual">
+                <img src="club.jpg" alt="Club Robothings" class="card-img">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div>
+                        <h2 class="company-name">Club Robothings</h2>
+                        <span class="role-badge" style="color:var(--accent);">Vice-Président & Formateur</span>
                     </div>
-                    <ul class="task-list">
-                        <li><strong>Leadership :</strong> Gestion d'équipe et organisation de compétitions.</li>
-                        <li><strong>Formation :</strong> Animation d'ateliers Arduino et Conception 3D.</li>
-                        <li><strong>Compétition :</strong> Participation aux challenges nationaux de robotique.</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-pill" style="border-color:var(--accent); color:var(--accent);">Leadership</span>
-                        <span class="tech-pill" style="border-color:var(--accent); color:var(--accent);">Formation</span>
-                    </div>
+                    <span class="date-badge">2023 - 2024</span>
                 </div>
-            </article>
-        </div>
+                <ul class="task-list">
+                    <li><strong>Leadership :</strong> Gestion d'équipe et organisation de compétitions nationales.</li>
+                    <li><strong>Pédagogie :</strong> Animation d'ateliers techniques (Arduino, Conception 3D, Robotique).</li>
+                    <li><strong>Innovation :</strong> Développement de robots Sumo et Suiveurs de ligne.</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-pill" style="border-color:var(--accent); color:var(--accent);">Management</span>
+                    <span class="tech-pill" style="border-color:var(--accent); color:var(--accent);">Robotique</span>
+                </div>
+            </div>
+        </article>
 
     </div>
 
