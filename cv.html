@@ -5,229 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Ingénieur - Bader El Berkaoui</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-dark: #1e293b; /* Bleu nuit très sombre */
-            --primary-blue: #2563eb; /* Bleu royal intense */
-            --text-dark: #334155;
-            --text-light: #94a3b8;
-            --bg-gray: #f1f5f9;
-            --white: #ffffff;
-        }
-
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
+        /* RESET & BASICS */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Roboto', sans-serif;
-            background: #525659;
-            margin: 0;
-            padding: 40px 0;
+            background: #e0e0e0; /* Fond gris pour voir la page blanche */
+            font-family: 'Arimo', Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000;
             display: flex;
             justify-content: center;
+            padding: 20px;
         }
 
-        /* FORMAT A4 */
-        .resume-container {
+        /* PAGE A4 */
+        .page {
+            background: white;
             width: 210mm;
             min-height: 297mm;
-            background: var(--white);
             display: grid;
-            grid-template-columns: 70mm 1fr; /* Colonne gauche fixe / Reste fluide */
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            grid-template-columns: 65mm 1fr; /* Structure: Colonne Gauche / Colonne Droite */
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
         }
 
-        /* --- COLONNE DE GAUCHE (SOMBRE) --- */
-        .left-col {
-            background: var(--primary-dark);
-            color: var(--white);
+        /* --- COLONNE GAUCHE (SIDEBAR) --- */
+        .sidebar {
+            background-color: #f5f5f5; /* Gris très clair pour séparer subtilement */
+            border-right: 1px solid #ccc;
             padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            text-align: left;
         }
 
-        .profile-img-container {
+        .photo-container {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
         }
-
-        .profile-img {
-            width: 140px;
-            height: 140px;
+        .profile-photo {
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--primary-blue);
+            border: 2px solid #333; /* Bordure fine noire */
+            filter: grayscale(100%); /* Photo en noir et blanc pour le style pro */
         }
 
-        .contact-section h3, .skills-section h3, .education-section h3, .lang-section h3 {
-            color: var(--primary-blue);
+        /* Titres de section sidebar */
+        .sidebar-title {
+            font-family: 'Roboto Condensed', sans-serif;
             text-transform: uppercase;
-            font-size: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            font-size: 14px;
             letter-spacing: 1px;
+            border-bottom: 2px solid #000;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            margin-top: 25px;
         }
+        .sidebar-title:first-of-type { margin-top: 0; }
 
+        /* Contenu sidebar */
+        .contact-info { margin-bottom: 20px; font-size: 13px; }
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-            word-break: break-all;
+            margin-bottom: 10px;
         }
-        .contact-item i { color: var(--primary-blue); width: 15px; }
-        .contact-item a { color: var(--white); text-decoration: none; }
+        .contact-item i { width: 20px; text-align: center; margin-right: 10px; color: #333; }
+        .contact-item a { text-decoration: none; color: #000; }
 
-        .edu-item { margin-bottom: 20px; }
-        .edu-year { font-weight: bold; color: var(--primary-blue); font-size: 0.9rem; }
-        .edu-degree { font-weight: 700; font-size: 0.95rem; display: block; margin: 3px 0; }
-        .edu-school { font-size: 0.85rem; color: #cbd5e1; font-style: italic; }
-        .edu-honors { font-size: 0.8rem; color: #fbbf24; margin-top: 3px; display: block; }
+        .skill-block { margin-bottom: 15px; }
+        .skill-category { font-weight: bold; font-size: 13px; display: block; margin-bottom: 3px; }
+        .skill-list { font-size: 12px; color: #444; }
 
-        .skill-category { margin-bottom: 15px; }
-        .skill-title { font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px; color: #e2e8f0; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tag {
-            background: rgba(255,255,255,0.1);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+        .lang-item { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px; }
+        .lang-level { font-weight: bold; }
+
+        /* --- COLONNE DROITE (MAIN) --- */
+        .main-content {
+            padding: 40px 35px;
         }
 
-        /* --- COLONNE DE DROITE (CONTENU) --- */
-        .right-col {
-            padding: 40px;
-            color: var(--text-dark);
-        }
-
-        .header {
+        /* En-tête Nom/Titre */
+        .header-section {
             margin-bottom: 30px;
-            border-left: 5px solid var(--primary-blue);
-            padding-left: 20px;
+            border-bottom: 4px solid #000;
+            padding-bottom: 20px;
         }
-
-        .header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+        h1 {
+            font-family: 'Roboto Condensed', sans-serif;
             text-transform: uppercase;
-            color: var(--primary-dark);
-            line-height: 1;
+            font-size: 32px;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: normal;
+            text-transform: uppercase;
+            color: #444;
+            letter-spacing: 2px;
         }
 
-        .header h2 {
-            margin: 10px 0 15px 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--primary-blue);
-        }
-
-        .summary {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #475569;
-            text-align: justify;
-        }
-
+        /* Sections Main */
         .section-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-            color: var(--primary-dark);
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 18px;
             text-transform: uppercase;
-            border-bottom: 2px solid var(--bg-gray);
-            padding-bottom: 8px;
+            font-weight: 700;
+            border-left: 5px solid #000;
+            padding-left: 15px;
             margin-top: 30px;
             margin-bottom: 20px;
+            background: #f9f9f9; /* Légère bande grise pour le titre */
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
-        .section-title i { color: var(--primary-blue); }
 
-        .job-item, .project-item { margin-bottom: 25px; }
+        .profile-text {
+            font-size: 13px;
+            text-align: justify;
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #333;
+        }
 
-        .job-header, .project-header {
+        /* Blocs d'expérience/Formation */
+        .entry {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        
+        .entry-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 5px;
         }
+        
+        .entry-title { font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        .entry-date { font-weight: bold; font-size: 13px; }
+        .entry-subtitle { font-size: 13px; font-weight: bold; color: #555; margin-bottom: 5px; display: block; }
+        .entry-location { font-style: italic; font-size: 12px; color: #666; }
 
-        .job-title { font-weight: 700; font-size: 1.05rem; color: var(--primary-dark); }
-        .job-company { font-weight: 500; color: var(--primary-blue); }
-        .job-date { font-size: 0.85rem; font-weight: bold; color: #64748b; }
-
-        .job-desc {
-            margin: 5px 0 0 0;
+        .entry-desc {
+            font-size: 13px;
             padding-left: 18px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #334155;
-        }
-        .job-desc li { margin-bottom: 4px; }
-
-        .award-badge {
-            display: inline-block;
-            background: #fffbeb;
-            color: #d97706;
-            border: 1px solid #fcd34d;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .tech-stack {
-            font-size: 0.8rem;
-            color: #64748b;
             margin-top: 5px;
-            font-style: italic;
+        }
+        .entry-desc li { margin-bottom: 3px; }
+
+        .tech-tag {
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 3px;
+            margin-right: 3px;
         }
 
-        /* BOUTON IMPRESSION */
-        .btn-print {
+        /* Mentions spéciales */
+        .highlight { font-weight: bold; border-bottom: 1px solid #000; }
+        
+        /* Bouton Print */
+        .no-print {
             position: fixed; top: 20px; right: 20px;
-            background: var(--primary-blue); color: white;
-            padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            transition: 0.3s;
-            z-index: 1000;
-        }
-        .btn-print:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .resume-container { grid-template-columns: 1fr; width: 100%; min-height: auto; }
-            body { padding: 0; display: block; }
-            .left-col { padding: 30px; text-align: center; }
-            .contact-item { justify-content: center; }
-            .skill-tags { justify-content: center; }
-            .btn-print { display: none; }
+            background: #000; color: #fff;
+            padding: 10px 20px; text-decoration: none;
+            font-weight: bold; border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
         }
 
         @media print {
             body { background: white; padding: 0; }
-            .resume-container { width: 100%; box-shadow: none; margin: 0; }
-            .btn-print { display: none; }
+            .page { width: 100%; box-shadow: none; margin: 0; }
+            .no-print { display: none; }
+            .sidebar { background-color: #f5f5f5 !important; -webkit-print-color-adjust: exact; }
+            .section-title { background: #f9f9f9 !important; -webkit-print-color-adjust: exact; }
+        }
+
+        @media (max-width: 768px) {
+            .page { grid-template-columns: 1fr; width: 100%; height: auto; }
+            .sidebar { border-right: none; border-bottom: 1px solid #ccc; text-align: center; }
+            .contact-item { justify-content: center; }
+            .header-section { text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <a href="#" onclick="window.print()" class="btn-print"><i class="fas fa-file-pdf"></i> Télécharger en PDF</a>
+    <a href="#" onclick="window.print()" class="no-print"><i class="fas fa-print"></i> Imprimer / PDF</a>
 
-    <div class="resume-container">
-        <aside class="left-col">
-            <div class="profile-img-container">
-                <img src="profilee.png" alt="Bader El Berkaoui" class="profile-img">
+    <div class="page">
+        <aside class="sidebar">
+            <div class="photo-container">
+                <img src="profilee.png" alt="Bader El Berkaoui" class="profile-photo">
             </div>
 
-            <section class="contact-section">
-                <h3>Contact</h3>
+            <div class="sidebar-title">Contact</div>
+            <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-phone"></i> <span>0703476035</span>
                 </div>
@@ -238,185 +218,173 @@
                     <i class="fas fa-map-marker-alt"></i> <span>Casablanca, Maroc</span>
                 </div>
                 <div class="contact-item">
-                    <i class="fab fa-linkedin"></i> <a href="#">linkedin.com/in/bader</a>
+                    <i class="fab fa-linkedin"></i> <span>linkedin.com/in/bader</span>
                 </div>
-            </section>
+            </div>
 
-            <section class="education-section">
-                <h3>Formation</h3>
-                
-                <div class="edu-item">
-                    <span class="edu-year">2024 - Présent</span>
-                    <span class="edu-degree">Cycle Ingénieur GE & Contrôle Industriel</span>
-                    <span class="edu-school">FST Mohammedia</span>
-                </div>
+            <div class="sidebar-title">Logiciels & Outils</div>
+            <div class="skill-block">
+                <span class="skill-category">Conception & Simulation</span>
+                <span class="skill-list">SolidWorks, AutoCAD, PSIM, Microwind, DSCH, SketchUp</span>
+            </div>
+            <div class="skill-block">
+                <span class="skill-category">Électricité & Éclairage</span>
+                <span class="skill-list">Caneco BT, Dialux EVO</span>
+            </div>
+            <div class="skill-block">
+                <span class="skill-category">Automatisme & Supervision</span>
+                <span class="skill-list">TIA Portal, Step 7, WinCC SCADA</span>
+            </div>
+            <div class="skill-block">
+                <span class="skill-category">Systèmes Embarqués</span>
+                <span class="skill-list">STM32, ESP32, Arduino, Raspberry Pi</span>
+            </div>
+            <div class="skill-block">
+                <span class="skill-category">Programmation</span>
+                <span class="skill-list">C/C++, Python, VHDL, MATLAB/Simulink</span>
+            </div>
 
-                <div class="edu-item">
-                    <span class="edu-year">2021 - 2024</span>
-                    <span class="edu-degree">Licence Génie Électrique</span>
-                    <span class="edu-school">FST Settat</span>
-                    <span class="edu-honors"><i class="fas fa-star"></i> Major de promotion</span>
-                    <span class="edu-honors">Mention Très Bien</span>
-                </div>
+            <div class="sidebar-title">Langues</div>
+            <div class="lang-item"><span>Arabe</span> <span class="lang-level">Natif</span></div>
+            <div class="lang-item"><span>Français</span> <span class="lang-level">Courant</span></div>
+            <div class="lang-item"><span>Anglais</span> <span class="lang-level">Technique</span></div>
 
-                <div class="edu-item">
-                    <span class="edu-year">2021</span>
-                    <span class="edu-degree">Baccalauréat STI</span>
-                    <span class="edu-school">Lycée Technique Anoual</span>
-                </div>
-            </section>
-
-            <section class="skills-section">
-                <h3>Compétences</h3>
-                
-                <div class="skill-category">
-                    <span class="skill-title">CAO & Simulation</span>
-                    <div class="skill-tags">
-                        <span class="tag">SolidWorks</span>
-                        <span class="tag">AutoCAD</span>
-                        <span class="tag">Caneco BT</span>
-                        <span class="tag">Dialux EVO</span>
-                        <span class="tag">PSIM</span>
-                        <span class="tag">MATLAB</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <span class="skill-title">Automatisme</span>
-                    <div class="skill-tags">
-                        <span class="tag">TIA Portal</span>
-                        <span class="tag">Step 7</span>
-                        <span class="tag">WinCC SCADA</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <span class="skill-title">Embarqué</span>
-                    <div class="skill-tags">
-                        <span class="tag">STM32</span>
-                        <span class="tag">ESP32</span>
-                        <span class="tag">Arduino</span>
-                        <span class="tag">Raspberry Pi</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <span class="skill-title">Programmation</span>
-                    <div class="skill-tags">
-                        <span class="tag">C / C++</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">VHDL</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="lang-section">
-                <h3>Langues</h3>
-                <div class="skill-category">
-                    <span class="skill-title">Français: Courant</span>
-                    <span class="skill-title">Anglais: Technique</span>
-                    <span class="skill-title">Arabe: Maternelle</span>
-                </div>
-            </section>
+            <div class="sidebar-title">Loisirs</div>
+            <ul style="padding-left: 15px; font-size: 12px;">
+                <li>Lecture scientifique</li>
+                <li>Football & Running</li>
+                <li>Voyages</li>
+                <li>Bénévolat</li>
+            </ul>
         </aside>
 
-        <main class="right-col">
-            <header class="header">
+        <main class="main-content">
+            <header class="header-section">
                 <h1>Bader El Berkaoui</h1>
-                <h2>Élève Ingénieur en Génie Électrique & Contrôle Industriel</h2>
-                <p class="summary">
-                    Passionné par les installations CFO/CFA, l'automatisme industriel et les systèmes embarqués. Curieux, rigoureux et autonome, je cherche à m'investir dans des projets techniques exigeants (efficacité énergétique, supervision, smart industry). <strong>Major de promotion</strong>, j'allie excellence académique et sens pratique.
-                </p>
+                <h2>Élève Ingénieur en Génie Électrique et Contrôle Industriel</h2>
             </header>
 
-            <section>
-                <div class="section-title"><i class="fas fa-briefcase"></i> Expériences Professionnelles</div>
+            <div class="profile-text">
+                Passionné par les installations CFO/CFA, l'automatisme et les systèmes embarqués. Je combine une solide formation théorique (Major de promotion) avec une expérience terrain en maintenance HT et en bureau d'études. Je recherche des défis techniques pour concevoir des solutions innovantes.
+            </div>
 
-                <div class="job-item">
-                    <div class="job-header">
-                        <span class="job-title">Stagiaire Technique (Maintenance & HT)</span>
-                        <span class="job-date">Juil 2025 - Août 2025</span>
+            <section>
+                <div class="section-title">Formation</div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Cycle Ingénieur - Génie Électrique</span>
+                        <span class="entry-date">2024 - Présent</span>
                     </div>
-                    <span class="job-company">SRM Casablanca</span>
-                    <ul class="job-desc">
+                    <span class="entry-subtitle">FST Mohammedia</span>
+                    <span class="entry-location">Spécialité : Contrôle Industriel</span>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Licence Génie Électrique (GE)</span>
+                        <span class="entry-date">2021 - 2024</span>
+                    </div>
+                    <span class="entry-subtitle">FST Settat</span>
+                    <div class="entry-desc">
+                        Major de Promotion • Mention Très Bien
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Baccalauréat STI</span>
+                        <span class="entry-date">2021</span>
+                    </div>
+                    <span class="entry-subtitle">Lycée Technique Anoual</span>
+                    <span class="entry-location">Sciences et Technologies Électriques</span>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">Expériences Professionnelles</div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Stage Technique (Maintenance HT)</span>
+                        <span class="entry-date">Juil - Août 2025</span>
+                    </div>
+                    <span class="entry-subtitle">SRM Casablanca</span>
+                    <ul class="entry-desc">
                         <li>Analyse des gaz dissous (DGA) pour la surveillance des transformateurs HT.</li>
-                        <li>Maintenance préventive sur les postes sources (225kV/20kV et 60kV/20kV).</li>
-                        <li>Contribution à l'amélioration du plan de suivi des équipements critiques.</li>
+                        <li>Maintenance préventive des postes sources (225kV/20kV et 60kV/20kV).</li>
+                        <li>Optimisation du plan de suivi des équipements critiques.</li>
                     </ul>
                 </div>
 
-                <div class="job-item">
-                    <div class="job-header">
-                        <span class="job-title">Stage PFA - Études Électriques CFO/CFA</span>
-                        <span class="job-date">Mars 2024 - Juin 2024</span>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Stage PFA (Bureau d'Études)</span>
+                        <span class="entry-date">Mars - Juin 2024</span>
                     </div>
-                    <span class="job-company">EM ÉNERGIE (Groupe EM)</span>
-                    <ul class="job-desc">
-                        <li>Étude complète d'un plateau de bureaux et du parking Borj Attijari.</li>
-                        <li>Élaboration des plans d'exécution et schémas électriques sous <strong>AutoCAD</strong>.</li>
-                        <li>Dimensionnement des câbles et protections BT avec <strong>Caneco BT</strong>.</li>
-                        <li>Simulation et optimisation de l'éclairage via <strong>Dialux EVO</strong>.</li>
+                    <span class="entry-subtitle">EM ÉNERGIE (Groupe EM)</span>
+                    <ul class="entry-desc">
+                        <li>Étude CFO/CFA complète pour un plateau de bureaux et le parking Borj Attijari.</li>
+                        <li>Réalisation des plans d'exécution et schémas unifilaires.</li>
+                        <li>Dimensionnement des câbles et protections BT.</li>
+                        <li>Simulation d'éclairage pour optimisation énergétique.</li>
                     </ul>
+                    <div>
+                        <span class="tech-tag">AutoCAD</span>
+                        <span class="tech-tag">Caneco BT</span>
+                        <span class="tech-tag">Dialux EVO</span>
+                    </div>
                 </div>
             </section>
 
             <section>
-                <div class="section-title"><i class="fas fa-rocket"></i> Projets & Réalisations</div>
-
-                <div class="project-item">
-                    <div class="project-header">
-                        <span class="job-title">Détection Intelligente de Fuites d'Eau (IoT/IA)</span>
-                        <span class="award-badge"><i class="fas fa-trophy"></i> 1er Prix Électrogenuis</span>
+                <div class="section-title">Projets Académiques & Réalisations</div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Détection de Fuites d'Eau IoT/IA</span>
+                        <span class="entry-date highlight">1er Prix Électrogenuis</span>
                     </div>
-                    <ul class="job-desc">
-                        <li>Développement d'un système complet intégrant capteurs de débit/pression.</li>
-                        <li>Implémentation d'un algorithme d'IA pour la classification des fuites.</li>
-                        <li>Création d'une interface Web temps réel pour les alertes.</li>
+                    <ul class="entry-desc">
+                        <li>Système intelligent avec capteurs de débit/pression et algorithme IA de classification.</li>
+                        <li>Développement d'une interface Web de supervision temps réel.</li>
                     </ul>
-                    <div class="tech-stack">Tech: IoT, IA, Capteurs, Web Dev.</div>
+                    <div><span class="tech-tag">IoT</span> <span class="tech-tag">Intelligence Artificielle</span> <span class="tech-tag">Web Dev</span></div>
                 </div>
 
-                <div class="project-item">
-                    <div class="project-header">
-                        <span class="job-title">Supervision Industrielle de Convoyeur</span>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Supervision de Convoyeur Industriel</span>
                     </div>
-                    <ul class="job-desc">
-                        <li>Programmation d'un automate <strong>Siemens S7-1200</strong>.</li>
-                        <li>Développement d'une IHM de supervision sous <strong>WinCC (TIA Portal)</strong>.</li>
-                        <li>Gestion des alarmes, affichage capteurs et simulation complète.</li>
+                    <ul class="entry-desc">
+                        <li>Automatisation via Siemens S7-1200 et supervision sous WinCC (TIA Portal).</li>
+                        <li>Gestion des alarmes, synoptiques et simulation complète.</li>
                     </ul>
-                    <div class="tech-stack">Tech: Siemens TIA Portal, WinCC, SCADA, Grafcet.</div>
                 </div>
 
-                <div class="project-item">
-                    <div class="project-header">
-                        <span class="job-title">Robot Suiveur de Ligne & Vision</span>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Robot Suiveur de Ligne</span>
                     </div>
-                    <ul class="job-desc">
-                        <li>Conception d'un robot autonome utilisant une <strong>Raspberry Pi</strong> et PiCam.</li>
-                        <li>Traitement d'image avec <strong>OpenCV</strong> pour la détection de trajectoire.</li>
-                        <li>Asservissement des moteurs via régulateur PID.</li>
+                    <ul class="entry-desc">
+                        <li>Conception autonome avec Raspberry Pi, Caméra PiCam et traitement d'image OpenCV.</li>
+                        <li>Implémentation d'une régulation PID pour la commande moteur.</li>
                     </ul>
-                    <div class="tech-stack">Tech: Python, OpenCV, Raspberry Pi, PWM.</div>
-                </div>
-
-                <div class="project-item">
-                    <div class="project-header">
-                        <span class="job-title">Station Météo Connectée</span>
-                    </div>
-                    <div class="tech-stack">STM32, ESP32, Serveur Web Embarqué, UART.</div>
                 </div>
             </section>
-
+            
             <section>
-                <div class="section-title"><i class="fas fa-users"></i> Engagement Associatif</div>
-                <ul class="job-desc">
-                    <li><strong>Président du Club Robothings</strong> (FST Mohammedia).</li>
-                    <li>Membre actif <strong>Enactus & CLIC</strong> (FST Settat) : Organisation d'événements et bénévolat.</li>
-                </ul>
+                <div class="section-title">Engagement Associatif</div>
+                <div class="entry">
+                    <ul class="entry-desc">
+                        <li><strong>Président du Club Robothings</strong> (FST Mohammedia).</li>
+                        <li>Membre actif <strong>Enactus & CLIC</strong> (FST Settat).</li>
+                    </ul>
+                </div>
             </section>
 
         </main>
     </div>
+
 </body>
 </html>
