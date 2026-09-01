@@ -181,12 +181,16 @@
         }
         .media-frame:hover .full-fit { transform: scale(1.02); }
 
-        /* Galerie Miniatures */
+        /* Galerie Miniatures (6 colonnes pour SkyPharma, 3 colonnes pour les autres) */
         .gallery-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
         }
+        .gallery-grid-6 {
+            grid-template-columns: repeat(6, 1fr) !important;
+        }
+        
         .gallery-item {
-            height: 75px; border-radius: 10px; overflow: hidden;
+            height: 65px; border-radius: 8px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.12); background: #010308;
             cursor: pointer; opacity: 0.7; transition: 0.3s;
         }
@@ -196,6 +200,15 @@
         .gallery-item img {
             width: 100%; height: 100%; object-fit: cover;
         }
+
+        .video-replay-btn {
+            background: rgba(0, 243, 255, 0.1); border: 1px solid var(--primary);
+            color: var(--primary); padding: 6px 14px; border-radius: 20px;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; font-weight: 700;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 4px; align-self: flex-start; transition: 0.3s;
+        }
+        .video-replay-btn:hover { background: var(--primary); color: #030712; }
 
         /* --- CONTENU DU PROJET --- */
         .project-content { display: flex; flex-direction: column; justify-content: center; }
@@ -269,7 +282,7 @@
             .project-card.reverse .project-content { direction: ltr; }
             .header-section h1 { font-size: 2.3rem; }
             .media-frame { height: 260px; }
-            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+            .gallery-grid-6 { grid-template-columns: repeat(3, 1fr) !important; }
             nav { width: 95%; bottom: 15px; }
             .nav-dock { padding: 10px 15px; justify-content: space-around; width: 100%; gap: 4px; }
             .nav-item i { font-size: 1.15rem; }
@@ -352,30 +365,40 @@
     <div class="projects-container">
 
         <!-- =====================================================
-             01 — SKYPHARMA (PROJET PHARES : VIDÉO + 4 PHOTOS)
+             01 — SKYPHARMA (VIDÉO + 6 PLACES PHOTOS)
         ===================================================== -->
         <article class="project-card" data-cat="robot" data-aos="fade-up">
             <div class="project-visual">
                 <div class="media-frame" id="skypharma-main-viewer">
-                    <!-- LECTEUR VIDÉO PRINCIPAL -->
+                    <!-- LECTEUR VIDÉO PRINCIPAL (PAR DÉFAUT) -->
                     <video controls poster="sky1.jpeg" class="full-fit" id="skypharma-vid">
                         <source src="skypharma.mp4" type="video/mp4">
                     </video>
                 </div>
+
+                <button class="video-replay-btn" onclick="restoreVideo('skypharma', 'skypharma.mp4', 'sky1.jpeg')">
+                    <i class="fas fa-play"></i> Revoir la Vidéo SkyPharma
+                </button>
                 
-                <!-- GALERIE DES 4 PHOTOS SKYPHARMA -->
-                <div class="gallery-grid">
-                    <div class="gallery-item active" onclick="swapMedia('skypharma', 'sky1.jpeg', 'photo')">
-                        <img src="sky1.jpeg" alt="SkyPharma Vue 1" onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300';">
+                <!-- GALERIE DES 6 PHOTOS SKYPHARMA -->
+                <div class="gallery-grid gallery-grid-6">
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky1.jpeg')">
+                        <img src="sky1.jpeg" alt="SkyPharma 1" onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300';">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky2.jpeg', 'photo')">
-                        <img src="sky2.jpeg" alt="SkyPharma Vue 2" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300';">
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky2.jpeg')">
+                        <img src="sky2.jpeg" alt="SkyPharma 2" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300';">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky3.jpeg', 'photo')">
-                        <img src="sky3.jpeg" alt="SkyPharma Vue 3" onerror="this.src='https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=300';">
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky3.jpeg')">
+                        <img src="sky3.jpeg" alt="SkyPharma 3" onerror="this.src='https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=300';">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky4.jpeg', 'photo')">
-                        <img src="sky4.jpeg" alt="SkyPharma Vue 4" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=300';">
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky4.jpeg')">
+                        <img src="sky4.jpeg" alt="SkyPharma 4" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky5.jpeg')">
+                        <img src="sky5.jpeg" alt="SkyPharma 5" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('skypharma', 'sky6.jpeg')">
+                        <img src="sky6.jpeg" alt="SkyPharma 6" onerror="this.src='https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=300';">
                     </div>
                 </div>
             </div>
@@ -416,14 +439,17 @@
                         <source src="vid.mp4" type="video/mp4">
                     </video>
                 </div>
-                <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="gallery-item active" onclick="swapMedia('amane', 'ar1.jpeg', 'photo')">
+                <button class="video-replay-btn" onclick="restoreVideo('amane', 'vid.mp4', 'ar1.jpeg')">
+                    <i class="fas fa-play"></i> Revoir la Vidéo Drone
+                </button>
+                <div class="gallery-grid">
+                    <div class="gallery-item active" onclick="swapMedia('amane', 'ar1.jpeg')">
                         <img src="ar1.jpeg" alt="Drone Amane 1">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('amane', 'ar2.jpeg', 'photo')">
+                    <div class="gallery-item" onclick="swapMedia('amane', 'ar2.jpeg')">
                         <img src="ar2.jpeg" alt="Drone Amane 2">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('amane', 'ar3.jpeg', 'photo')">
+                    <div class="gallery-item" onclick="swapMedia('amane', 'ar3.jpeg')">
                         <img src="ar3.jpeg" alt="Drone Amane 3">
                     </div>
                 </div>
@@ -461,14 +487,14 @@
         ===================================================== -->
         <article class="project-card" data-cat="iot" data-aos="fade-up">
             <div class="project-visual">
-                <div class="media-frame" onclick="openLightbox('ae1.jpeg')" style="cursor:zoom-in;">
+                <div class="media-frame" id="tawfir-main-viewer" onclick="openLightbox(document.getElementById('tawfir-img').src)" style="cursor:zoom-in;">
                     <img src="ae1.jpeg" alt="Interface Tawfir" class="full-fit" id="tawfir-img">
                 </div>
                 <div class="gallery-grid" style="grid-template-columns: 1fr 1fr;">
-                    <div class="gallery-item active" onclick="swapMedia('tawfir', 'ae1.jpeg', 'photo')">
+                    <div class="gallery-item active" onclick="swapMedia('tawfir', 'ae1.jpeg')">
                         <img src="ae1.jpeg" alt="Dashboard Tawfir">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('tawfir', 'ae2.jpeg', 'photo')">
+                    <div class="gallery-item" onclick="swapMedia('tawfir', 'ae2.jpeg')">
                         <img src="ae2.jpeg" alt="Hardware ESP32">
                     </div>
                 </div>
@@ -505,8 +531,19 @@
         ===================================================== -->
         <article class="project-card reverse" data-cat="ia" data-aos="fade-up">
             <div class="project-visual">
-                <div class="media-frame" onclick="openLightbox('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800')" style="cursor:zoom-in;">
-                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800" alt="JOWAL Platform" class="full-fit">
+                <div class="media-frame" id="jowal-main-viewer" onclick="openLightbox('jowal1.jpeg')" style="cursor:zoom-in;">
+                    <img src="jowal1.jpeg" alt="JOWAL Platform" class="full-fit" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800';">
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item active" onclick="swapMedia('jowal', 'jowal1.jpeg')">
+                        <img src="jowal1.jpeg" alt="Jowal 1" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('jowal', 'jowal2.jpeg')">
+                        <img src="jowal2.jpeg" alt="Jowal 2" onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('jowal', 'jowal3.jpeg')">
+                        <img src="jowal3.jpeg" alt="Jowal 3" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300';">
+                    </div>
                 </div>
             </div>
 
@@ -540,17 +577,17 @@
         ===================================================== -->
         <article class="project-card" data-cat="robot" data-aos="fade-up">
             <div class="project-visual">
-                <div class="media-frame" onclick="openLightbox('az1.jpeg')" style="cursor:zoom-in;">
+                <div class="media-frame" id="robot-main-viewer" onclick="openLightbox('az1.jpeg')" style="cursor:zoom-in;">
                     <img src="az1.jpeg" alt="Robot Manipulateur" class="full-fit" id="robot-img">
                 </div>
-                <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="gallery-item active" onclick="swapMedia('robot', 'az1.jpeg', 'photo')">
+                <div class="gallery-grid">
+                    <div class="gallery-item active" onclick="swapMedia('robot', 'az1.jpeg')">
                         <img src="az1.jpeg" alt="Robot Vue 1">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('robot', 'az2.jpeg', 'photo')">
+                    <div class="gallery-item" onclick="swapMedia('robot', 'az2.jpeg')">
                         <img src="az2.jpeg" alt="Bras 4 Axes">
                     </div>
-                    <div class="gallery-item" onclick="swapMedia('robot', 'az3.jpeg', 'photo')">
+                    <div class="gallery-item" onclick="swapMedia('robot', 'az3.jpeg')">
                         <img src="az3.jpeg" alt="Vision OpenCV">
                     </div>
                 </div>
@@ -587,8 +624,19 @@
         ===================================================== -->
         <article class="project-card reverse" data-cat="drone" data-aos="fade-up">
             <div class="project-visual">
-                <div class="media-frame" onclick="openLightbox('https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800')" style="cursor:zoom-in;">
-                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800" alt="Drone Inspection HT" class="full-fit">
+                <div class="media-frame" id="dht-main-viewer" onclick="openLightbox('dht1.jpeg')" style="cursor:zoom-in;">
+                    <img src="dht1.jpeg" alt="Drone Inspection HT" class="full-fit" onerror="this.src='https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800';">
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item active" onclick="swapMedia('dht', 'dht1.jpeg')">
+                        <img src="dht1.jpeg" alt="Drone HT 1" onerror="this.src='https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('dht', 'dht2.jpeg')">
+                        <img src="dht2.jpeg" alt="Drone HT 2" onerror="this.src='https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=300';">
+                    </div>
+                    <div class="gallery-item" onclick="swapMedia('dht', 'dht3.jpeg')">
+                        <img src="dht3.jpeg" alt="Drone HT 3" onerror="this.src='https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?w=300';">
+                    </div>
                 </div>
             </div>
 
@@ -630,19 +678,27 @@
         AOS.init({ duration: 750, once: true });
 
         /* ==========================================================================
-           SWAP MÉDIA DYNAMIQUE (PHOTO / VIDÉO)
+           SWAP PHOTO / VIDÉO EN DIRECT
            ========================================================================== */
-        function swapMedia(projectId, mediaSrc, type) {
+        function swapMedia(projectId, imageSrc) {
             const viewer = document.getElementById(`${projectId}-main-viewer`);
             
-            // Retirer la classe active de tous les items de la galerie
+            // Retirer la classe active de la galerie
             const items = event.target.closest('.gallery-grid').querySelectorAll('.gallery-item');
             items.forEach(i => i.classList.remove('active'));
             event.target.closest('.gallery-item').classList.add('active');
 
-            if (type === 'photo') {
-                viewer.innerHTML = `<img src="${mediaSrc}" alt="Projet Média" class="full-fit" onclick="openLightbox('${mediaSrc}')" style="cursor:zoom-in;">`;
-            }
+            viewer.innerHTML = `<img src="${imageSrc}" alt="Vue Projet" class="full-fit" onclick="openLightbox('${imageSrc}')" style="cursor:zoom-in;">`;
+            playElectricSound();
+        }
+
+        function restoreVideo(projectId, videoSrc, posterSrc) {
+            const viewer = document.getElementById(`${projectId}-main-viewer`);
+            viewer.innerHTML = `
+                <video controls autoplay poster="${posterSrc}" class="full-fit">
+                    <source src="${videoSrc}" type="video/mp4">
+                </video>
+            `;
             playElectricSound();
         }
 
@@ -808,7 +864,7 @@
             } catch(e) {}
         }
 
-        document.querySelectorAll('.project-card, .nav-item, .hud-btn, .filter-btn, .gallery-item').forEach(el => {
+        document.querySelectorAll('.project-card, .nav-item, .hud-btn, .filter-btn, .gallery-item, .video-replay-btn').forEach(el => {
             el.addEventListener('mouseenter', playElectricSound);
         });
 
