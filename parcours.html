@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Parcours | Bader El Berkaoui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Parcours Académique | Bader El Berkaoui</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Polices Google Cyber & Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --bg-deep: #050505;
+            --bg-deep: #030712;
             --primary: #00f3ff;
+            --primary-glow: rgba(0, 243, 255, 0.4);
             --secondary: #4361ee;
-            --accent: #bc13fe;
+            --accent: #10b981;
             --gold: #ffd700;
-            --text-main: #ffffff;
+            --gold-glow: rgba(255, 215, 0, 0.4);
+            --neon-purple: #bc13fe;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --glass: rgba(15, 25, 50, 0.7);
-            --border-glow: 1px solid rgba(0, 243, 255, 0.2);
+            --glass-nav: rgba(10, 15, 30, 0.85);
+            --glass-card: rgba(15, 23, 42, 0.7);
+            --border-glow: 1px solid rgba(0, 243, 255, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -29,173 +40,266 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             overflow-x: hidden;
-            padding-bottom: 120px; /* Espace pour le Dock */
+            line-height: 1.6;
+            padding-bottom: 140px;
         }
 
-        /* --- FOND ANIMÉ --- */
+        /* Canvas Curseur */
+        #electric-cursor-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 99999;
+        }
+
+        /* Fond Canvas Particules */
         #canvas-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at 50% 0%, #0f172a 0%, #02040a 100%);
+            background: radial-gradient(circle at 50% 10%, #0d1527 0%, #030712 100%);
         }
 
-        /* --- NAVIGATION DOCK (IDENTIQUE INDEX) --- */
+        /* --- HUD TOPBAR --- */
+        .hud-topbar {
+            position: fixed; top: 20px; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 900; pointer-events: none;
+        }
+        .hud-btn {
+            pointer-events: auto; background: rgba(10, 16, 30, 0.8);
+            border: var(--border-glow); color: var(--primary);
+            padding: 8px 16px; border-radius: 30px; font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
+            display: inline-flex; align-items: center; gap: 8px;
+            backdrop-filter: blur(12px); cursor: pointer; text-decoration: none; transition: 0.3s;
+        }
+        .hud-btn:hover {
+            background: var(--primary); color: #030712; box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* --- NAVIGATION STARGATE DOCK --- */
         nav {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
+            padding-bottom: env(safe-area-inset-bottom);
         }
         
         .nav-dock {
-            background: rgba(10, 15, 30, 0.9);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 30px; border-radius: 50px;
-            display: flex; gap: 20px; align-items: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            background: var(--glass-nav);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: var(--border-glow); padding: 10px 22px; border-radius: 30px;
+            display: flex; gap: 10px; align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0, 243, 255, 0.15);
         }
 
         .nav-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-decoration: none; color: var(--text-muted); transition: 0.3s;
-            position: relative; padding: 5px 10px;
+            text-decoration: none; color: var(--text-muted); transition: all 0.3s;
+            position: relative; padding: 6px 12px; border-radius: 12px;
         }
 
-        .nav-item i { font-size: 1.4rem; margin-bottom: 0; transition: 0.3s; }
+        .nav-item i { font-size: 1.2rem; margin-bottom: 2px; transition: 0.3s; }
         .nav-item span { 
-            font-size: 0px; opacity: 0; height: 0; 
-            text-transform: uppercase; font-weight: 700; transition: 0.3s;
-            font-family: 'Rajdhani'; color: var(--primary);
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; font-family: 'Rajdhani', sans-serif;
+            color: var(--text-muted); transition: 0.3s;
         }
 
-        .nav-item:hover { transform: translateY(-5px); }
-        .nav-item:hover i { color: var(--primary); }
-        .nav-item:hover span { font-size: 0.7rem; opacity: 1; height: auto; margin-top: 5px; }
+        .nav-item:hover { transform: translateY(-4px); }
+        .nav-item:hover i, .nav-item:hover span { color: var(--primary); text-shadow: 0 0 12px var(--primary); }
         
-        .nav-item.active i { color: var(--primary); }
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -5px; width: 5px; height: 5px;
-            background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);
-        }
+        .nav-item.active { background: rgba(0, 243, 255, 0.1); border: 1px solid rgba(0, 243, 255, 0.35); }
+        .nav-item.active i, .nav-item.active span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 
         .cv-btn {
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            color: #fff !important; border-radius: 50%; width: 40px; height: 40px;
-            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, var(--secondary), var(--neon-purple)) !important;
+            color: #fff !important; border-radius: 14px; padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3) !important;
             box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
         }
-        .cv-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(188, 19, 254, 0.8); }
-        .cv-btn i { font-size: 1.2rem; color: #fff !important; }
+        .cv-btn span { color: #fff !important; }
+        .cv-btn:hover { box-shadow: 0 0 25px rgba(188, 19, 254, 0.8); transform: scale(1.05); }
 
-        /* --- HEADER --- */
+        /* --- HEADER SECTION --- */
         .header-section {
-            text-align: center; padding: 100px 20px 60px;
+            text-align: center; padding: 120px 20px 40px; max-width: 900px; margin: 0 auto;
+        }
+        .section-tag {
+            color: var(--primary); font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 12px; display: inline-block;
         }
         .header-section h1 {
-            font-family: 'Orbitron'; font-size: 3.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
-            color: #fff; text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            font-family: 'Orbitron', sans-serif; font-size: 3.2rem; margin-bottom: 15px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: -1px;
+            background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .highlight { color: var(--primary); }
-        .intro-text { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; font-family: 'Rajdhani'; }
+        .intro-text {
+            font-size: 1.1rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 35px; line-height: 1.7;
+        }
 
-        /* --- TIMELINE AVANCÉE --- */
-        .timeline {
-            position: relative; max-width: 1000px; margin: 0 auto; padding: 20px 0;
+        /* --- STATS KPI ACADÉMIQUES --- */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 50px;
+        }
+        .kpi-box {
+            background: var(--glass-card); border: var(--border-glow); border-radius: 16px;
+            padding: 15px 25px; text-align: center; min-width: 170px; backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+        .kpi-box:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .kpi-num {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 700;
+            color: var(--primary);
+        }
+        .kpi-label {
+            font-family: 'Rajdhani', sans-serif; font-size: 0.82rem; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* --- TIMELINE CIRCUIT --- */
+        .timeline-wrapper {
+            position: relative; max-width: 1050px; margin: 0 auto; padding: 20px 20px 60px;
         }
         
-        /* Ligne centrale animée */
-        .timeline::before {
+        /* Ligne de circuit centrale */
+        .timeline-wrapper::before {
             content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px;
-            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
-            box-shadow: 0 0 15px var(--primary); opacity: 0.5;
+            background: linear-gradient(to bottom, transparent, var(--primary) 15%, var(--secondary) 85%, transparent);
+            box-shadow: 0 0 15px var(--primary);
         }
 
         .timeline-item {
-            padding: 20px 40px; position: relative; width: 50%;
-            opacity: 0; transform: translateY(30px); transition: 0.5s;
+            padding: 20px 45px; position: relative; width: 50%;
         }
-        .timeline-item.visible { opacity: 1; transform: translateY(0); }
 
         .left { left: 0; text-align: right; }
         .right { left: 50%; text-align: left; }
 
-        /* Point connecteur */
+        /* Connecteur d'énergie */
         .connector {
-            position: absolute; width: 16px; height: 16px; background: var(--bg-deep);
-            border: 2px solid var(--primary); border-radius: 50%; top: 40px; z-index: 10;
-            box-shadow: 0 0 10px var(--primary); transition: 0.3s;
+            position: absolute; width: 20px; height: 20px; background: var(--bg-deep);
+            border: 2px solid var(--primary); border-radius: 50%; top: 38px; z-index: 10;
+            box-shadow: 0 0 12px var(--primary); transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
         }
-        .left .connector { right: -8px; }
-        .right .connector { left: -8px; }
-        .timeline-item:hover .connector { background: var(--primary); transform: scale(1.3); }
+        .connector::after {
+            content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
+        }
+        .left .connector { right: -10px; }
+        .right .connector { left: -10px; }
+        .timeline-item:hover .connector { transform: scale(1.3); background: var(--primary); }
+        .timeline-item:hover .connector::after { background: #030712; }
 
-        /* CARTE CONTENU 3D */
-        .content {
-            padding: 30px; background: var(--glass); border: var(--border-glow);
-            border-radius: 16px; position: relative; backdrop-filter: blur(10px);
-            transition: 0.3s; transform-style: preserve-3d;
+        /* CARTE DE CONTENU */
+        .card-content {
+            padding: 30px; background: var(--glass-card); border: var(--border-glow);
+            border-radius: 20px; position: relative; backdrop-filter: blur(14px);
+            transition: all 0.4s ease; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
-        .content:hover { 
-            border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); 
+        .card-content:hover { 
+            border-color: var(--primary); box-shadow: 0 0 35px rgba(0, 243, 255, 0.2); 
             transform: translateY(-5px);
         }
 
         .date-badge {
-            display: inline-block; padding: 5px 12px; background: rgba(0, 243, 255, 0.1);
-            color: var(--primary); border-radius: 4px; font-weight: 700; font-size: 0.85rem;
-            margin-bottom: 15px; border: 1px solid rgba(0, 243, 255, 0.2); font-family: 'Rajdhani';
+            display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px;
+            background: rgba(0, 243, 255, 0.1); color: var(--primary); border-radius: 6px;
+            font-weight: 700; font-size: 0.8rem; margin-bottom: 12px;
+            border: 1px solid rgba(0, 243, 255, 0.25); font-family: 'JetBrains Mono', monospace;
         }
 
-        h2 { font-size: 1.5rem; margin-bottom: 5px; color: #fff; font-family: 'Rajdhani'; }
+        .card-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700;
+            margin-bottom: 6px; color: #fff;
+        }
         
         .school { 
-            color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; display: block; 
-            font-style: italic; 
+            color: var(--primary); font-size: 0.95rem; margin-bottom: 15px; display: inline-flex;
+            align-items: center; gap: 8px; font-weight: 600; font-family: 'Rajdhani', sans-serif;
         }
-        .school i { color: var(--secondary); margin-right: 5px; }
 
-        .desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .desc {
+            color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px;
+        }
 
-        /* TAGS */
+        /* TAGS DE COMPÉTENCES */
         .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: inherit; }
         .tag {
             font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
-            background: rgba(255,255,255,0.05); color: #a0aec0; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.04); color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.08); font-family: 'JetBrains Mono', monospace;
+            transition: 0.3s;
         }
         .left .skills-tags { justify-content: flex-end; }
-        
-        .content:hover .tag { border-color: var(--primary); color: var(--primary); }
+        .card-content:hover .tag { border-color: var(--primary); color: var(--primary); }
 
-        /* EFFET MAJOR (OR) */
-        .major-glow { border-color: rgba(255, 215, 0, 0.5); box-shadow: 0 0 20px rgba(255, 215, 0, 0.1); }
-        .major-glow:hover { border-color: var(--gold); box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); }
-        
+        /* --- CARTE SPÉCIALE MAJOR DE PROMO (GOLD ORBITAL) --- */
+        .major-card {
+            border-color: rgba(255, 215, 0, 0.45) !important;
+            background: linear-gradient(145deg, rgba(30, 25, 10, 0.8), rgba(15, 23, 42, 0.8)) !important;
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.15) !important;
+        }
+        .major-card:hover {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3) !important;
+        }
         .major-badge {
-            display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
-            color: var(--gold); font-weight: 800; text-transform: uppercase; font-size: 0.85rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 14px; border-radius: 30px;
+            background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.4);
+            color: var(--gold); font-weight: 800; font-size: 0.85rem; font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 15px; letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
             animation: pulse-gold 2s infinite;
         }
-        @keyframes pulse-gold { 0% { opacity: 0.7; } 50% { opacity: 1; text-shadow: 0 0 10px var(--gold); } 100% { opacity: 0.7; } }
+        @keyframes pulse-gold { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
 
-        /* MOBILE */
+        /* FOOTER */
+        footer { 
+            text-align: center; padding: 40px 20px; 
+            border-top: 1px solid rgba(255,255,255,0.06); 
+            color: var(--text-muted); font-size: 0.85rem; 
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 1024px) {
-            .timeline::before { left: 30px; }
-            .timeline-item { width: 100%; padding-left: 60px; padding-right: 10px; text-align: left; }
+            .header-section h1 { font-size: 2.4rem; }
+            .timeline-wrapper::before { left: 25px; }
+            .timeline-item { width: 100%; padding-left: 55px; padding-right: 10px; text-align: left; }
             .left, .right { left: 0; }
-            .connector { left: 22px; }
+            .connector { left: 15px; }
             .left .connector { right: auto; }
-            
             .left .skills-tags { justify-content: flex-start; }
             
-            nav { width: 95%; bottom: 20px; }
-            .nav-dock { padding: 12px 20px; justify-content: space-between; width: 100%; }
-            .nav-item i { font-size: 1.3rem; }
+            nav { width: 95%; bottom: 15px; }
+            .nav-dock { padding: 10px 15px; justify-content: space-around; width: 100%; gap: 4px; }
+            .nav-item { padding: 4px 6px; }
+            .nav-item i { font-size: 1.15rem; }
             .nav-item span { display: none !important; }
+            .cv-btn span { display: block !important; font-size: 0.65rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- CANVAS CURSEUR ARC ÉLECTRIQUE -->
+    <canvas id="electric-cursor-canvas"></canvas>
+
+    <!-- FOND CANVAS PARTICULES -->
     <canvas id="canvas-bg"></canvas>
 
+    <!-- HUD TOPBAR -->
+    <div class="hud-topbar">
+        <a href="index.html" class="hud-btn">
+            <i class="fas fa-arrow-left"></i> <span>RETOUR ACCUEIL</span>
+        </a>
+
+        <a href="experiences.html" class="hud-btn">
+            <span>EXPÉRIENCES</span> <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <!-- NAVIGATION DOCK STARGATE (BAS) -->
     <nav>
         <div class="nav-dock">
             <a href="index.html" class="nav-item">
@@ -217,142 +321,322 @@
                 <i class="fas fa-envelope"></i> <span>Contact</span>
             </a>
             <a href="cv.html" class="nav-item cv-btn">
-                <i class="fas fa-file-pdf"></i>
+                <i class="fas fa-file-pdf"></i> <span>CV</span>
             </a>
         </div>
     </nav>
 
+    <!-- HEADER SECTION -->
     <section class="header-section" data-aos="zoom-in">
-        <h1>Mon <span class="highlight">Parcours</span></h1>
+        <span class="section-tag">// CURSUS ACADÉMIQUE & DIPLÔMES</span>
+        <h1>Mon <span style="color: var(--primary);">Parcours</span></h1>
         <p class="intro-text">
-            Chaque étape académique a été une brique posée pour construire une expertise solide en ingénierie électrique et automatismes.
+            De la formation d'élite en classes préparatoires scientifiques à l'excellence en Cycle d'Ingénieur d'État en Génie Électrique & Contrôle Industriel.
         </p>
+
+        <!-- STATS KPI -->
+        <div class="stats-bar">
+            <div class="kpi-box">
+                <div class="kpi-num">1<sup>er</sup></div>
+                <div class="kpi-label">Major de Promotion (LST)</div>
+            </div>
+            <div class="kpi-box">
+                <div class="kpi-num">BAC+5</div>
+                <div class="kpi-label">Diplôme Ingénieur d'État</div>
+            </div>
+            <div class="kpi-box">
+                <div class="kpi-num">2026</div>
+                <div class="kpi-label">Disponibilité PFE</div>
+            </div>
+        </div>
     </section>
 
-    <div class="timeline">
+    <!-- TIMELINE SECTION -->
+    <div class="timeline-wrapper">
 
+        <!-- ETAPE 1 : CYCLE INGÉNIEUR -->
         <div class="timeline-item right" data-aos="fade-left">
             <div class="connector"></div>
-            <div class="content js-tilt">
-                <span class="date-badge">2024 - Présent</span>
-                <h2>Cycle Ingénieur d'État</h2>
-                <span class="school"><i class="fas fa-university"></i> FST Mohammedia</span>
+            <div class="card-content js-tilt">
+                <span class="date-badge"><i class="fas fa-calendar-alt"></i> 2024 - 2026 (En cours)</span>
+                <h2 class="card-title">Cycle d'Ingénieur d'État</h2>
+                <div class="school"><i class="fas fa-university"></i> FST Mohammedia</div>
                 <p class="desc">
-                    <strong>Génie Électrique et Contrôle Industriel (GECI)</strong>.<br>
-                    Formation d'élite axée sur la conception de systèmes complexes, l'automatisation avancée et l'efficacité énergétique.
+                    Filière <strong>Génie Électrique & Contrôle Industriel (GECI)</strong>.<br>
+                    Formation d'ingénieur approfondie : modélisation et commande par retour d'état, systèmes SCADA industriels, réseaux Haute & Moyenne Tension, et architectures embarquées temps réel (STM32/RTOS).
                 </p>
                 <div class="skills-tags">
-                    <span class="tag">SCADA</span>
-                    <span class="tag">Automatisme Avancé</span>
-                    <span class="tag">Élec. Puissance</span>
-                    <span class="tag">Gestion de Projet</span>
+                    <span class="tag">SCADA & WinCC</span>
+                    <span class="tag">Automatisme Siemens</span>
+                    <span class="tag">Électronique de Puissance</span>
+                    <span class="tag">Régulation Avancée</span>
                 </div>
             </div>
         </div>
 
+        <!-- ETAPE 2 : MAJOR LICENCE LST (GOLD) -->
         <div class="timeline-item left" data-aos="fade-right">
-            <div class="connector" style="border-color:var(--gold); box-shadow:0 0 10px var(--gold);"></div>
-            <div class="content major-glow js-tilt">
-                <span class="date-badge" style="color:var(--gold); border-color:var(--gold);">2023 - 2024</span>
-                <h2>Licence Sciences et Techniques</h2>
-                <span class="school"><i class="fas fa-university"></i> FST Settat</span>
-                <p class="desc">
-                    <strong>Génie Électrique et Systèmes Automatisés</strong>.<br>
-                    Consécration d'une année d'excellence académique.
-                </p>
+            <div class="connector" style="border-color: var(--gold); box-shadow: 0 0 12px var(--gold);"></div>
+            <div class="card-content major-card js-tilt">
+                <span class="date-badge" style="color: var(--gold); border-color: rgba(255,215,0,0.4);"><i class="fas fa-calendar-alt"></i> 2023 - 2024</span>
+                
                 <div class="major-badge">
-                    <i class="fas fa-trophy"></i> Major de Promo - Mention Très Bien
+                    <i class="fas fa-trophy"></i> Major de Promotion • Mention Très Bien
                 </div>
+
+                <h2 class="card-title" style="color: #fff;">Licence Sciences & Techniques (LST)</h2>
+                <div class="school" style="color: var(--gold);"><i class="fas fa-graduation-cap"></i> FST Settat</div>
+                <p class="desc">
+                    Filière <strong>Génie Électrique et Systèmes Automatisés (GESA)</strong>.<br>
+                    Consécration au premier rang de promotion. Maîtrise des asservissements numériques PID, de la programmation d'automates programmables industriels (API) et des microcontrôleurs.
+                </p>
                 <div class="skills-tags">
+                    <span class="tag" style="border-color: rgba(255,215,0,0.3); color: var(--gold);">Major Promo 1/80</span>
                     <span class="tag">Régulation PID</span>
-                    <span class="tag">Grafcet</span>
-                    <span class="tag">Matlab/Simulink</span>
-                    <span class="tag">Microcontrôleurs</span>
+                    <span class="tag">Matlab / Simulink</span>
+                    <span class="tag">Grafcet & Ladder</span>
+                    <span class="tag">STM32 / ESP32</span>
                 </div>
             </div>
         </div>
 
+        <!-- ETAPE 3 : DEUST PRÉPA -->
         <div class="timeline-item right" data-aos="fade-left">
             <div class="connector"></div>
-            <div class="content js-tilt">
-                <span class="date-badge">2021 - 2023</span>
-                <h2>DEUST (Cycle Prépa)</h2>
-                <span class="school"><i class="fas fa-university"></i> FST Settat</span>
+            <div class="card-content js-tilt">
+                <span class="date-badge"><i class="fas fa-calendar-alt"></i> 2021 - 2023</span>
+                <h2 class="card-title">DEUST (Cycle Préparatoire Intégré)</h2>
+                <div class="school"><i class="fas fa-university"></i> FST Settat</div>
                 <p class="desc">
-                    <strong>Génie Électrique & Génie Mécanique</strong>.<br>
-                    Acquisition du socle scientifique fondamental (Maths, Physique) et des premières compétences techniques.
+                    Tronc Commun <strong>Génie Électrique & Mécanique (GE-GM)</strong>.<br>
+                    Acquisition du socle scientifique fondamental d'ingénieur : Mathématiques pour l'ingénieur, électromagnétisme, thermodynamique, mécanique des fluides et algorithmique avancée en C++.
                 </p>
                 <div class="skills-tags">
-                    <span class="tag">Mécanique</span>
-                    <span class="tag">Thermodynamique</span>
-                    <span class="tag">C++</span>
-                    <span class="tag">Circuits Électriques</span>
+                    <span class="tag">Maths & Physique</span>
+                    <span class="tag">Électromagnétisme</span>
+                    <span class="tag">C / C++</span>
+                    <span class="tag">Analyse Harmonique</span>
                 </div>
             </div>
         </div>
 
+        <!-- ETAPE 4 : BACCALAURÉAT TECHNIQUE -->
         <div class="timeline-item left" data-aos="fade-right">
             <div class="connector"></div>
-            <div class="content js-tilt">
-                <span class="date-badge">2021</span>
-                <h2>Baccalauréat Technique</h2>
-                <span class="school"><i class="fas fa-school"></i> Lycée Technique Anoual</span>
+            <div class="card-content js-tilt">
+                <span class="date-badge"><i class="fas fa-calendar-alt"></i> 2021</span>
+                <h2 class="card-title">Baccalauréat Technique (STE)</h2>
+                <div class="school"><i class="fas fa-school"></i> Lycée Technique Anoual</div>
                 <p class="desc">
-                    Option <strong>Sciences et Technologies Électriques</strong>.<br>
-                    Mention Bien. Le début de ma vocation pour l'ingénierie.
+                    Option <strong>Sciences & Technologies Électriques</strong> • <em>Mention Bien</em>.<br>
+                    Première immersion professionnelle : Schémas électriques industriels, machines tournantes (moteurs asynchrones/synchrones), transformateurs et logique combinatoire & séquentielle.
                 </p>
                 <div class="skills-tags">
-                    <span class="tag">Schémas Électriques</span>
-                    <span class="tag">Logique Combinatoire</span>
-                    <span class="tag">Moteurs</span>
+                    <span class="tag">Mention Bien</span>
+                    <span class="tag">Machines Électriques</span>
+                    <span class="tag">Schémas Unifilaires</span>
+                    <span class="tag">Logique Séquentielle</span>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <footer>
+        <p>© 2026 Bader El Berkaoui • Ingénierie & Innovation Industrielle</p>
+    </footer>
+
+    <!-- SCRIPTS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 700, once: true });
         
-        VanillaTilt.init(document.querySelectorAll(".js-tilt"), {
-            max: 5, speed: 400, glare: true, "max-glare": 0.1, scale: 1.02
+        if (window.VanillaTilt) {
+            VanillaTilt.init(document.querySelectorAll(".js-tilt"), {
+                max: 8, speed: 400, glare: true, "max-glare": 0.15, scale: 1.01
+            });
+        }
+
+        /* ==========================================================================
+           CURSEUR ARC ÉLECTRIQUE
+           ========================================================================== */
+        (function() {
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+            const canvas = document.getElementById('electric-cursor-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            let mouse = { x: width / 2, y: height / 2, prevX: width / 2, prevY: height / 2 };
+            let points = [];
+            let sparks = [];
+            const maxPoints = 8;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.prevX = mouse.x; mouse.prevY = mouse.y;
+                mouse.x = e.clientX; mouse.y = e.clientY;
+                points.push({ x: mouse.x, y: mouse.y, age: 0 });
+
+                const speed = Math.hypot(mouse.x - mouse.prevX, mouse.y - mouse.prevY);
+                if (speed > 5) {
+                    for (let i = 0; i < Math.min(speed / 4, 3); i++) {
+                        sparks.push({
+                            x: mouse.x, y: mouse.y,
+                            vx: (Math.random() - 0.5) * 4, vy: (Math.random() - 0.5) * 4,
+                            size: Math.random() * 2 + 1, life: 1, decay: 0.05,
+                            color: Math.random() > 0.3 ? '#00f3ff' : '#ffffff'
+                        });
+                    }
+                }
+            });
+
+            window.addEventListener('mousedown', (e) => {
+                for (let i = 0; i < 20; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 5 + 2;
+                    sparks.push({
+                        x: e.clientX, y: e.clientY,
+                        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+                        size: Math.random() * 2 + 1, life: 1, decay: 0.04,
+                        color: Math.random() > 0.3 ? '#00f3ff' : '#ffffff'
+                    });
+                }
+                playElectricSound();
+            });
+
+            function drawLightning(x1, y1, x2, y2, displace) {
+                if (displace < 2) {
+                    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+                    return;
+                }
+                const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * displace;
+                const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * displace;
+                drawLightning(x1, y1, midX, midY, displace / 2);
+                drawLightning(midX, midY, x2, y2, displace / 2);
+            }
+
+            function animateCursor() {
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < points.length; i++) points[i].age++;
+                points = points.filter(p => p.age < maxPoints);
+
+                if (points.length > 1) {
+                    ctx.save();
+                    ctx.shadowBlur = 12; ctx.shadowColor = '#00f3ff';
+                    ctx.strokeStyle = 'rgba(0, 243, 255, 0.7)'; ctx.lineWidth = 2;
+                    for (let i = 0; i < points.length - 1; i++) {
+                        drawLightning(points[i].x, points[i].y, points[i+1].x, points[i+1].y, 7);
+                    }
+                    ctx.shadowBlur = 4; ctx.shadowColor = '#fff';
+                    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1;
+                    for (let i = 0; i < points.length - 1; i++) {
+                        drawLightning(points[i].x, points[i].y, points[i+1].x, points[i+1].y, 3);
+                    }
+                    ctx.restore();
+                }
+
+                ctx.save();
+                ctx.shadowBlur = 15; ctx.shadowColor = '#00f3ff';
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+
+                for (let i = sparks.length - 1; i >= 0; i--) {
+                    const s = sparks[i];
+                    s.x += s.vx; s.y += s.vy;
+                    s.vx *= 0.95; s.vy *= 0.95; s.life -= s.decay;
+
+                    if (s.life <= 0) { sparks.splice(i, 1); continue; }
+
+                    ctx.save();
+                    ctx.shadowBlur = 6; ctx.shadowColor = s.color;
+                    ctx.fillStyle = s.color; ctx.globalAlpha = s.life;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                }
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        })();
+
+        /* ==========================================================================
+           SONS WEB AUDIO API
+           ========================================================================== */
+        function playElectricSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+            } catch(e) {}
+        }
+
+        document.querySelectorAll('.card-content, .nav-item, .hud-btn, .tag').forEach(el => {
+            el.addEventListener('mouseenter', playElectricSound);
         });
 
-        // Fond Particules (Identique Index)
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        /* ==========================================================================
+           FOND PARTICULES INTERACTIF
+           ========================================================================== */
+        const canvasBg = document.getElementById('canvas-bg');
+        const ctxBg = canvasBg.getContext('2d');
+        let bgW = canvasBg.width = window.innerWidth;
+        let bgH = canvasBg.height = window.innerHeight;
 
-        let particles = [];
-        for(let i=0; i<30; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speedX: Math.random() - 0.5,
-                speedY: Math.random() - 0.5
+        let bgParticles = [];
+        for (let i = 0; i < 45; i++) {
+            bgParticles.push({
+                x: Math.random() * bgW, y: Math.random() * bgH,
+                size: Math.random() * 2 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.6, speedY: (Math.random() - 0.5) * 0.6
             });
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 243, 255, 0.2)';
-            particles.forEach(p => {
+        function animateBg() {
+            ctxBg.clearRect(0, 0, bgW, bgH);
+            for (let i = 0; i < bgParticles.length; i++) {
+                const p = bgParticles[i];
                 p.x += p.speedX; p.y += p.speedY;
-                if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-            });
-            requestAnimationFrame(animate);
+                if (p.x > bgW || p.x < 0) p.speedX *= -1;
+                if (p.y > bgH || p.y < 0) p.speedY *= -1;
+
+                ctxBg.fillStyle = 'rgba(0, 243, 255, 0.3)';
+                ctxBg.beginPath(); ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
+
+                for (let j = i + 1; j < bgParticles.length; j++) {
+                    const p2 = bgParticles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 100) {
+                        ctxBg.strokeStyle = `rgba(0, 243, 255, ${(1 - dist/100) * 0.2})`;
+                        ctxBg.lineWidth = 0.5;
+                        ctxBg.beginPath(); ctxBg.moveTo(p.x, p.y); ctxBg.lineTo(p2.x, p2.y); ctxBg.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateBg);
         }
-        animate();
+        animateBg();
+
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            bgW = canvasBg.width = window.innerWidth;
+            bgH = canvasBg.height = window.innerHeight;
         });
     </script>
 </body>
