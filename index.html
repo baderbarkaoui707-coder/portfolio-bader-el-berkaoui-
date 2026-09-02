@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Bader El Berkaoui | Ingénieur Génie Électrique & Automatisme</title>
     
-    <!-- Meta SEO & Social Sharing -->
-    <meta name="description" content="Portfolio de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
+    <!-- Meta SEO & OpenGraph -->
+    <meta name="description" content="Portfolio Officiel de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
     <meta name="theme-color" content="#030712">
 
     <!-- Polices Google Cyber & Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome 6 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- AOS Animations -->
@@ -23,18 +23,18 @@
     <style>
         :root {
             --bg-deep: #030712;
-            --bg-surface: #0b1329;
-            --primary: #00f3ff;       /* Cyan Cyber */
-            --primary-glow: rgba(0, 243, 255, 0.4);
-            --secondary: #4361ee;     /* Bleu Électrique */
-            --accent: #10b981;        /* Vert Émeraude */
-            --neon-purple: #bc13fe;   /* Violet Néon */
+            --bg-surface: #0a1124;
+            --primary: #00f3ff;
+            --primary-glow: rgba(0, 243, 255, 0.45);
+            --secondary: #4361ee;
+            --accent: #10b981;
+            --gold: #ffd700;
+            --neon-purple: #bc13fe;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --glass-nav: rgba(10, 15, 30, 0.85);
-            --glass-card: rgba(15, 23, 42, 0.7);
-            --border-glow: 1px solid rgba(0, 243, 255, 0.25);
-            --border-glow-hover: 1px solid rgba(0, 243, 255, 0.7);
+            --glass-nav: rgba(10, 15, 30, 0.88);
+            --glass-card: rgba(15, 23, 42, 0.8);
+            --border-glow: 1px solid rgba(0, 243, 255, 0.22);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -45,102 +45,98 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            padding-bottom: 140px;
         }
 
-        /* Curseur Canvas invisible pour les éléments cliquables */
+        /* CURSEUR ARC ÉLECTRIQUE */
         #electric-cursor-canvas {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 99999;
         }
+        @media (pointer: coarse) {
+            #electric-cursor-canvas { display: none !important; }
+        }
 
-        /* --- ÉCRAN D'INITIALISATION (ACCÉLÉRÉ & PRO) --- */
+        /* ÉCRAN D'INITIALISATION */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #030712; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1), transform 0.6s ease;
-            cursor: pointer;
+            cursor: pointer; padding: 20px;
         }
-        
-        .welcome-content { text-align: center; }
-        
+        .welcome-content { text-align: center; max-width: 90%; }
         .loader-line {
             width: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), transparent);
             margin: 20px auto; box-shadow: 0 0 25px var(--primary);
             animation: loadLine 1.1s forwards cubic-bezier(0.65, 0, 0.35, 1);
         }
-        
         .welcome-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: #fff; letter-spacing: 4px;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(1rem, 3vw, 1.3rem); color: #fff; letter-spacing: 3px;
             font-weight: 700; text-transform: uppercase; opacity: 0; animation: fadeInTxt 0.4s 0.2s forwards;
         }
-        
         .welcome-sub {
-            font-family: 'Rajdhani', sans-serif; color: var(--primary); font-size: 1.05rem; margin-top: 10px;
+            font-family: 'Rajdhani', sans-serif; color: var(--primary); font-size: clamp(0.9rem, 2.5vw, 1.1rem); margin-top: 10px;
             font-weight: 600; letter-spacing: 2px; opacity: 0; animation: fadeInTxt 0.4s 0.5s forwards;
         }
-
-        @keyframes loadLine { 0% { width: 0; } 100% { width: 240px; } }
+        .click-hint {
+            margin-top: 15px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+            color: var(--text-muted); opacity: 0; animation: fadeInTxt 0.4s 0.8s forwards;
+        }
+        @keyframes loadLine { 0% { width: 0; } 100% { width: min(280px, 80vw); } }
         @keyframes fadeInTxt { to { opacity: 1; } }
-
         .hide-welcome { opacity: 0 !important; pointer-events: none; transform: translateY(-100%); }
 
-        /* --- FOND PARTICULES CANVAS --- */
+        /* FOND PARTICULES CANVAS */
         #canvas-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(circle at 50% 10%, #0d1527 0%, #030712 100%);
         }
 
-        /* --- BARRE D'OUTILS HUD EN HAUT --- */
+        /* TOPBAR HUD */
         .hud-topbar {
-            position: fixed; top: 20px; left: 0; width: 100%;
+            position: fixed; top: 16px; left: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 5%; z-index: 900; pointer-events: none;
         }
         .hud-btn {
-            pointer-events: auto; background: rgba(10, 16, 30, 0.8);
+            pointer-events: auto; background: rgba(10, 16, 30, 0.85);
             border: var(--border-glow); color: var(--primary);
             padding: 8px 16px; border-radius: 30px; font-family: 'Rajdhani', sans-serif;
             font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
             display: inline-flex; align-items: center; gap: 8px;
-            backdrop-filter: blur(12px); cursor: pointer; transition: 0.3s;
+            backdrop-filter: blur(12px); cursor: pointer; text-decoration: none; transition: 0.3s;
         }
         .hud-btn:hover {
-            background: var(--primary); color: #030712; box-shadow: 0 0 20px var(--primary-glow);
+            background: var(--primary); color: #030712; box-shadow: 0 0 25px var(--primary-glow);
             transform: translateY(-2px);
         }
 
-        /* --- NAVIGATION STARGATE FLOTTANTE (BAS) --- */
+        /* NAVIGATION DOCK STARGATE FLOTTANTE */
         nav {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
             padding-bottom: env(safe-area-inset-bottom);
         }
-        
         .nav-dock {
-            background: var(--glass-nav);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: var(--glass-nav); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: var(--border-glow); padding: 10px 22px; border-radius: 30px;
             display: flex; gap: 10px; align-items: center;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0, 243, 255, 0.15);
         }
-
         .nav-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-decoration: none; color: var(--text-muted); transition: all 0.3s;
             position: relative; padding: 6px 12px; border-radius: 12px;
         }
-
         .nav-item i { font-size: 1.2rem; margin-bottom: 2px; transition: 0.3s; }
         .nav-item span { 
             font-size: 0.68rem; font-weight: 700; letter-spacing: 1px;
             text-transform: uppercase; font-family: 'Rajdhani', sans-serif;
             color: var(--text-muted); transition: 0.3s;
         }
-
         .nav-item:hover { transform: translateY(-4px); }
         .nav-item:hover i, .nav-item:hover span { color: var(--primary); text-shadow: 0 0 12px var(--primary); }
-        
         .nav-item.active { background: rgba(0, 243, 255, 0.1); border: 1px solid rgba(0, 243, 255, 0.35); }
         .nav-item.active i, .nav-item.active span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 
@@ -153,11 +149,11 @@
         .cv-btn span { color: #fff !important; }
         .cv-btn:hover { box-shadow: 0 0 25px rgba(188, 19, 254, 0.8); transform: scale(1.05); }
 
-        /* --- HERO SECTION --- */
+        /* HERO SECTION */
         .hero-container {
-            min-height: 100vh; display: grid; grid-template-columns: 1.15fr 0.85fr;
-            align-items: center; padding: 100px 10% 120px; gap: 50px;
-            max-width: 1350px; margin: 0 auto;
+            min-height: 90vh; display: grid; grid-template-columns: 1.15fr 0.85fr;
+            align-items: center; padding: 110px 8% 40px; gap: 45px;
+            max-width: 1400px; margin: 0 auto;
         }
 
         .hero-text { z-index: 2; }
@@ -167,266 +163,387 @@
             padding: 8px 18px; border-radius: 50px;
             background: rgba(0, 243, 255, 0.08); border: var(--border-glow);
             color: var(--primary); font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.78rem;
-            letter-spacing: 2px; margin-bottom: 25px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+            letter-spacing: 2px; margin-bottom: 22px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
         }
         .status-dot {
             width: 8px; height: 8px; background: #00ff9d; border-radius: 50%;
             box-shadow: 0 0 10px #00ff9d; animation: pulse-dot 2s infinite;
         }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; transform: scale(0.85); } }
         
         h1 {
-            font-size: 3.8rem; line-height: 1.05; margin-bottom: 20px; font-weight: 900; text-transform: uppercase;
+            font-size: clamp(2.4rem, 5.5vw, 3.8rem); line-height: 1.08; margin-bottom: 16px; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-family: 'Orbitron', sans-serif; letter-spacing: -1px;
         }
 
         .hero-subtitle {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.35rem; font-weight: 700;
+            font-family: 'Rajdhani', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 700;
             color: var(--primary); margin-bottom: 20px; letter-spacing: 1px;
             display: flex; align-items: center; gap: 10px;
         }
 
-        .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-        .skill-chip {
-            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.92rem; color: #fff;
-            padding: 6px 14px; background: rgba(255,255,255,0.04); border-radius: 8px;
-            border-left: 3px solid var(--secondary); transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 6px;
+        /* KPI STATS ROW */
+        .kpi-row {
+            display: flex; gap: 16px; margin-bottom: 25px; flex-wrap: wrap;
         }
-        .skill-chip:hover { border-color: var(--primary); background: rgba(0, 243, 255, 0.1); transform: translateY(-3px); }
+        .kpi-box {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 18px; border-radius: 12px; border-left: 3px solid var(--primary);
+            flex: 1; min-width: 120px;
+        }
+        .kpi-number {
+            font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff;
+        }
+        .kpi-label {
+            font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
 
         .description {
-            color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; max-width: 580px; margin-bottom: 35px;
+            color: var(--text-muted); font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; max-width: 600px; margin-bottom: 30px;
         }
 
         .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn-glow {
-            padding: 14px 32px; background: var(--primary); color: #030712;
-            border-radius: 8px; font-weight: 800; text-decoration: none;
+            padding: 14px 30px; background: var(--primary); color: #030712;
+            border-radius: 10px; font-weight: 800; text-decoration: none;
             transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
-            text-transform: uppercase; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            text-transform: uppercase; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; font-size: 0.98rem;
             box-shadow: 0 0 25px var(--primary-glow);
         }
         .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 35px var(--primary); }
         
         .btn-transparent {
-            padding: 14px 30px; background: rgba(255,255,255,0.03); color: #fff;
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; font-weight: 700;
+            padding: 14px 28px; background: rgba(255,255,255,0.04); color: #fff;
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-weight: 700;
             text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-            font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.98rem; display: inline-flex; align-items: center; gap: 8px;
         }
         .btn-transparent:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 243, 255, 0.08); }
 
-        /* --- VISUEL HOLOGRAMME PHOTO 3D --- */
+        /* HOLO FRAME HERO */
         .hero-visual {
             display: flex; justify-content: center; align-items: center; position: relative;
             animation: float 6s ease-in-out infinite;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .holo-frame {
-            width: 350px; height: 480px; position: relative; border-radius: 20px; padding: 10px; 
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(67, 97, 238, 0.1));
-            border: var(--border-glow); backdrop-filter: blur(12px);
-            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+            width: min(350px, 85vw); height: min(470px, 115vw); position: relative; border-radius: 24px; padding: 12px; 
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.12), rgba(67, 97, 238, 0.12));
+            border: var(--border-glow); backdrop-filter: blur(16px);
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
         }
-
-        /* Repères HUD Cockpit */
         .holo-frame::before, .holo-frame::after {
-            content: ''; position: absolute; width: 20px; height: 20px; border: 2px solid var(--primary);
+            content: ''; position: absolute; width: 22px; height: 22px; border: 2px solid var(--primary);
         }
         .holo-frame::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
         .holo-frame::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
         .img-wrapper {
-            width: 100%; height: 100%; border-radius: 14px; overflow: hidden; position: relative; 
+            width: 100%; height: 100%; border-radius: 16px; overflow: hidden; position: relative; 
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), #030712);
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            border: 1px solid rgba(0, 243, 255, 0.25);
         }
-
         .profile-img {
             width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.5s;
         }
         .holo-frame:hover .profile-img { transform: scale(1.04); }
 
-        .deco-circle {
-            position: absolute; width: 90px; height: 90px; border-radius: 50%;
-            border: 2px dashed var(--primary); opacity: 0.3; top: -25px; right: -25px;
-            animation: rotate 20s linear infinite; pointer-events: none;
+        /* =========================================================================
+           SECTION PROJETS PHARES HAUT DE GAMME (SHOWCASE 3D)
+           ========================================================================= */
+        .section-featured-projects {
+            padding: 60px 8% 140px; position: relative; z-index: 5;
+            max-width: 1400px; margin: 0 auto;
         }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-
-        /* --- SECTION PROJETS PHARES --- */
-        .section-projects {
-            padding: 40px 10% 160px; position: relative; z-index: 5;
-            max-width: 1350px; margin: 0 auto;
+        .section-header-row {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 45px; flex-wrap: wrap; gap: 20px;
         }
         .section-title {
-            font-family: 'Orbitron', sans-serif; font-size: 2.3rem; margin-bottom: 50px; color: #fff;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.4rem); color: #fff;
             text-transform: uppercase; border-left: 5px solid var(--primary); padding-left: 20px;
         }
         .section-title span { color: var(--primary); }
 
-        .projects-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+        .view-all-link {
+            color: var(--primary); font-family: 'Rajdhani', sans-serif; font-weight: 700;
+            font-size: 1.05rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .view-all-link:hover { gap: 14px; text-shadow: 0 0 10px var(--primary-glow); }
+
+        /* GRILLE DES 4 PROJETS PHARES */
+        .featured-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px;
         }
 
-        .project-card {
+        .featured-card {
             background: var(--glass-card); border: var(--border-glow);
-            border-radius: 20px; overflow: hidden; transition: all 0.4s ease;
-            display: flex; flex-direction: column; position: relative;
-            backdrop-filter: blur(12px);
+            border-radius: 24px; overflow: hidden; backdrop-filter: blur(16px);
+            display: grid; grid-template-columns: 1fr 1fr; transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); position: relative;
         }
-        .project-card:hover { 
-            transform: translateY(-8px); border-color: var(--primary); 
-            box-shadow: 0 10px 35px rgba(0, 243, 255, 0.2); 
+        .featured-card:hover {
+            transform: translateY(-8px); border-color: var(--primary);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 243, 255, 0.2);
         }
 
-        .card-visual-box {
-            width: 100%; height: 230px; background: #02040a;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; position: relative;
+        .featured-media-box {
+            background: #02040a; position: relative; overflow: hidden; min-height: 250px;
         }
-        
-        .p-img {
-            width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.6s;
+        .featured-media-box img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;
         }
-        .project-card:hover .p-img { transform: scale(1.06); }
+        .featured-card:hover .featured-media-box img { transform: scale(1.08); }
 
-        .card-details { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .tags-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .tag { 
-            font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; 
-            background: rgba(0, 243, 255, 0.1); color: var(--primary); 
-            font-weight: 700; border: 1px solid rgba(0, 243, 255, 0.2);
-            font-family: 'Rajdhani', sans-serif;
+        .featured-award-tag {
+            position: absolute; top: 15px; left: 15px; z-index: 2;
+            padding: 5px 12px; border-radius: 30px; font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(8px);
+            border: 1px solid var(--gold); color: var(--gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
-        .tag-award {
-            background: rgba(16, 185, 129, 0.15); color: #34d399;
-            border-color: rgba(16, 185, 129, 0.3);
+        .featured-award-tag.cyan {
+            border-color: var(--primary); color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
         }
-        
-        .card-details h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
-        .card-details p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
-        
-        .btn-link { 
-            color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 8px; margin-top: auto; 
-            padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.08);
-            font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .btn-link:hover { color: var(--primary); gap: 12px; }
 
-        /* --- MODAL TERMINAL SCADA CLI --- */
+        .featured-body {
+            padding: 26px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .featured-subtitle {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700;
+            color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;
+        }
+        .featured-body h3 {
+            font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff;
+            margin-bottom: 10px; line-height: 1.2;
+        }
+        .featured-body p {
+            color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px;
+        }
+
+        .featured-tags {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;
+        }
+        .featured-tags span {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+            padding: 3px 8px; border-radius: 4px;
+        }
+
+        .featured-btn-link {
+            color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif;
+            font-weight: 800; font-size: 0.92rem; text-transform: uppercase; letter-spacing: 1px;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+            margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 12px;
+        }
+        .featured-btn-link:hover { color: var(--primary); gap: 12px; }
+
+        /* =========================================================================
+           SYNTHÉTISEUR CYBER WEB AUDIO (LECTEUR 3 PISTES INTERACTIF)
+           ========================================================================= */
+        #cyber-music-deck {
+            position: fixed; bottom: 95px; left: 25px; z-index: 1000;
+            background: rgba(8, 14, 28, 0.92); border: 1px solid rgba(0, 243, 255, 0.35);
+            border-radius: 50px; padding: 8px 18px; display: flex; align-items: center;
+            gap: 12px; backdrop-filter: blur(20px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        #cyber-music-deck:hover {
+            border-color: var(--primary); box-shadow: 0 10px 45px rgba(0, 243, 255, 0.35);
+        }
+
+        .deck-visualizer-box {
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+        }
+        #visualizer-canvas {
+            width: 45px; height: 22px; border-radius: 4px;
+        }
+
+        .deck-track-info {
+            display: flex; flex-direction: column; min-width: 130px;
+        }
+        .deck-track-title {
+            font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff;
+            white-space: nowrap;
+        }
+        .deck-track-status {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--primary);
+            font-weight: 700; letter-spacing: 0.5px;
+        }
+
+        .deck-controls {
+            display: flex; align-items: center; gap: 6px; border-left: 1px solid rgba(255, 255, 255, 0.12);
+            padding-left: 10px;
+        }
+        .deck-btn {
+            background: rgba(0, 243, 255, 0.08); border: 1px solid rgba(0, 243, 255, 0.25);
+            color: var(--primary); width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            font-size: 0.72rem; transition: 0.3s;
+        }
+        .deck-btn:hover, .deck-btn.active {
+            background: var(--primary); color: #030712; transform: scale(1.1);
+        }
+        .track-select-pill {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-muted); padding: 3px 8px; border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
+            cursor: pointer; transition: 0.2s;
+        }
+        .track-select-pill.active {
+            background: var(--primary); color: #030712; border-color: var(--primary);
+        }
+
+        /* CLI SCADA MODAL */
         #scada-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(16px);
-            z-index: 10000; display: none; justify-content: center; align-items: center;
-            padding: 20px;
+            z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px;
         }
         .terminal-box {
-            width: 100%; max-width: 680px; height: 420px;
-            background: #060a17; border: 1px solid var(--primary);
-            border-radius: 12px; box-shadow: 0 0 40px var(--primary-glow);
-            display: flex; flex-direction: column; overflow: hidden;
-            font-family: 'JetBrains Mono', monospace;
+            width: 100%; max-width: 680px; height: 420px; background: #060a17;
+            border: 1px solid var(--primary); border-radius: 12px; box-shadow: 0 0 40px var(--primary-glow);
+            display: flex; flex-direction: column; overflow: hidden; font-family: 'JetBrains Mono', monospace;
         }
         .terminal-header {
-            background: rgba(0, 243, 255, 0.1); padding: 10px 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            background: rgba(0, 243, 255, 0.1); padding: 10px 16px; display: flex;
+            justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 243, 255, 0.2);
             color: var(--primary); font-size: 0.85rem; font-weight: 700;
         }
         .terminal-body {
-            flex-grow: 1; padding: 15px; overflow-y: auto; color: #a5f3fc;
-            font-size: 0.85rem; line-height: 1.5;
+            flex-grow: 1; padding: 15px; overflow-y: auto; color: #a5f3fc; font-size: 0.85rem; line-height: 1.5;
         }
         .terminal-input-row {
-            display: flex; align-items: center; padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.03); border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex; align-items: center; padding: 10px 15px; background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         .terminal-prompt { color: var(--primary); font-weight: 700; margin-right: 8px; }
         .terminal-input {
-            flex-grow: 1; background: transparent; border: none; outline: none;
-            color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+            flex-grow: 1; background: transparent; border: none; outline: none; color: #fff;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
         }
 
-        /* --- TOAST NOTIFICATION --- */
         #toast-box {
             position: fixed; top: 30px; right: 30px; z-index: 11000;
-            background: rgba(16, 185, 129, 0.9); color: #030712;
-            padding: 12px 24px; border-radius: 8px; font-weight: 700;
-            font-family: 'Rajdhani', sans-serif; font-size: 1rem;
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
-            transform: translateX(150%); transition: transform 0.4s ease;
-            display: flex; align-items: center; gap: 10px;
+            background: rgba(16, 185, 129, 0.9); color: #030712; padding: 12px 24px;
+            border-radius: 8px; font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); transform: translateX(150%);
+            transition: transform 0.4s ease; display: flex; align-items: center; gap: 10px;
         }
         #toast-box.show { transform: translateX(0); }
 
-        /* FOOTER */
         footer { 
-            text-align: center; padding: 40px 20px; 
-            border-top: 1px solid rgba(255,255,255,0.06); 
-            color: var(--text-muted); font-size: 0.85rem; 
+            text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.06); 
+            color: var(--text-muted); font-size: 0.85rem; margin-top: 50px;
         }
 
-        /* RESPONSIVE MOBILE */
+        /* =========================================================================
+           RESPONSIVE MOBILE FLUIDE & NON-COMPRESSÉ
+           ========================================================================= */
         @media (max-width: 1024px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; padding-top: 70px; gap: 35px; }
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 90px 6% 30px;
+                gap: 35px;
+            }
             .hero-text { order: 2; }
             .hero-visual { order: 1; }
-            .holo-frame { width: 280px; height: 380px; margin: 0 auto; }
-            h1 { font-size: 2.7rem; }
-            .skills-list { justify-content: center; }
+            .holo-frame { margin: 0 auto; }
+            
+            .kpi-row { justify-content: center; }
+            .kpi-box { flex: 1 1 120px; }
             .cta-group { justify-content: center; }
             
-            nav { width: 95%; bottom: 15px; }
-            .nav-dock { padding: 10px 15px; justify-content: space-around; width: 100%; gap: 4px; }
+            .section-featured-projects { padding: 40px 6% 120px; }
+            .featured-grid { grid-template-columns: 1fr; gap: 25px; }
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-media-box { height: 210px; min-height: auto; }
+            
+            nav { width: 95%; bottom: 12px; }
+            .nav-dock { padding: 8px 12px; justify-content: space-around; width: 100%; gap: 2px; }
             .nav-item { padding: 4px 6px; }
             .nav-item i { font-size: 1.15rem; }
             .nav-item span { display: none !important; }
             .cv-btn span { display: block !important; font-size: 0.65rem; }
+            
+            #cyber-music-deck {
+                bottom: 75px; left: 15px; padding: 6px 12px;
+                max-width: calc(100vw - 30px);
+            }
+            .deck-track-title { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .hud-topbar { padding: 0 4%; top: 12px; }
+            .hud-btn { padding: 6px 12px; font-size: 0.78rem; }
+            .status-badge { font-size: 0.72rem; padding: 6px 14px; }
+            .featured-body { padding: 20px; }
+            .featured-body h3 { font-size: 1.2rem; }
+            .kpi-row { gap: 10px; }
+            .kpi-box { padding: 8px 12px; }
+            .kpi-number { font-size: 1.15rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- CANVAS CURSEUR ARC ÉLECTRIQUE -->
     <canvas id="electric-cursor-canvas"></canvas>
 
-    <!-- ÉCRAN D'INITIALISATION -->
-    <div id="welcome-screen" onclick="hideIntro()">
+    <!-- ÉCRAN D'ACCUEIL AVEC ACTIVATION SONORE -->
+    <div id="welcome-screen" onclick="launchSystem()">
         <div class="welcome-content">
             <div class="welcome-text">INITIALISATION DU SYSTÈME</div>
             <div class="loader-line"></div>
-            <div class="welcome-sub">&lt; BADER EL BERKAoui // INGÉNIEUR SYSTÈMES &gt;</div>
+            <div class="welcome-sub">&lt; BADER EL BERKAOUI // INGÉNIEUR SYSTÈMES &gt;</div>
+            <div class="click-hint"><i class="fas fa-volume-up"></i> Cliquer pour entrer et activer l'expérience sonore</div>
         </div>
     </div>
 
-    <!-- FOND CANVAS PARTICULES -->
     <canvas id="canvas-bg"></canvas>
 
-    <!-- BARRE D'OUTILS HUD EN HAUT -->
+    <!-- TOPBAR HUD -->
     <div class="hud-topbar">
         <button class="hud-btn" onclick="toggleTerminal()">
-            <i class="fas fa-terminal"></i> <span>CLI DIAGNOSTIC</span>
+            <i class="fas fa-terminal"></i> <span>CLI SCADA</span>
         </button>
 
         <div style="display: flex; gap: 10px;">
             <button class="hud-btn" onclick="copyEmail()">
                 <i class="fas fa-copy"></i> <span>COPIER EMAIL</span>
             </button>
-            <button class="hud-btn" id="sound-toggle-btn" onclick="toggleAudio()">
-                <i class="fas fa-volume-high"></i>
-            </button>
         </div>
     </div>
 
-    <!-- NAVIGATION DOCK STARGATE (BAS) -->
+    <!-- SYNTHÉTISEUR CYBER WEB AUDIO (3 PISTES NATIVES SANS MP3) -->
+    <div id="cyber-music-deck">
+        <div class="deck-visualizer-box" onclick="toggleMusicPlayback()">
+            <canvas id="visualizer-canvas"></canvas>
+            <div class="deck-track-info">
+                <span class="deck-track-title" id="deck-title">Cyber Ambient // 432Hz</span>
+                <span class="deck-track-status" id="deck-status">AUDIO : ON</span>
+            </div>
+        </div>
+
+        <div class="deck-controls">
+            <button class="deck-btn" onclick="toggleMusicPlayback()" id="deck-play-btn" title="Lecture / Pause">
+                <i class="fas fa-pause" id="deck-icon"></i>
+            </button>
+            <button class="track-select-pill active" onclick="switchTrack(1)" id="pill-1">P1</button>
+            <button class="track-select-pill" onclick="switchTrack(2)" id="pill-2">P2</button>
+            <button class="track-select-pill" onclick="switchTrack(3)" id="pill-3">P3</button>
+        </div>
+    </div>
+
+    <!-- DOCK NAVIGATION STARGATE -->
     <nav>
         <div class="nav-dock">
             <a href="index.html" class="nav-item active">
@@ -466,104 +583,159 @@
             <div class="hero-subtitle">
                 <i class="fas fa-bolt"></i> Ingénieur Génie Électrique & Automatisme
             </div>
-            
-            <div class="skills-list">
-                <span class="skill-chip"><i class="fas fa-bolt" style="color:var(--primary);"></i> CFO / CFA</span>
-                <span class="skill-chip"><i class="fas fa-industry" style="color:var(--secondary);"></i> Automatisme & SCADA</span>
-                <span class="skill-chip"><i class="fas fa-microchip" style="color:var(--accent);"></i> Systèmes Embarqués</span>
-                <span class="skill-chip"><i class="fas fa-solar-panel" style="color:#f59e0b;"></i> Énergies Renouvelables</span>
+
+            <!-- KPI HIGHLIGHTS ROW -->
+            <div class="kpi-row">
+                <div class="kpi-box">
+                    <div class="kpi-number" style="color:var(--gold);">1er</div>
+                    <div class="kpi-label">Major Promo LST</div>
+                </div>
+                <div class="kpi-box">
+                    <div class="kpi-number" style="color:var(--primary);">4+</div>
+                    <div class="kpi-label">1ers Prix & Trophées</div>
+                </div>
+                <div class="kpi-box">
+                    <div class="kpi-number" style="color:var(--accent);">225 kV</div>
+                    <div class="kpi-label">Haute Tension DGA</div>
+                </div>
             </div>
 
             <p class="description">
-                Élève ingénieur à la <strong>FST Mohammedia</strong> (Major de promotion LST). Je conçois des solutions industrielles intelligentes, du dimensionnement Haute Tension (DGA) aux systèmes embarqués communicants (IoT & IA).
+                Élève-ingénieur à la <strong>FST Mohammedia</strong>. Spécialisé en <strong>distribution électrique CFO/CFA, automatismes industriels Siemens</strong>, robotique cartésienne et systèmes embarqués communicants (IoT & IA).
             </p>
 
             <div class="cta-group">
                 <a href="projets.html" class="btn-glow">
-                    <i class="fas fa-eye"></i> Mes Projets
+                    <i class="fas fa-rocket"></i> Galerie des Projets
                 </a>
-                <a href="contact.html" class="btn-transparent">
-                    <i class="fas fa-paper-plane"></i> Me Contacter
+                <a href="https://wa.me/212703470415?text=Bonjour%20Bader,%20j'ai%20consult%C3%A9%20votre%20portfolio." target="_blank" class="btn-transparent">
+                    <i class="fab fa-whatsapp" style="color:#25d366;"></i> WhatsApp Direct
                 </a>
             </div>
         </div>
 
         <div class="hero-visual" data-aos="zoom-in">
             <div class="holo-frame js-tilt">
-                <div class="deco-circle"></div>
                 <div class="img-wrapper">
-                    <img src="profile.png" alt="Bader El Berkaoui" class="profile-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f75?w=500&auto=format&fit=crop&q=60';">
+                    <img src="profile.png" alt="Bader El Berkaoui" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f75?w=500';">
                 </div>
             </div>
         </div>
 
     </section>
 
-    <!-- SECTION PROJETS PHARES -->
-    <section class="section-projects">
-        <h2 class="section-title" data-aos="fade-up">Projets <span>Phares</span></h2>
+    <!-- =========================================================================
+         SECTION PROJETS PHARES HAUT DE GAMME (SHOWCASE 3D)
+         ========================================================================= -->
+    <section class="section-featured-projects">
+        <div class="section-header-row" data-aos="fade-up">
+            <h2 class="section-title">Projets <span>Phares</span></h2>
+            <a href="projets.html" class="view-all-link">
+                Voir les 6 projets complets <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
         
-        <div class="projects-grid">
+        <div class="featured-grid">
             
-            <div class="project-card" data-aos="fade-up">
-                <div class="card-visual-box">
-                    <img src="ar1.jpeg" alt="Drone Amana" class="p-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=500&auto=format&fit=crop&q=60';">
+            <!-- PROJET 1 : SKYPHARMA -->
+            <article class="featured-card" data-aos="fade-up">
+                <div class="featured-media-box">
+                    <span class="featured-award-tag cyan"><i class="fas fa-robot"></i> Robot XYZ</span>
+                    <img src="sky1.jpeg" alt="SkyPharma" onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600';">
                 </div>
-                <div class="card-details">
-                    <div class="tags-row">
-                        <span class="tag">Sécurité & Secours</span>
-                        <span class="tag">STM32 / LoRa</span>
+                <div class="featured-body">
+                    <div>
+                        <span class="featured-subtitle">Robotique Pharmaceutique</span>
+                        <h3>SkyPharma</h3>
+                        <p>Automatisation intégrale de la chaîne de distribution de pharmacie : préparation de commandes par robot cartésien 3 axes GRBL et livraison par drone.</p>
+                        <div class="featured-tags">
+                            <span>Robot Cartésien</span>
+                            <span>Python GRBL</span>
+                            <span>Drone Delivery</span>
+                        </div>
                     </div>
-                    <h3>Drone "Amana"</h3>
-                    <p>Drone modulaire autonome pour la gestion des catastrophes naturelles. Cartographie thermique et intelligence en essaim.</p>
-                    <a href="projets.html" class="btn-link">Détails du projet <i class="fas fa-arrow-right"></i></a>
+                    <a href="projets.html" class="featured-btn-link">Détails & Galerie (6 photos) <i class="fas fa-arrow-right"></i></a>
                 </div>
-            </div>
+            </article>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-visual-box">
-                    <img src="ae1.jpeg" alt="Projet Tawfir" class="p-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=60';">
+            <!-- PROJET 2 : DRONE AMANE -->
+            <article class="featured-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="featured-media-box">
+                    <span class="featured-award-tag"><i class="fas fa-trophy"></i> 1er Prix International</span>
+                    <img src="ar1.jpeg" alt="Drone Amane" onerror="this.src='https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600';">
                 </div>
-                <div class="card-details">
-                    <div class="tags-row">
-                        <span class="tag tag-award"><i class="fas fa-trophy"></i> 1er Prix</span>
-                        <span class="tag">IoT & IA</span>
+                <div class="featured-body">
+                    <div>
+                        <span class="featured-subtitle">Secours & Catastrophes</span>
+                        <h3>Drone AMANE</h3>
+                        <p>Système de drones autonomes pour l'intervention d'urgence. Cartographie thermique infrarouge par OpenCV et largage automatisé de bouées de secours.</p>
+                        <div class="featured-tags">
+                            <span>Pixhawk 4</span>
+                            <span>OpenCV IA</span>
+                            <span>LoRa Télémétrie</span>
+                        </div>
                     </div>
-                    <h3>Projet "Tawfir"</h3>
-                    <p>Système intelligent de détection prédictive de fuites d'eau par analyse de débit/pression sous microcontrôleur ESP32.</p>
-                    <a href="projets.html" class="btn-link">Détails du projet <i class="fas fa-arrow-right"></i></a>
+                    <a href="projets.html" class="featured-btn-link">Détails & Vidéo Démo <i class="fas fa-arrow-right"></i></a>
                 </div>
-            </div>
+            </article>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-visual-box">
-                    <img src="az1.jpeg" alt="Robot Autonome" class="p-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&auto=format&fit=crop&q=60';">
+            <!-- PROJET 3 : TAWFIR -->
+            <article class="featured-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="featured-media-box">
+                    <span class="featured-award-tag"><i class="fas fa-award"></i> 1er Prix Électrogenuis</span>
+                    <img src="ae1.jpeg" alt="Projet Tawfir" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600';">
                 </div>
-                <div class="card-details">
-                    <div class="tags-row">
-                        <span class="tag">Robotique</span>
-                        <span class="tag">Python OpenCV</span>
+                <div class="featured-body">
+                    <div>
+                        <span class="featured-subtitle">Smart Water & IoT</span>
+                        <h3>Projet TAWFIR</h3>
+                        <p>Détection intelligente des fuites d'eau par modèle de Machine Learning (Isolation Forest) et analyse fréquentielle de flux sous microcontrôleur ESP32.</p>
+                        <div class="featured-tags">
+                            <span>ESP32</span>
+                            <span>Machine Learning</span>
+                            <span>MQTT Broker</span>
+                        </div>
                     </div>
-                    <h3>Robot Manipulateur</h3>
-                    <p>Robot mobile autonome avec bras articulé. Tri intelligent d'objets en temps réel par vision artificielle.</p>
-                    <a href="projets.html" class="btn-link">Détails du projet <i class="fas fa-arrow-right"></i></a>
+                    <a href="projets.html" class="featured-btn-link">Détails du projet <i class="fas fa-arrow-right"></i></a>
                 </div>
-            </div>
+            </article>
+
+            <!-- PROJET 4 : JOWAL SMART TOURISM -->
+            <article class="featured-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="featured-media-box">
+                    <span class="featured-award-tag cyan"><i class="fas fa-medal"></i> 2e Prix Ministère Tourisme</span>
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600" alt="JOWAL Platform">
+                </div>
+                <div class="featured-body">
+                    <div>
+                        <span class="featured-subtitle">IA & Plateforme Web</span>
+                        <h3>JOWAL — Smart Tourism</h3>
+                        <p>Application de tourisme intelligent combinant reconnaissance de monuments par vision artificielle, récits multilingues (8 langues) et marketplace culturelle.</p>
+                        <div class="featured-tags">
+                            <span>Computer Vision</span>
+                            <span>Marketplace</span>
+                            <span>QR Gamification</span>
+                        </div>
+                    </div>
+                    <a href="projets.html" class="featured-btn-link">Détails du projet <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
 
         </div>
     </section>
 
-    <!-- MODAL TERMINAL SCADA INTERACTIF -->
+    <!-- TERMINAL SCADA INTERACTIF -->
     <div id="scada-modal" onclick="if(event.target === this) toggleTerminal()">
         <div class="terminal-box">
             <div class="terminal-header">
-                <span><i class="fas fa-microchip"></i> BADER-OS // SCADA DIAGNOSTIC v2.6</span>
+                <span><i class="fas fa-microchip"></i> BADER-OS // SCADA DIAGNOSTIC v2.8</span>
                 <span style="cursor: pointer;" onclick="toggleTerminal()"><i class="fas fa-times"></i></span>
             </div>
             <div class="terminal-body" id="term-output">
                 <div>[SYSTEM] Connexion établie avec le poste source 225kV...</div>
-                <div>[STATUS] Ingénieur : Bader El Berkaoui</div>
-                <div>[INFO] Tapez <span style="color:var(--primary); font-weight:bold;">help</span> pour afficher les commandes disponibles.</div>
+                <div>[STATUS] Ingénieur : Bader El Berkaoui • Major LST</div>
+                <div>[AUDIO] Synthétiseur cyber 3 pistes actif.</div>
+                <div>[INFO] Tapez <span style="color:var(--primary); font-weight:bold;">help</span> pour afficher les commandes.</div>
             </div>
             <div class="terminal-input-row">
                 <span class="terminal-prompt">&gt;</span>
@@ -578,7 +750,7 @@
     </div>
 
     <footer>
-        <p>© 2026 Bader El Berkaoui • Ingénierie & Innovation Industrielle</p>
+        <p>© 2026 Bader El Berkaoui • Ingénieur Génie Électrique, Automatisme & Innovation</p>
     </footer>
 
     <!-- SCRIPTS EXTERNES -->
@@ -586,91 +758,235 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     
     <script>
-        /* ==========================================================================
-           1. GESTION DE L'INTRO ET ANIMATIONS
-           ========================================================================== */
-        function hideIntro() {
-            const welcome = document.getElementById('welcome-screen');
-            if (welcome) welcome.classList.add('hide-welcome');
-        }
-        window.addEventListener('load', () => setTimeout(hideIntro, 1100));
+        AOS.init({ duration: 750, once: true });
 
-        AOS.init({ duration: 700, once: true });
-        
-        if (window.VanillaTilt) {
+        if (window.VanillaTilt && window.innerWidth > 1024) {
             VanillaTilt.init(document.querySelector(".js-tilt"), {
                 max: 12, speed: 400, glare: true, "max-glare": 0.25
             });
         }
 
-        /* ==========================================================================
-           2. CURSEUR ARC ÉLECTRIQUE (PLASMA LIGHTNING BOLT)
-           ========================================================================== */
+        /* =========================================================================
+           SYNTHÉTISEUR CYBER WEB AUDIO (3 PISTES AMBIANTES GÉNÉRÉES EN DIRECT)
+           ========================================================================= */
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let currentTrack = 1;
+        let synthInterval = null;
+        let masterGain = null;
+        let analyser = null;
+
+        const trackNames = {
+            1: { title: "Cyber Ambient // 432Hz", desc: "AUDIO : P1 (Drone Spatial)" },
+            2: { title: "Neon Synth Arp // 120BPM", desc: "AUDIO : P2 (Arpège Cyber)" },
+            3: { title: "Deep Grid Pulse // Sci-Fi", desc: "AUDIO : P3 (Pulse Sub-Bass)" }
+        };
+
+        function initAudioEngine() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+
+                masterGain.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                startVisualizer();
+            }
+        }
+
+        // PISTE 1 : Drone Harmonique
+        function playTrack1Note() {
+            if (!isMusicPlaying || !audioCtx) return;
+            const freqs = [110, 130.81, 164.81, 196.00, 220, 261.63];
+            const freq = freqs[Math.floor(Math.random() * freqs.length)];
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(600, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 3.0);
+
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.8);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(masterGain);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 3.5);
+        }
+
+        // PISTE 2 : Arpège Synthwave
+        let arpIndex = 0;
+        function playTrack2Note() {
+            if (!isMusicPlaying || !audioCtx) return;
+            const arpNotes = [220, 261.63, 329.63, 392.00, 440, 523.25, 392, 329.63];
+            const freq = arpNotes[arpIndex % arpNotes.length];
+            arpIndex++;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+
+            osc.connect(gain);
+            gain.connect(masterGain);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        // PISTE 3 : Sub Pulse
+        function playTrack3Note() {
+            if (!isMusicPlaying || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(55, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(82.4, audioCtx.currentTime + 0.6);
+
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+            osc.connect(gain);
+            gain.connect(masterGain);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.2);
+        }
+
+        function startMusicEngine() {
+            if (synthInterval) clearInterval(synthInterval);
+            isMusicPlaying = true;
+            document.getElementById('deck-icon').className = 'fas fa-pause';
+            document.getElementById('deck-status').innerText = trackNames[currentTrack].desc;
+            document.getElementById('deck-title').innerText = trackNames[currentTrack].title;
+
+            if (currentTrack === 1) {
+                playTrack1Note();
+                synthInterval = setInterval(playTrack1Note, 1200);
+            } else if (currentTrack === 2) {
+                synthInterval = setInterval(playTrack2Note, 220);
+            } else if (currentTrack === 3) {
+                playTrack3Note();
+                synthInterval = setInterval(playTrack3Note, 1400);
+            }
+        }
+
+        function pauseMusicEngine() {
+            isMusicPlaying = false;
+            if (synthInterval) clearInterval(synthInterval);
+            document.getElementById('deck-icon').className = 'fas fa-play';
+            document.getElementById('deck-status').innerText = 'AUDIO : PAUSE';
+        }
+
+        function toggleMusicPlayback() {
+            initAudioEngine();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (isMusicPlaying) {
+                pauseMusicEngine();
+            } else {
+                startMusicEngine();
+            }
+            playElectricSound();
+        }
+
+        function switchTrack(trackNum) {
+            initAudioEngine();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            currentTrack = trackNum;
+            document.querySelectorAll('.track-select-pill').forEach((p, idx) => {
+                p.classList.toggle('active', idx + 1 === trackNum);
+            });
+            startMusicEngine();
+            playElectricSound();
+        }
+
+        function launchSystem() {
+            const welcome = document.getElementById('welcome-screen');
+            if (welcome) welcome.classList.add('hide-welcome');
+            initAudioEngine();
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            startMusicEngine();
+        }
+        window.addEventListener('load', () => setTimeout(() => {
+            const welcome = document.getElementById('welcome-screen');
+            if (welcome && !welcome.classList.contains('hide-welcome')) launchSystem();
+        }, 1200));
+
+        /* VISUALISEUR DE SPECTRE CANVAS */
+        function startVisualizer() {
+            const canvas = document.getElementById('visualizer-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+            function render() {
+                requestAnimationFrame(render);
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const barWidth = 4;
+                let x = 0;
+
+                for (let i = 0; i < 7; i++) {
+                    const val = isMusicPlaying ? (dataArray[i * 2] / 255) * canvas.height : 3;
+                    ctx.fillStyle = '#00f3ff';
+                    ctx.fillRect(x, canvas.height - val, barWidth, val);
+                    x += barWidth + 3;
+                }
+            }
+            render();
+        }
+
+        /* CURSEUR ARC ÉLECTRIQUE */
         (function() {
             if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
             const canvas = document.getElementById('electric-cursor-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-
             let width = canvas.width = window.innerWidth;
             let height = canvas.height = window.innerHeight;
-
             let mouse = { x: width / 2, y: height / 2, prevX: width / 2, prevY: height / 2 };
             let points = [];
             let sparks = [];
-            const maxPoints = 8;
 
-            window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
-
+            window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
             window.addEventListener('mousemove', (e) => {
-                mouse.prevX = mouse.x;
-                mouse.prevY = mouse.y;
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-
+                mouse.prevX = mouse.x; mouse.prevY = mouse.y;
+                mouse.x = e.clientX; mouse.y = e.clientY;
                 points.push({ x: mouse.x, y: mouse.y, age: 0 });
-
                 const speed = Math.hypot(mouse.x - mouse.prevX, mouse.y - mouse.prevY);
                 if (speed > 5) {
                     for (let i = 0; i < Math.min(speed / 4, 3); i++) {
-                        sparks.push(createSpark(mouse.x, mouse.y));
+                        sparks.push({
+                            x: mouse.x, y: mouse.y,
+                            vx: (Math.random() - 0.5) * 4, vy: (Math.random() - 0.5) * 4,
+                            size: Math.random() * 2 + 1, life: 1, decay: 0.05,
+                            color: Math.random() > 0.3 ? '#00f3ff' : '#ffffff'
+                        });
                     }
                 }
             });
 
-            window.addEventListener('mousedown', (e) => {
-                for (let i = 0; i < 20; i++) {
-                    sparks.push(createSpark(e.clientX, e.clientY, true));
-                }
-                playElectricSound(true);
-            });
-
-            function createSpark(x, y, isBurst = false) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = isBurst ? Math.random() * 6 + 2 : Math.random() * 3 + 1;
-                return {
-                    x: x, y: y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    size: Math.random() * 2 + 1,
-                    life: 1,
-                    decay: Math.random() * 0.04 + 0.03,
-                    color: Math.random() > 0.3 ? '#00f3ff' : '#ffffff'
-                };
-            }
-
             function drawLightning(x1, y1, x2, y2, displace) {
-                if (displace < 2) {
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    ctx.stroke();
-                    return;
-                }
+                if (displace < 2) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); return; }
                 const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * displace;
                 const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * displace;
                 drawLightning(x1, y1, midX, midY, displace / 2);
@@ -679,184 +995,92 @@
 
             function animateCursor() {
                 ctx.clearRect(0, 0, width, height);
-
                 for (let i = 0; i < points.length; i++) points[i].age++;
-                points = points.filter(p => p.age < maxPoints);
-
+                points = points.filter(p => p.age < 8);
                 if (points.length > 1) {
                     ctx.save();
-                    ctx.shadowBlur = 12;
-                    ctx.shadowColor = '#00f3ff';
-                    ctx.strokeStyle = 'rgba(0, 243, 255, 0.7)';
-                    ctx.lineWidth = 2;
-                    for (let i = 0; i < points.length - 1; i++) {
-                        drawLightning(points[i].x, points[i].y, points[i+1].x, points[i+1].y, 7);
-                    }
-                    ctx.shadowBlur = 4;
-                    ctx.shadowColor = '#fff';
-                    ctx.strokeStyle = '#ffffff';
-                    ctx.lineWidth = 1;
-                    for (let i = 0; i < points.length - 1; i++) {
-                        drawLightning(points[i].x, points[i].y, points[i+1].x, points[i+1].y, 3);
-                    }
+                    ctx.shadowBlur = 12; ctx.shadowColor = '#00f3ff';
+                    ctx.strokeStyle = 'rgba(0, 243, 255, 0.7)'; ctx.lineWidth = 2;
+                    for (let i = 0; i < points.length - 1; i++) drawLightning(points[i].x, points[i].y, points[i+1].x, points[i+1].y, 7);
                     ctx.restore();
                 }
-
-                // Tête du curseur
                 ctx.save();
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = '#00f3ff';
+                ctx.shadowBlur = 15; ctx.shadowColor = '#00f3ff';
                 ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.arc(mouse.x, mouse.y, 3.5, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 3.5, 0, Math.PI * 2); ctx.fill();
                 ctx.restore();
 
-                // Étincelles
                 for (let i = sparks.length - 1; i >= 0; i--) {
                     const s = sparks[i];
-                    s.x += s.vx; s.y += s.vy;
-                    s.vx *= 0.95; s.vy *= 0.95;
-                    s.life -= s.decay;
-
+                    s.x += s.vx; s.y += s.vy; s.life -= s.decay;
                     if (s.life <= 0) { sparks.splice(i, 1); continue; }
-
                     ctx.save();
-                    ctx.shadowBlur = 6;
-                    ctx.shadowColor = s.color;
-                    ctx.fillStyle = s.color;
-                    ctx.globalAlpha = s.life;
-                    ctx.beginPath();
-                    ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
-                    ctx.fill();
+                    ctx.fillStyle = s.color; ctx.globalAlpha = s.life;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); ctx.fill();
                     ctx.restore();
                 }
-
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
         })();
 
-        /* ==========================================================================
-           3. MOTEUR SONORE WEB AUDIO API (CYBER HAPTIQUE)
-           ========================================================================== */
-        let audioEnabled = true;
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const icon = document.querySelector('#sound-toggle-btn i');
-            icon.className = audioEnabled ? 'fas fa-volume-high' : 'fas fa-volume-xmark';
-            showToast(audioEnabled ? "Sons audio activés" : "Sons audio désactivés");
-        }
-
-        function playElectricSound(isClick = false) {
-            if (!audioEnabled) return;
+        /* SONS HAPTIQUES CLIC */
+        function playElectricSound() {
             try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-
-                osc.type = isClick ? 'triangle' : 'sawtooth';
-                osc.frequency.setValueAtTime(isClick ? 1200 : 750, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + (isClick ? 0.12 : 0.06));
-
-                gain.gain.setValueAtTime(isClick ? 0.05 : 0.02, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (isClick ? 0.12 : 0.06));
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + (isClick ? 0.12 : 0.06));
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(750, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
             } catch(e) {}
         }
 
-        document.querySelectorAll('.btn-glow, .btn-transparent, .nav-item, .project-card, .skill-chip, .hud-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => playElectricSound(false));
+        document.querySelectorAll('.btn-glow, .btn-transparent, .nav-item, .featured-card, .hud-btn').forEach(el => {
+            el.addEventListener('mouseenter', playElectricSound);
         });
 
-        /* ==========================================================================
-           4. FOND CANVAS PARTICULES INTERACTIF
-           ========================================================================== */
+        /* PARTICULES BACKGROUND */
         const canvasBg = document.getElementById('canvas-bg');
         const ctxBg = canvasBg.getContext('2d');
         let bgW = canvasBg.width = window.innerWidth;
         let bgH = canvasBg.height = window.innerHeight;
-
-        let bgMouse = { x: null, y: null, radius: 110 };
-        window.addEventListener('mousemove', (e) => { bgMouse.x = e.x; bgMouse.y = e.y; });
-        window.addEventListener('mouseout', () => { bgMouse.x = null; bgMouse.y = null; });
-
         let bgParticles = [];
-        class BgParticle {
-            constructor() {
-                this.x = Math.random() * bgW;
-                this.y = Math.random() * bgH;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.7;
-                this.speedY = (Math.random() - 0.5) * 0.7;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > bgW || this.x < 0) this.speedX *= -1;
-                if (this.y > bgH || this.y < 0) this.speedY *= -1;
-
-                if (bgMouse.x != null) {
-                    let dx = bgMouse.x - this.x;
-                    let dy = bgMouse.y - this.y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-                    if (distance < bgMouse.radius) {
-                        this.x -= dx / 18;
-                        this.y -= dy / 18;
-                    }
-                }
-            }
-            draw() {
-                ctxBg.fillStyle = 'rgba(0, 243, 255, 0.35)';
-                ctxBg.beginPath();
-                ctxBg.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctxBg.fill();
-            }
+        for (let i = 0; i < 40; i++) {
+            bgParticles.push({
+                x: Math.random() * bgW, y: Math.random() * bgH,
+                size: Math.random() * 2 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.5, speedY: (Math.random() - 0.5) * 0.5
+            });
         }
-
-        function initBgParticles() {
-            bgParticles = [];
-            const count = Math.min(Math.floor((bgW * bgH) / 19000), 55);
-            for (let i = 0; i < count; i++) bgParticles.push(new BgParticle());
-        }
-
         function animateBg() {
             ctxBg.clearRect(0, 0, bgW, bgH);
             for (let i = 0; i < bgParticles.length; i++) {
-                bgParticles[i].update();
-                bgParticles[i].draw();
+                const p = bgParticles[i];
+                p.x += p.speedX; p.y += p.speedY;
+                if (p.x > bgW || p.x < 0) p.speedX *= -1;
+                if (p.y > bgH || p.y < 0) p.speedY *= -1;
+                ctxBg.fillStyle = 'rgba(0, 243, 255, 0.3)';
+                ctxBg.beginPath(); ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
                 for (let j = i + 1; j < bgParticles.length; j++) {
-                    const dx = bgParticles[i].x - bgParticles[j].x;
-                    const dy = bgParticles[i].y - bgParticles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 110) {
-                        ctxBg.strokeStyle = `rgba(0, 243, 255, ${(1 - dist/110) * 0.22})`;
-                        ctxBg.lineWidth = 0.6;
-                        ctxBg.beginPath();
-                        ctxBg.moveTo(bgParticles[i].x, bgParticles[i].y);
-                        ctxBg.lineTo(bgParticles[j].x, bgParticles[j].y);
-                        ctxBg.stroke();
+                    const p2 = bgParticles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 100) {
+                        ctxBg.strokeStyle = `rgba(0, 243, 255, ${(1 - dist/100) * 0.2})`;
+                        ctxBg.lineWidth = 0.5;
+                        ctxBg.beginPath(); ctxBg.moveTo(p.x, p.y); ctxBg.lineTo(p2.x, p2.y); ctxBg.stroke();
                     }
                 }
             }
             requestAnimationFrame(animateBg);
         }
-        initBgParticles();
         animateBg();
 
-        window.addEventListener('resize', () => {
-            bgW = canvasBg.width = window.innerWidth;
-            bgH = canvasBg.height = window.innerHeight;
-            initBgParticles();
-        });
-
-        /* ==========================================================================
-           5. TERMINAL SCADA INTERACTIF (CLI)
-           ========================================================================== */
+        /* TERMINAL SCADA CLI */
         function toggleTerminal() {
             const modal = document.getElementById('scada-modal');
             const isVisible = modal.style.display === 'flex';
@@ -882,36 +1106,32 @@
             switch(cmd) {
                 case 'help':
                     res = `Commandes disponibles :<br>
-                    - <span style="color:#00f3ff">status</span> : Statut actuel & disponibilité PFE<br>
-                    - <span style="color:#00f3ff">skills</span> : Compétences d'ingénierie clés<br>
-                    - <span style="color:#00f3ff">projects</span> : Liste des projets majeurs<br>
-                    - <span style="color:#00f3ff">contact</span> : Coordonnées de contact<br>
+                    - <span style="color:#00f3ff">status</span> : Statut académique & PFE<br>
+                    - <span style="color:#00f3ff">projects</span> : Liste des projets phares<br>
+                    - <span style="color:#00f3ff">play 1 / 2 / 3</span> : Changer de piste audio<br>
+                    - <span style="color:#00f3ff">contact</span> : Coordonnées directes<br>
                     - <span style="color:#00f3ff">clear</span> : Effacer la console`;
                     break;
                 case 'status':
-                    res = `[PFE 2026] Disponible à partir de Février/Mars 2026<br>[FORMATION] Élève Ingénieur Génie Électrique (FST Mohammedia)<br>[DISTINCTION] Major de Promo LST (Mention Très Bien)`;
+                    res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique<br>[MAJOR] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour recrutement et stages PFE.`;
                     break;
-                case 'skills':
-                    res = `Automatisme : TIA Portal, Siemens S7-1200, WinCC, SCADA<br>Électricité : Caneco BT, Dialux ÉVO, DGA Haute Tension 225kV<br>Embarqué : STM32, ESP32, LoRa, Python OpenCV`;
-                    break;
+                case 'play 1': switchTrack(1); res = `Piste 1 activée (Cyber Ambient Drone).`; break;
+                case 'play 2': switchTrack(2); res = `Piste 2 activée (Neon Synth Arpège).`; break;
+                case 'play 3': switchTrack(3); res = `Piste 3 activée (Deep Sci-Fi Sub).`; break;
                 case 'projects':
-                    res = `1. Drone 'Amana' (Swarm Intelligence & Secours)<br>2. Projet 'Tawfir' (1er Prix Électrogenuis - Détection fuites IoT)<br>3. Robot Manipulateur (Vision Artificielle)`;
+                    res = `1. SkyPharma (Robot cartésien XYZ & Pharmacie)<br>2. Drone AMANE (1er Prix ENSEM-FSBM)<br>3. Projet TAWFIR (1er Prix Électrogenuis)<br>4. JOWAL (2e Prix Min. Tourisme)`;
                     break;
                 case 'contact':
-                    res = `Email : baderbarkaoui707@gmail.com<br>LinkedIn : linkedin.com/in/bader-el-berkaoui-6641bb26b/<br>GitHub : github.com/baderbarkaoui707`;
+                    res = `Email : baderbarkaoui707@gmail.com<br>WhatsApp : +212 7 03 47 04 15<br>LinkedIn : linkedin.com/in/bader-el-berkaoui-6641bb26b/`;
                     break;
                 case 'clear':
-                    termOutput.innerHTML = '';
-                    return;
+                    termOutput.innerHTML = ''; return;
                 default:
-                    res = `Commande inconnue: "${cmd}". Tapez <span style="color:var(--primary)">help</span> pour la liste.`;
+                    res = `Commande inconnue: "${cmd}". Tapez <span style="color:var(--primary)">help</span>.`;
             }
             termOutput.innerHTML += `<div style="margin-bottom:8px;">${res}</div>`;
         }
 
-        /* ==========================================================================
-           6. COPIE EMAIL & TOAST NOTIFICATION
-           ========================================================================== */
         function copyEmail() {
             navigator.clipboard.writeText('baderbarkaoui707@gmail.com').then(() => {
                 showToast("Email copié dans le presse-papier !");
