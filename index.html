@@ -6,7 +6,7 @@
     <title>Bader El Berkaoui | Ingénieur Génie Électrique & Automatisme</title>
     
     <!-- Meta SEO & OpenGraph -->
-    <meta name="description" content="Portfolio Officiel de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
+    <meta name="description" content="Portfolio de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
     <meta name="theme-color" content="#030712">
 
     <!-- Polices Google Cyber & Pro -->
@@ -33,7 +33,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --glass-nav: rgba(10, 15, 30, 0.88);
-            --glass-card: rgba(15, 23, 42, 0.8);
+            --glass-card: rgba(15, 23, 42, 0.82);
             --border-glow: 1px solid rgba(0, 243, 255, 0.22);
         }
 
@@ -112,7 +112,7 @@
             transform: translateY(-2px);
         }
 
-        /* NAVIGATION DOCK STARGATE FLOTTANTE */
+        /* NAVIGATION DOCK STARGATE */
         nav {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
             z-index: 1000; width: auto; max-width: 95%;
@@ -346,7 +346,7 @@
         .featured-btn-link:hover { color: var(--primary); gap: 12px; }
 
         /* =========================================================================
-           SYNTHÉTISEUR CYBER WEB AUDIO (LECTEUR 3 PISTES INTERACTIF)
+           SYNTHÉTISEUR & LECTEUR AUDIO CYBER HUD (MP3 + PROCEDURAL SYNTH)
            ========================================================================= */
         #cyber-music-deck {
             position: fixed; bottom: 95px; left: 25px; z-index: 1000;
@@ -368,7 +368,7 @@
         }
 
         .deck-track-info {
-            display: flex; flex-direction: column; min-width: 130px;
+            display: flex; flex-direction: column; min-width: 140px;
         }
         .deck-track-title {
             font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff;
@@ -445,9 +445,7 @@
             color: var(--text-muted); font-size: 0.85rem; margin-top: 50px;
         }
 
-        /* =========================================================================
-           RESPONSIVE MOBILE FLUIDE & NON-COMPRESSÉ
-           ========================================================================= */
+        /* RESPONSIVE MOBILE FLUIDE */
         @media (max-width: 1024px) {
             .hero-container {
                 grid-template-columns: 1fr;
@@ -498,6 +496,12 @@
 
     <canvas id="electric-cursor-canvas"></canvas>
 
+    <!-- ÉLÉMENT AUDIO POUR VOTRE FICHIER MP3 (ambient.mp3) -->
+    <audio id="ambient-audio-player" loop preload="auto">
+        <source src="ambient.mp3" type="audio/mpeg">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- ÉCRAN D'ACCUEIL AVEC ACTIVATION SONORE -->
     <div id="welcome-screen" onclick="launchSystem()">
         <div class="welcome-content">
@@ -523,12 +527,12 @@
         </div>
     </div>
 
-    <!-- SYNTHÉTISEUR CYBER WEB AUDIO (3 PISTES NATIVES SANS MP3) -->
+    <!-- SYNTHÉTISEUR CYBER WEB AUDIO & LECTEUR MP3 HYBRIDE -->
     <div id="cyber-music-deck">
         <div class="deck-visualizer-box" onclick="toggleMusicPlayback()">
             <canvas id="visualizer-canvas"></canvas>
             <div class="deck-track-info">
-                <span class="deck-track-title" id="deck-title">Cyber Ambient // 432Hz</span>
+                <span class="deck-track-title" id="deck-title">Ambiance // Track 01</span>
                 <span class="deck-track-status" id="deck-status">AUDIO : ON</span>
             </div>
         </div>
@@ -700,11 +704,11 @@
                 </div>
             </article>
 
-            <!-- PROJET 4 : JOWAL SMART TOURISM -->
+            <!-- PROJET 4 : JOWAL SMART TOURISM (PHOTO JOWAL1.JPEG) -->
             <article class="featured-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="featured-media-box">
                     <span class="featured-award-tag cyan"><i class="fas fa-medal"></i> 2e Prix Ministère Tourisme</span>
-                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600" alt="JOWAL Platform">
+                    <img src="jowal1.jpeg" alt="JOWAL Smart Tourism" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600';">
                 </div>
                 <div class="featured-body">
                     <div>
@@ -734,7 +738,7 @@
             <div class="terminal-body" id="term-output">
                 <div>[SYSTEM] Connexion établie avec le poste source 225kV...</div>
                 <div>[STATUS] Ingénieur : Bader El Berkaoui • Major LST</div>
-                <div>[AUDIO] Synthétiseur cyber 3 pistes actif.</div>
+                <div>[AUDIO] Lecteur audio cyber & synthétiseur actifs.</div>
                 <div>[INFO] Tapez <span style="color:var(--primary); font-weight:bold;">help</span> pour afficher les commandes.</div>
             </div>
             <div class="terminal-input-row">
@@ -767,20 +771,28 @@
         }
 
         /* =========================================================================
-           SYNTHÉTISEUR CYBER WEB AUDIO (3 PISTES AMBIANTES GÉNÉRÉES EN DIRECT)
+           MOTEUR AUDIO HYBRIDE : FICHIER MP3 (ambient.mp3) + SYNTHÉTISEUR WEB AUDIO
            ========================================================================= */
+        const mp3Player = document.getElementById('ambient-audio-player');
         let audioCtx = null;
         let isMusicPlaying = false;
         let currentTrack = 1;
         let synthInterval = null;
         let masterGain = null;
         let analyser = null;
+        let hasMp3File = false;
 
         const trackNames = {
-            1: { title: "Cyber Ambient // 432Hz", desc: "AUDIO : P1 (Drone Spatial)" },
+            1: { title: "Ambiance MP3 / Synth 432Hz", desc: "AUDIO : P1 (Cyber Chill)" },
             2: { title: "Neon Synth Arp // 120BPM", desc: "AUDIO : P2 (Arpège Cyber)" },
             3: { title: "Deep Grid Pulse // Sci-Fi", desc: "AUDIO : P3 (Pulse Sub-Bass)" }
         };
+
+        if (mp3Player) {
+            mp3Player.volume = 0.35;
+            mp3Player.addEventListener('canplaythrough', () => { hasMp3File = true; });
+            mp3Player.addEventListener('error', () => { hasMp3File = false; });
+        }
 
         function initAudioEngine() {
             if (!audioCtx) {
@@ -797,9 +809,9 @@
             }
         }
 
-        // PISTE 1 : Drone Harmonique
+        // PISTE 1 : Web Audio Drone Fallback
         function playTrack1Note() {
-            if (!isMusicPlaying || !audioCtx) return;
+            if (!isMusicPlaying || !audioCtx || hasMp3File) return;
             const freqs = [110, 130.81, 164.81, 196.00, 220, 261.63];
             const freq = freqs[Math.floor(Math.random() * freqs.length)];
 
@@ -878,19 +890,33 @@
             document.getElementById('deck-title').innerText = trackNames[currentTrack].title;
 
             if (currentTrack === 1) {
-                playTrack1Note();
-                synthInterval = setInterval(playTrack1Note, 1200);
-            } else if (currentTrack === 2) {
-                synthInterval = setInterval(playTrack2Note, 220);
-            } else if (currentTrack === 3) {
-                playTrack3Note();
-                synthInterval = setInterval(playTrack3Note, 1400);
+                if (mp3Player) {
+                    const playPromise = mp3Player.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                            playTrack1Note();
+                            synthInterval = setInterval(playTrack1Note, 1200);
+                        });
+                    }
+                } else {
+                    playTrack1Note();
+                    synthInterval = setInterval(playTrack1Note, 1200);
+                }
+            } else {
+                if (mp3Player) mp3Player.pause();
+                if (currentTrack === 2) {
+                    synthInterval = setInterval(playTrack2Note, 220);
+                } else if (currentTrack === 3) {
+                    playTrack3Note();
+                    synthInterval = setInterval(playTrack3Note, 1400);
+                }
             }
         }
 
         function pauseMusicEngine() {
             isMusicPlaying = false;
             if (synthInterval) clearInterval(synthInterval);
+            if (mp3Player) mp3Player.pause();
             document.getElementById('deck-icon').className = 'fas fa-play';
             document.getElementById('deck-status').innerText = 'AUDIO : PAUSE';
         }
@@ -929,7 +955,7 @@
             if (welcome && !welcome.classList.contains('hide-welcome')) launchSystem();
         }, 1200));
 
-        /* VISUALISEUR DE SPECTRE CANVAS */
+        /* VISUALISEUR DE SPECTRE SUR LE CANVAS */
         function startVisualizer() {
             const canvas = document.getElementById('visualizer-canvas');
             if (!canvas) return;
@@ -1115,7 +1141,7 @@
                 case 'status':
                     res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique<br>[MAJOR] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour recrutement et stages PFE.`;
                     break;
-                case 'play 1': switchTrack(1); res = `Piste 1 activée (Cyber Ambient Drone).`; break;
+                case 'play 1': switchTrack(1); res = `Piste 1 activée (Ambiance MP3 / Synth 432Hz).`; break;
                 case 'play 2': switchTrack(2); res = `Piste 2 activée (Neon Synth Arpège).`; break;
                 case 'play 3': switchTrack(3); res = `Piste 3 activée (Deep Sci-Fi Sub).`; break;
                 case 'projects':
