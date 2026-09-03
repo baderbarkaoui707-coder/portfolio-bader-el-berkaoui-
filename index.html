@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Bader El Berkaoui | Ingénieur Génie Électrique & Automatisme</title>
+    <title>Bader El Berkaoui | Élève-Ingénieur Génie Électrique & Automatisme</title>
     
     <!-- Meta SEO & OpenGraph -->
-    <meta name="description" content="Portfolio Officiel de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
+    <meta name="description" content="Portfolio Officiel de Bader El Berkaoui - Élève-Ingénieur en Génie Électrique & Contrôle Industriel (FST Mohammedia - Major LST). Passionné par les installations CFO/CFA, l'automatisme, l'instrumentation et les systèmes embarqués. Orienté terrain et projets.">
     <meta name="theme-color" content="#030712">
 
     <!-- Polices Google Cyber & Pro -->
@@ -183,8 +183,23 @@
 
         .hero-subtitle {
             font-family: 'Rajdhani', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 700;
-            color: var(--primary); margin-bottom: 20px; letter-spacing: 1px;
+            color: var(--primary); margin-bottom: 18px; letter-spacing: 1px;
             display: flex; align-items: center; gap: 10px;
+        }
+
+        /* SKILL PILLS HERO */
+        .skills-hero-chips {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+        }
+        .skill-hero-chip {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0; padding: 5px 12px; border-radius: 8px; font-family: 'Rajdhani', sans-serif;
+            font-size: 0.88rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;
+            transition: 0.3s;
+        }
+        .skill-hero-chip:hover {
+            border-color: var(--primary); background: rgba(0, 243, 255, 0.1); color: var(--primary);
+            transform: translateY(-2px);
         }
 
         /* KPI STATS ROW */
@@ -205,8 +220,9 @@
         }
 
         .description {
-            color: var(--text-muted); font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; max-width: 600px; margin-bottom: 30px;
+            color: var(--text-muted); font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; max-width: 620px; margin-bottom: 30px;
         }
+        .description strong { color: #fff; }
 
         .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn-glow {
@@ -458,6 +474,7 @@
             .hero-visual { order: 1; }
             .holo-frame { margin: 0 auto; }
             
+            .skills-hero-chips { justify-content: center; }
             .kpi-row { justify-content: center; }
             .kpi-box { flex: 1 1 120px; }
             .cta-group { justify-content: center; }
@@ -510,7 +527,7 @@
         <div class="welcome-content">
             <div class="welcome-text">INITIALISATION DU SYSTÈME</div>
             <div class="loader-line"></div>
-            <div class="welcome-sub">&lt; BADER EL BERKAOUI // INGÉNIEUR SYSTÈMES &gt;</div>
+            <div class="welcome-sub">&lt; BADER EL BERKAOUI // ÉLÈVE-INGÉNIEUR &gt;</div>
             <div class="click-hint"><i class="fas fa-play-circle"></i> Entrer sur le portfolio avec ambiance sonore</div>
         </div>
     </div>
@@ -591,10 +608,19 @@
             <h1>BADER EL<br>BERKAOUI</h1>
             
             <div class="hero-subtitle">
-                <i class="fas fa-bolt"></i> Ingénieur Génie Électrique & Automatisme
+                <i class="fas fa-bolt"></i> Élève-Ingénieur Génie Électrique & Contrôle Industriel
             </div>
 
-            <!-- KPI HIGHLIGHTS ROW OPTIMISÉ (SANS 225KV DGA) -->
+            <!-- CHIPS DES COMPÉTENCES CLÉS DU PROFIL -->
+            <div class="skills-hero-chips">
+                <span class="skill-hero-chip"><i class="fas fa-bolt" style="color:var(--primary);"></i> CFO / CFA</span>
+                <span class="skill-hero-chip"><i class="fas fa-industry" style="color:var(--secondary);"></i> Automatisme & SCADA</span>
+                <span class="skill-hero-chip"><i class="fas fa-gauge-high" style="color:var(--accent);"></i> Instrumentation</span>
+                <span class="skill-hero-chip"><i class="fas fa-microchip" style="color:var(--neon-purple);"></i> Systèmes Embarqués</span>
+                <span class="skill-hero-chip"><i class="fas fa-screwdriver-wrench" style="color:var(--gold);"></i> Orienté Terrain & Projet</span>
+            </div>
+
+            <!-- KPI HIGHLIGHTS ROW -->
             <div class="kpi-row">
                 <div class="kpi-box">
                     <div class="kpi-number" style="color:var(--gold);">1er</div>
@@ -605,13 +631,13 @@
                     <div class="kpi-label">1ers Prix & Trophées</div>
                 </div>
                 <div class="kpi-box">
-                    <div class="kpi-number" style="color:var(--accent);">R&D</div>
-                    <div class="kpi-label">Contrôle & Automatisme</div>
+                    <div class="kpi-number" style="color:var(--accent);">100%</div>
+                    <div class="kpi-label">Terrain, Projet & R&D</div>
                 </div>
             </div>
 
             <p class="description">
-                Élève-ingénieur à la <strong>FST Mohammedia</strong>. Conception de systèmes industriels intelligents, <strong>automatismes Siemens TIA Portal, robotique cartésienne XYZ</strong> et architectures communicantes (IoT & IA).
+                Élève-ingénieur d'État à la <strong>FST Mohammedia</strong> (Major de promotion LST), passionné et <strong>résolument orienté terrain et réalisations concrètes</strong>. J'interviens de la conception des installations électriques <strong>CFO/CFA</strong> et armoires d'automatisme (Siemens TIA Portal) jusqu'à l'<strong>instrumentation de mesure</strong> et les <strong>systèmes embarqués intelligents</strong> (Robotique XYZ, IoT & IA).
             </p>
 
             <div class="cta-group">
@@ -743,8 +769,9 @@
             </div>
             <div class="terminal-body" id="term-output">
                 <div>[SYSTEM] Connexion établie avec le système central...</div>
-                <div>[STATUS] Ingénieur : Bader El Berkaoui • Major LST</div>
-                <div>[AUDIO] Lecteur d'ambiance MP3 actif.</div>
+                <div>[PROFIL] Bader El Berkaoui • Élève-Ingénieur Génie Électrique & Contrôle Industriel</div>
+                <div>[EXPERTISE] CFO/CFA • Automatisme Siemens • Instrumentation • Embarqué • Terrain & Projets</div>
+                <div>[STATUS] Major LST (Mention Très Bien) • Open to Work PFE 2026</div>
                 <div>[INFO] Tapez <span style="color:var(--primary); font-weight:bold;">help</span> pour afficher les commandes.</div>
             </div>
             <div class="terminal-input-row">
@@ -760,7 +787,7 @@
     </div>
 
     <footer>
-        <p>© 2026 Bader El Berkaoui • Ingénieur Génie Électrique, Automatisme & Innovation</p>
+        <p>© 2026 Bader El Berkaoui • Élève-Ingénieur Génie Électrique, Automatisme & Innovation</p>
     </footer>
 
     <!-- SCRIPTS EXTERNES -->
@@ -1014,7 +1041,7 @@
             } catch(e) {}
         }
 
-        document.querySelectorAll('.btn-glow, .btn-transparent, .nav-item, .featured-card, .hud-btn').forEach(el => {
+        document.querySelectorAll('.btn-glow, .btn-transparent, .nav-item, .featured-card, .hud-btn, .skill-hero-chip').forEach(el => {
             el.addEventListener('mouseenter', playClickFeedback);
         });
 
@@ -1081,13 +1108,17 @@
                 case 'help':
                     res = `Commandes disponibles :<br>
                     - <span style="color:#00f3ff">status</span> : Statut académique & PFE<br>
+                    - <span style="color:#00f3ff">skills</span> : Compétences d'ingénierie & Terrain<br>
                     - <span style="color:#00f3ff">projects</span> : Liste des projets phares<br>
-                    - <span style="color:#00f3ff">play / pause</span> : Contrôle audio<br>
+                    - <span style="color:#00f3ff">play / pause</span> : Contrôle du lecteur audio<br>
                     - <span style="color:#00f3ff">contact</span> : Coordonnées directes<br>
                     - <span style="color:#00f3ff">clear</span> : Effacer la console`;
                     break;
                 case 'status':
-                    res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique & Automatisme<br>[MAJOR] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour missions d'ingénierie et stages PFE.`;
+                    res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique & Contrôle Industriel<br>[DISTINCTION] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour missions de terrain, R&D et stage PFE.`;
+                    break;
+                case 'skills':
+                    res = `CFO/CFA : Tableaux TGBT, Caneco BT, NF C 15-100<br>Automatisme : Siemens TIA Portal, Grafcet, SCADA<br>Instrumentation : Capteurs débit/pression, bus de terrain<br>Embarqué : Robot cartésien XYZ, STM32, ESP32, Python OpenCV`;
                     break;
                 case 'play': playAudio(); res = `Lecture audio activée.`; break;
                 case 'pause': pauseAudio(); res = `Audio mis en pause.`; break;
