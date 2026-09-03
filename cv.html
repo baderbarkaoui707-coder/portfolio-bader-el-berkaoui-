@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Curriculum Vitae | Bader El Berkaoui</title>
+    <title>Curriculum Vitae Interactif | Bader El Berkaoui</title>
     
     <!-- Meta SEO -->
-    <meta name="description" content="Curriculum Vitae officiel de Bader El Berkaoui - Élève-Ingénieur en Génie Électrique & Contrôle Industriel (FST Mohammedia - Major LST)">
+    <meta name="description" content="Curriculum Vitae Officiel & Interactif de Bader El Berkaoui - Élève-Ingénieur en Génie Électrique & Contrôle Industriel (FST Mohammedia - Major LST)">
     <meta name="theme-color" content="#030712">
 
     <!-- Polices Google Cyber & Pro -->
@@ -23,13 +23,14 @@
             --bg-deep: #030712;
             --bg-surface: #0a1124;
             --primary: #00f3ff;
-            --primary-glow: rgba(0, 243, 255, 0.4);
+            --primary-glow: rgba(0, 243, 255, 0.45);
             --secondary: #4361ee;
             --accent: #10b981;
             --gold: #ffd700;
+            --neon-purple: #bc13fe;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --glass-card: rgba(15, 23, 42, 0.85);
+            --glass-card: rgba(15, 23, 42, 0.88);
             --border-glow: 1px solid rgba(0, 243, 255, 0.22);
         }
 
@@ -41,12 +42,270 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
-            padding-bottom: 120px;
+            padding-bottom: 140px;
+        }
+
+        /* CURSEUR ARC ÉLECTRIQUE */
+        #electric-cursor-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 99999;
+        }
+        @media (pointer: coarse) {
+            #electric-cursor-canvas { display: none !important; }
         }
 
         #canvas-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(circle at 50% 10%, #0d1527 0%, #030712 100%);
+        }
+
+        /* ACTIONS BAR DU CV SUPÉRIEURE */
+        .cv-top-hud {
+            max-width: 1100px; margin: 30px auto 20px; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+
+        .hud-actions-left, .hud-actions-right {
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+
+        .btn-hud {
+            background: rgba(10, 16, 30, 0.85); border: var(--border-glow); color: var(--primary);
+            padding: 9px 18px; border-radius: 30px; font-family: 'Rajdhani', sans-serif;
+            font-size: 0.88rem; font-weight: 700; letter-spacing: 1px;
+            display: inline-flex; align-items: center; gap: 8px;
+            backdrop-filter: blur(12px); cursor: pointer; text-decoration: none; transition: 0.3s;
+        }
+        .btn-hud:hover {
+            background: var(--primary); color: #030712; box-shadow: 0 0 25px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+        .btn-hud.highlight {
+            background: var(--primary); color: #030712; font-weight: 800;
+        }
+        .btn-hud.whatsapp {
+            border-color: #25d366; color: #25d366;
+        }
+        .btn-hud.whatsapp:hover {
+            background: #25d366; color: #030712; box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+        }
+
+        /* SWITCHER DE VUE : CYBER HUD / PAPIER ATS BLANC */
+        .view-switch-box {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px;
+        }
+        .switch-btn {
+            background: transparent; border: none; color: var(--text-muted); padding: 6px 14px;
+            border-radius: 20px; font-family: 'Rajdhani', sans-serif; font-size: 0.82rem; font-weight: 700;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase;
+        }
+        .switch-btn.active {
+            background: var(--primary); color: #030712; box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* CONTENEUR PRINCIPAL DU CV */
+        .cv-wrapper {
+            max-width: 1100px; margin: 0 auto 50px; padding: 0 15px;
+        }
+
+        .cv-paper {
+            background: var(--glass-card); border: var(--border-glow); border-radius: 24px;
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 243, 255, 0.12);
+            overflow: hidden; padding: 45px; position: relative; transition: all 0.4s ease;
+        }
+
+        /* STYLE VUE CLASSIQUE / PAPIER RECRUTEUR */
+        body.paper-mode {
+            background-color: #f1f5f9 !important; color: #0f172a !important;
+        }
+        body.paper-mode #canvas-bg, body.paper-mode #electric-cursor-canvas { display: none !important; }
+        body.paper-mode .cv-paper {
+            background: #ffffff !important; border: 1px solid #cbd5e1 !important; color: #0f172a !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08) !important;
+        }
+        body.paper-mode .cv-title-box h1 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; }
+        body.paper-mode .cv-subtitle { color: #0284c7 !important; }
+        body.paper-mode .cv-target { background: #f0f9ff !important; color: #0369a1 !important; border-color: #0284c7 !important; }
+        body.paper-mode .cv-section-title { color: #0f172a !important; border-color: #cbd5e1 !important; }
+        body.paper-mode .cv-section-title i { color: #0284c7 !important; }
+        body.paper-mode .skill-group-title { color: #0284c7 !important; }
+        body.paper-mode .skill-group-desc, body.paper-mode .cv-text, body.paper-mode .timeline-list li { color: #334155 !important; }
+        body.paper-mode .software-cat { color: #0284c7 !important; }
+        body.paper-mode .timeline-card, body.paper-mode .project-mini-card {
+            background: #f8fafc !important; border: 1px solid #e2e8f0 !important; border-left: 3px solid #0284c7 !important;
+        }
+        body.paper-mode .timeline-role { color: #0f172a !important; }
+        body.paper-mode .timeline-company { color: #0284c7 !important; }
+        body.paper-mode .timeline-date { background: #fef3c7 !important; color: #b45309 !important; }
+        body.paper-mode .award-badge { color: #b45309 !important; }
+        body.paper-mode .cv-contact-item { color: #334155 !important; }
+        body.paper-mode .cert-pill { background: #f0f9ff !important; border-color: #bae6fd !important; color: #0369a1 !important; }
+
+        /* EN-TÊTE CV HAUTE PRÉCISION */
+        .cv-header {
+            display: grid; grid-template-columns: auto 1fr auto; gap: 35px;
+            align-items: center; border-bottom: 2px solid rgba(0, 243, 255, 0.25);
+            padding-bottom: 35px; margin-bottom: 35px;
+        }
+        .cv-photo-frame {
+            width: 135px; height: 165px; border-radius: 16px; overflow: hidden;
+            border: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow);
+            background: #02040a; position: relative;
+        }
+        .cv-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+        .cv-title-box h1 {
+            font-family: 'Orbitron', sans-serif; font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+            font-weight: 900; letter-spacing: 1px; margin-bottom: 6px; text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .cv-subtitle {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 800;
+            color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;
+        }
+        .cv-target {
+            color: #cbd5e1; font-size: 0.92rem; line-height: 1.5;
+            background: rgba(0, 243, 255, 0.06); padding: 10px 16px; border-left: 3px solid var(--primary);
+            border-radius: 6px; font-style: italic;
+        }
+
+        .cv-contacts {
+            display: flex; flex-direction: column; gap: 10px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+        }
+        .cv-contact-item {
+            display: flex; align-items: center; gap: 10px; color: #cbd5e1;
+            text-decoration: none; transition: 0.2s;
+        }
+        .cv-contact-item i { color: var(--primary); width: 18px; text-align: center; }
+        .cv-contact-item:hover { color: var(--primary); transform: translateX(3px); }
+
+        /* GRILLE 2 COLONNES DU CV */
+        .cv-grid {
+            display: grid; grid-template-columns: 0.9fr 1.35fr; gap: 45px;
+        }
+
+        .cv-section-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1.15rem; color: #fff;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3); padding-bottom: 8px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .cv-section-title i { color: var(--primary); font-size: 1.05rem; }
+
+        .cv-block { margin-bottom: 30px; }
+
+        .cv-text {
+            color: #cbd5e1; font-size: 0.9rem; line-height: 1.7; text-align: justify;
+        }
+
+        /* COMPÉTENCES DÉTAILLÉES */
+        .skill-group { margin-bottom: 18px; }
+        .skill-group-title {
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 800;
+            color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+        }
+        .skill-group-desc {
+            font-size: 0.84rem; color: #94a3b8; line-height: 1.55;
+        }
+
+        /* LOGICIELS */
+        .software-row {
+            margin-bottom: 11px; font-size: 0.86rem; line-height: 1.55;
+        }
+        .software-cat {
+            color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 700;
+        }
+
+        /* FORMATION & EXPÉRIENCES */
+        .timeline-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 3px solid var(--primary); padding: 16px 20px; border-radius: 12px;
+            margin-bottom: 18px; transition: 0.3s;
+        }
+        .timeline-card:hover {
+            background: rgba(0, 243, 255, 0.05); border-color: var(--primary);
+            transform: translateX(4px); box-shadow: 0 5px 20px rgba(0, 243, 255, 0.1);
+        }
+        .timeline-header {
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;
+        }
+        .timeline-role {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 800; color: #fff;
+        }
+        .timeline-company {
+            font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--primary); font-weight: 700;
+        }
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold);
+            background: rgba(255, 215, 0, 0.1); padding: 3px 9px; border-radius: 4px; font-weight: 700;
+        }
+        .timeline-sub {
+            font-size: 0.85rem; color: #94a3b8; margin-bottom: 10px; font-style: italic;
+        }
+        .timeline-list { list-style: none; padding-left: 0; }
+        .timeline-list li {
+            position: relative; padding-left: 18px; margin-bottom: 7px; font-size: 0.86rem; color: #cbd5e1; line-height: 1.55;
+        }
+        .timeline-list li::before {
+            content: "▹"; position: absolute; left: 0; color: var(--primary); font-size: 0.95rem;
+        }
+
+        /* PROJETS D'INGÉNIERIE */
+        .project-mini-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 18px; border-radius: 10px; margin-bottom: 14px; transition: 0.3s;
+        }
+        .project-mini-card:hover {
+            border-color: var(--primary); background: rgba(0, 243, 255, 0.04);
+        }
+        .project-mini-title {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; color: #fff;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
+        }
+        .project-mini-tags {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--primary);
+            background: rgba(0, 243, 255, 0.08); padding: 2px 8px; border-radius: 4px;
+        }
+        .project-mini-desc {
+            font-size: 0.84rem; color: #94a3b8; margin-top: 6px; line-height: 1.55;
+        }
+
+        /* DISTINCTIONS */
+        .award-item {
+            display: flex; gap: 12px; margin-bottom: 12px; font-size: 0.86rem; color: #cbd5e1; line-height: 1.5;
+        }
+        .award-badge {
+            color: var(--gold); font-weight: 800; font-family: 'Rajdhani', sans-serif; white-space: nowrap;
+        }
+
+        /* CERTIFICATIONS */
+        .cert-pill {
+            background: rgba(0,243,255,0.08); border: 1px solid rgba(0,243,255,0.25);
+            padding: 6px 12px; border-radius: 6px; color: var(--primary);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700;
+        }
+
+        /* LECTEUR AUDIO CYBER HUD FLOTTANT */
+        #cyber-music-deck {
+            position: fixed; bottom: 95px; left: 25px; z-index: 1000;
+            background: rgba(8, 14, 28, 0.92); border: 1px solid rgba(0, 243, 255, 0.35);
+            border-radius: 50px; padding: 8px 18px; display: flex; align-items: center;
+            gap: 12px; backdrop-filter: blur(20px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        #visualizer-canvas { width: 45px; height: 22px; border-radius: 4px; }
+        .deck-track-info { display: flex; flex-direction: column; min-width: 130px; }
+        .deck-track-title { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff; }
+        .deck-track-status { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--primary); font-weight: 700; }
+        .deck-btn {
+            background: rgba(0, 243, 255, 0.08); border: 1px solid rgba(0, 243, 255, 0.25);
+            color: var(--primary); width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem;
         }
 
         /* NAVIGATION DOCK */
@@ -80,180 +339,24 @@
             box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
         }
 
-        /* ACTIONS BAR DU CV */
-        .cv-action-bar {
-            max-width: 1000px; margin: 40px auto 20px; padding: 0 20px;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        #toast-box {
+            position: fixed; top: 30px; right: 30px; z-index: 11000;
+            background: rgba(16, 185, 129, 0.9); color: #030712; padding: 12px 24px;
+            border-radius: 8px; font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); transform: translateX(150%);
+            transition: transform 0.4s ease; display: flex; align-items: center; gap: 10px;
         }
-        .btn-action {
-            background: rgba(0, 243, 255, 0.1); border: 1px solid var(--primary);
-            color: var(--primary); padding: 10px 20px; border-radius: 10px;
-            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem;
-            letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s;
-        }
-        .btn-action:hover {
-            background: var(--primary); color: #030712; box-shadow: 0 0 25px var(--primary-glow);
-            transform: translateY(-2px);
-        }
-        .btn-action.download-btn {
-            background: var(--primary); color: #030712; font-weight: 800;
-        }
+        #toast-box.show { transform: translateX(0); }
 
-        /* CONTENEUR PRINCIPAL DU CV */
-        .cv-paper {
-            max-width: 1000px; margin: 0 auto 50px; background: var(--glass-card);
-            border: var(--border-glow); border-radius: 20px; backdrop-filter: blur(16px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 243, 255, 0.12);
-            overflow: hidden; padding: 40px;
-        }
-
-        /* EN-TÊTE CV */
-        .cv-header {
-            display: grid; grid-template-columns: auto 1fr auto; gap: 30px;
-            align-items: center; border-bottom: 2px solid rgba(0, 243, 255, 0.25);
-            padding-bottom: 30px; margin-bottom: 35px;
-        }
-        .cv-photo-box {
-            width: 130px; height: 160px; border-radius: 12px; overflow: hidden;
-            border: 2px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow);
-            background: #000;
-        }
-        .cv-photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-
-        .cv-title-box h1 {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.3rem);
-            color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-        }
-        .cv-subtitle {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 700;
-            color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
-        }
-        .cv-target {
-            color: #cbd5e1; font-size: 0.92rem; font-style: italic; line-height: 1.5;
-            background: rgba(0, 243, 255, 0.05); padding: 8px 14px; border-left: 3px solid var(--primary);
-            border-radius: 4px;
-        }
-
-        .cv-contacts {
-            display: flex; flex-direction: column; gap: 8px;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-        }
-        .cv-contact-item {
-            display: flex; align-items: center; gap: 10px; color: #cbd5e1;
-            text-decoration: none; transition: 0.2s;
-        }
-        .cv-contact-item i { color: var(--primary); width: 16px; text-align: center; }
-        .cv-contact-item:hover { color: var(--primary); }
-
-        /* STRUCTURE 2 COLONNES DU CV */
-        .cv-grid {
-            display: grid; grid-template-columns: 0.9fr 1.3fr; gap: 40px;
-        }
-
-        .cv-section-title {
-            font-family: 'Orbitron', sans-serif; font-size: 1.15rem; color: #fff;
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px;
-            border-bottom: 1px solid rgba(0, 243, 255, 0.3); padding-bottom: 6px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .cv-section-title i { color: var(--primary); font-size: 1rem; }
-
-        .cv-block { margin-bottom: 28px; }
-
-        /* PROFIL & TEXTE */
-        .cv-text {
-            color: #cbd5e1; font-size: 0.88rem; line-height: 1.65; text-align: justify;
-        }
-
-        /* COMPÉTENCES */
-        .skill-group { margin-bottom: 16px; }
-        .skill-group-title {
-            font-family: 'Rajdhani', sans-serif; font-size: 0.98rem; font-weight: 700;
-            color: var(--primary); text-transform: uppercase; margin-bottom: 4px;
-        }
-        .skill-group-desc {
-            font-size: 0.84rem; color: #94a3b8; line-height: 1.5;
-        }
-
-        /* LOGICIELS */
-        .software-row {
-            margin-bottom: 10px; font-size: 0.84rem; line-height: 1.5;
-        }
-        .software-cat {
-            color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 700;
-        }
-
-        /* FORMATION & EXPÉRIENCES */
-        .timeline-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 3px solid var(--primary); padding: 14px 18px; border-radius: 8px;
-            margin-bottom: 16px; transition: 0.3s;
-        }
-        .timeline-card:hover {
-            background: rgba(0, 243, 255, 0.05); border-color: var(--primary);
-            transform: translateX(4px);
-        }
-        .timeline-header {
-            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap;
-        }
-        .timeline-role {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; color: #fff;
-        }
-        .timeline-company {
-            font-family: 'Orbitron', sans-serif; font-size: 0.88rem; color: var(--primary); font-weight: 700;
-        }
-        .timeline-date {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold);
-            background: rgba(255, 215, 0, 0.1); padding: 2px 8px; border-radius: 4px;
-        }
-        .timeline-sub {
-            font-size: 0.82rem; color: #94a3b8; margin-bottom: 8px; font-style: italic;
-        }
-        .timeline-list {
-            list-style: none; padding-left: 0;
-        }
-        .timeline-list li {
-            position: relative; padding-left: 16px; margin-bottom: 6px; font-size: 0.84rem; color: #cbd5e1; line-height: 1.5;
-        }
-        .timeline-list li::before {
-            content: "▹"; position: absolute; left: 0; color: var(--primary); font-size: 0.9rem;
-        }
-
-        /* PROJETS D'INGÉNIERIE */
-        .project-mini-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 12px 16px; border-radius: 8px; margin-bottom: 12px;
-        }
-        .project-mini-title {
-            font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 800; color: #fff;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .project-mini-tags {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--primary);
-        }
-        .project-mini-desc {
-            font-size: 0.82rem; color: #94a3b8; margin-top: 4px; line-height: 1.5;
-        }
-
-        /* DISTINCTIONS & CERTIFICATIONS */
-        .award-item {
-            display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.84rem; color: #cbd5e1;
-        }
-        .award-badge {
-            color: var(--gold); font-weight: 800; font-family: 'Rajdhani', sans-serif;
-            white-space: nowrap;
-        }
-
-        /* STYLES IMPRESSION PAPIER / PDF */
+        /* IMPRESSION PAPIER / EXPORT PDF */
         @media print {
             body { background: #fff !important; color: #000 !important; padding: 0 !important; }
-            #canvas-bg, nav, .cv-action-bar, #electric-cursor-canvas { display: none !important; }
+            #canvas-bg, nav, .cv-top-hud, #electric-cursor-canvas, #cyber-music-deck, #toast-box { display: none !important; }
             .cv-paper {
                 box-shadow: none !important; border: none !important; background: #fff !important;
                 color: #000 !important; max-width: 100% !important; padding: 0 !important; margin: 0 !important;
             }
-            .cv-title-box h1, .timeline-role, .cv-section-title { color: #000 !important; }
+            .cv-title-box h1, .timeline-role, .cv-section-title { color: #000 !important; -webkit-text-fill-color: #000 !important; }
             .cv-subtitle, .timeline-company, .skill-group-title, .software-cat, .project-mini-tags { color: #0056b3 !important; }
             .cv-text, .skill-group-desc, .timeline-list li, .project-mini-desc, .award-item { color: #222 !important; }
             .timeline-card, .project-mini-card { border: 1px solid #ddd !important; background: #fafafa !important; }
@@ -262,13 +365,14 @@
         }
 
         /* RESPONSIVE SMARTPHONE */
-        @media (max-width: 860px) {
-            .cv-header { grid-template-columns: 1fr; text-align: center; justify-items: center; }
-            .cv-photo-box { margin: 0 auto; width: 110px; height: 140px; }
+        @media (max-width: 900px) {
+            .cv-header { grid-template-columns: 1fr; text-align: center; justify-items: center; gap: 20px; }
+            .cv-photo-frame { margin: 0 auto; width: 110px; height: 140px; }
             .cv-contacts { align-items: center; }
             .cv-grid { grid-template-columns: 1fr; gap: 30px; }
             .cv-paper { padding: 25px 18px; margin-bottom: 90px; }
-            .timeline-header { flex-direction: column; gap: 4px; }
+            .cv-top-hud { justify-content: center; }
+            #cyber-music-deck { bottom: 75px; left: 15px; }
             
             nav { width: 95%; bottom: 12px; }
             .nav-dock { padding: 8px 12px; justify-content: space-around; width: 100%; gap: 2px; }
@@ -281,303 +385,341 @@
 </head>
 <body>
 
+    <canvas id="electric-cursor-canvas"></canvas>
     <canvas id="canvas-bg"></canvas>
 
-    <!-- ACTIONS BAR -->
-    <div class="cv-action-bar">
-        <a href="index.html" class="btn-action">
-            <i class="fas fa-arrow-left"></i> Retour à l'accueil
-        </a>
-        <div style="display: flex; gap: 10px;">
-            <button onclick="window.print()" class="btn-action download-btn">
-                <i class="fas fa-print"></i> Imprimer / Enregistrer PDF
+    <!-- ÉLÉMENT AUDIO PRINCIPAL -->
+    <audio id="ambient-audio-player" loop preload="auto">
+        <source src="ambient.mp3" type="audio/mpeg">
+        <source src="ambient.m4a" type="audio/mp4">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- HUD SUPÉRIEUR D'ACTIONS INTERACTIVES -->
+    <div class="cv-top-hud">
+        <div class="hud-actions-left">
+            <a href="index.html" class="btn-hud">
+                <i class="fas fa-arrow-left"></i> <span>Accueil</span>
+            </a>
+            <div class="view-switch-box">
+                <button class="switch-btn active" id="btn-view-cyber" onclick="setViewMode('cyber')">
+                    <i class="fas fa-shield-halved"></i> Cyber HUD
+                </button>
+                <button class="switch-btn" id="btn-view-paper" onclick="setViewMode('paper')">
+                    <i class="fas fa-file-lines"></i> Vue Recruteur
+                </button>
+            </div>
+        </div>
+
+        <div class="hud-actions-right">
+            <button onclick="window.print()" class="btn-hud highlight">
+                <i class="fas fa-print"></i> <span>Imprimer / PDF</span>
             </button>
-            <a href="https://wa.me/212703470415?text=Bonjour%20Bader,%20j'ai%20consult%C3%A9%20votre%20CV." target="_blank" class="btn-action">
-                <i class="fab fa-whatsapp" style="color:#25d366;"></i> Me Contacter
+            <button onclick="copyContactVCard()" class="btn-hud">
+                <i class="fas fa-address-card"></i> <span>vCard Contact</span>
+            </button>
+            <a href="https://wa.me/212703470415?text=Bonjour%20Bader,%20j'ai%20consult%C3%A9%20votre%20CV." target="_blank" class="btn-hud whatsapp">
+                <i class="fab fa-whatsapp"></i> <span>WhatsApp</span>
             </a>
         </div>
     </div>
 
-    <!-- CV CONTAINER -->
-    <main class="cv-paper" data-aos="fade-up">
-        
-        <!-- EN-TÊTE -->
-        <header class="cv-header">
-            <div class="cv-photo-box">
-                <img src="profile.png" alt="Bader El Berkaoui" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f75?w=500';">
-            </div>
-
-            <div class="cv-title-box">
-                <h1>BADER EL BERKAOUI</h1>
-                <div class="cv-subtitle">Élève-ingénieur en Génie Électrique & Contrôle Industriel</div>
-                <div class="cv-target">
-                    <i class="fas fa-bullseye"></i> À la recherche d’un stage / PFE en installation électrique CFO/CFA, automatisation, bureau d’études ou électricité industrielle.
-                </div>
-            </div>
-
-            <div class="cv-contacts">
-                <a href="tel:+212703470415" class="cv-contact-item">
-                    <i class="fas fa-phone"></i> +212 7 03 47 04 15
-                </a>
-                <a href="mailto:baderbarkaoui707@gmail.com" class="cv-contact-item">
-                    <i class="fas fa-envelope"></i> baderbarkaoui707@gmail.com
-                </a>
-                <div class="cv-contact-item">
-                    <i class="fas fa-location-dot"></i> Casablanca, Maroc
-                </div>
-                <a href="https://www.linkedin.com/in/bader-el-berkaoui-6641bb26b/" target="_blank" class="cv-contact-item">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="https://github.com/baderbarkaoui707" target="_blank" class="cv-contact-item">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </div>
-        </header>
-
-        <!-- GRILLE 2 COLONNES -->
-        <div class="cv-grid">
+    <!-- CV CONTAINER INTERACTIF -->
+    <main class="cv-wrapper">
+        <div class="cv-paper" data-aos="fade-up">
             
-            <!-- COLONNE GAUCHE -->
-            <div class="cv-left-col">
+            <!-- EN-TÊTE CV -->
+            <header class="cv-header">
+                <div class="cv-photo-frame">
+                    <img src="profile.png" alt="Bader El Berkaoui" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f75?w=500';">
+                </div>
+
+                <div class="cv-title-box">
+                    <h1>BADER EL BERKAOUI</h1>
+                    <div class="cv-subtitle">Élève-ingénieur en Génie Électrique & Contrôle Industriel</div>
+                    <div class="cv-target">
+                        <i class="fas fa-bullseye" style="color:var(--primary);"></i> À la recherche d’un stage/PFE en installation électrique CFO/CFA, automatisation, bureau d’études ou électricité industrielle.
+                    </div>
+                </div>
+
+                <div class="cv-contacts">
+                    <a href="tel:+212703470415" class="cv-contact-item">
+                        <i class="fas fa-phone"></i> +212 7 03 47 04 15
+                    </a>
+                    <a href="mailto:baderbarkaoui707@gmail.com" class="cv-contact-item" onclick="copyEmail(); return false;" title="Cliquer pour copier">
+                        <i class="fas fa-envelope"></i> baderbarkaoui707@gmail.com
+                    </a>
+                    <div class="cv-contact-item">
+                        <i class="fas fa-location-dot"></i> Casablanca, Maroc
+                    </div>
+                    <a href="https://www.linkedin.com/in/bader-el-berkaoui-6641bb26b/" target="_blank" class="cv-contact-item">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/baderbarkaoui707" target="_blank" class="cv-contact-item">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </header>
+
+            <!-- GRILLE PRINCIPALE 2 COLONNES -->
+            <div class="cv-grid">
                 
-                <!-- PROFIL -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-user"></i> Profil</h2>
-                    <p class="cv-text">
-                        Élève-ingénieur en Génie Électrique et Contrôle Industriel, avec une expérience en études CFO/CFA, câblage d’armoires, maintenance HTA/BT et automatisation. Approche orientée conception, réalisation, essais, mise en service et diagnostic, complétée par une solide maîtrise en robotique, drones, IA et systèmes embarqués.
-                    </p>
-                </section>
-
-                <!-- COMPÉTENCES -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-cogs"></i> Compétences</h2>
+                <!-- COLONNE GAUCHE -->
+                <div class="cv-left-col">
                     
-                    <div class="skill-group">
-                        <div class="skill-group-title">CFO / CFA</div>
-                        <div class="skill-group-desc">Bilans de puissance, schémas unifilaires, dimensionnement des câbles, protections, tableaux, éclairage et études électriques.</div>
-                    </div>
+                    <!-- PROFIL -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-user-astronaut"></i> Profil</h2>
+                        <p class="cv-text">
+                            Élève-ingénieur en Génie Électrique et Contrôle Industriel, avec une solide expérience en études CFO/CFA, câblage d’armoires, maintenance HTA/BT et automatisation. Approche résolument orientée <strong>conception, réalisation, essais, mise en service et diagnostic</strong>, complétée par une forte pratique en robotique, drones, IA et systèmes embarqués.
+                        </p>
+                    </section>
 
-                    <div class="skill-group">
-                        <div class="skill-group-title">Électricité Industrielle</div>
-                        <div class="skill-group-desc">Puissance/commande, contacteurs, relais, borniers, lecture de schémas, câblage et diagnostic.</div>
-                    </div>
-
-                    <div class="skill-group">
-                        <div class="skill-group-title">HTA / BT</div>
-                        <div class="skill-group-desc">Transformateurs, postes électriques, maintenance préventive/corrective, consignation et sécurité.</div>
-                    </div>
-
-                    <div class="skill-group">
-                        <div class="skill-group-title">Automatisme</div>
-                        <div class="skill-group-desc">PLC, HMI, SCADA, instrumentation, réseaux industriels et contrôle-commande.</div>
-                    </div>
-
-                    <div class="skill-group">
-                        <div class="skill-group-title">Embarqué / Robotique</div>
-                        <div class="skill-group-desc">STM32, ESP32, Arduino, Raspberry Pi, capteurs, actionneurs, robotique mobile et robot cartésien.</div>
-                    </div>
-                </section>
-
-                <!-- LOGICIELS -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-laptop-code"></i> Logiciels & Outils</h2>
-                    <div class="software-row"><span class="software-cat">Électricité :</span> EPLAN, Caneco BT, ETAP, Ecodial, DIALux evo, AutoCAD Electrical.</div>
-                    <div class="software-row"><span class="software-cat">Automatisme :</span> TIA Portal, STEP 7, WinCC, Modbus, MQTT.</div>
-                    <div class="software-row"><span class="software-cat">Programmation :</span> Python, C/C++, MATLAB/Simulink, Arduino, STM32CubeIDE.</div>
-                    <div class="software-row"><span class="software-cat">IA / Vision :</span> OpenCV, YOLO, traitement d'image.</div>
-                    <div class="software-row"><span class="software-cat">Data :</span> Power BI.</div>
-                    <div class="software-row"><span class="software-cat">Normes :</span> NF C 15-100, UTE C 15-520.</div>
-                </section>
-
-                <!-- FORMATION -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-graduation-cap"></i> Formation</h2>
-                    
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <span class="timeline-role">Cycle Ingénieur d’État</span>
-                            <span class="timeline-date">2024 – Présent</span>
+                    <!-- COMPÉTENCES DÉTAILLÉES -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-bolt"></i> Compétences</h2>
+                        
+                        <div class="skill-group">
+                            <div class="skill-group-title">CFO / CFA</div>
+                            <div class="skill-group-desc">Bilans de puissance, schémas unifilaires, dimensionnement des câbles, protections, tableaux, éclairage et études électriques.</div>
                         </div>
-                        <div class="timeline-company">FST Mohammedia</div>
-                        <div class="timeline-sub">Génie Électrique & Contrôle Industriel</div>
-                    </div>
 
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <span class="timeline-role">Licence Sciences & Techniques</span>
-                            <span class="timeline-date">2021 – 2024</span>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Électricité Industrielle</div>
+                            <div class="skill-group-desc">Puissance/commande, contacteurs, relais, borniers, lecture de schémas, câblage et diagnostic.</div>
                         </div>
-                        <div class="timeline-company">FST Settat</div>
-                        <div class="timeline-sub">Génie Électrique & Systèmes Automatisés</div>
-                        <div style="font-size:0.8rem; color:var(--gold); font-weight:700; margin-top:4px;">
-                            ★ Major de promotion – Mention Très Bien
+
+                        <div class="skill-group">
+                            <div class="skill-group-title">HTA / BT</div>
+                            <div class="skill-group-desc">Transformateurs, postes électriques, maintenance préventive/corrective, consignation et sécurité.</div>
                         </div>
-                    </div>
-                </section>
 
-                <!-- LANGUES -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-language"></i> Langues</h2>
-                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#cbd5e1; margin-bottom:6px;">
-                        <span>Arabe</span> <strong style="color:var(--primary);">Natif</strong>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#cbd5e1; margin-bottom:6px;">
-                        <span>Français</span> <strong style="color:var(--primary);">Professionnel</strong>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#cbd5e1;">
-                        <span>Anglais</span> <strong style="color:var(--primary);">Technique / Professionnel</strong>
-                    </div>
-                </section>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Automatisme</div>
+                            <div class="skill-group-desc">PLC, HMI, SCADA, instrumentation, réseaux industriels et contrôle-commande.</div>
+                        </div>
 
-            </div>
+                        <div class="skill-group">
+                            <div class="skill-group-title">Embarqué / Robotique</div>
+                            <div class="skill-group-desc">STM32, ESP32, Arduino, Raspberry Pi, capteurs, actionneurs, robotique mobile et robot cartésien.</div>
+                        </div>
+                    </section>
 
-            <!-- COLONNE DROITE -->
-            <div class="cv-right-col">
-                
-                <!-- EXPÉRIENCES PROFESSIONNELLES -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-briefcase"></i> Expériences Professionnelles</h2>
-                    
-                    <!-- EXP 1 : SOTHECA -->
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <span class="timeline-role">Stage d'application</span>
-                                <div class="timeline-company">SOTHECA</div>
+                    <!-- LOGICIELS & NORMES -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-laptop-code"></i> Logiciels & Outils</h2>
+                        <div class="software-row"><span class="software-cat">Électricité :</span> EPLAN, Caneco BT, ETAP, Ecodial, DIALux evo, AutoCAD Electrical.</div>
+                        <div class="software-row"><span class="software-cat">Automatisme :</span> TIA Portal, STEP 7, WinCC, Modbus, MQTT.</div>
+                        <div class="software-row"><span class="software-cat">Programmation :</span> Python, C/C++, MATLAB/Simulink, Arduino, STM32CubeIDE.</div>
+                        <div class="software-row"><span class="software-cat">IA / Vision :</span> OpenCV, YOLO, traitement d'image.</div>
+                        <div class="software-row"><span class="software-cat">Data :</span> Power BI.</div>
+                        <div class="software-row"><span class="software-cat">Normes :</span> NF C 15-100, UTE C 15-520.</div>
+                    </section>
+
+                    <!-- FORMATION ACADÉMIQUE -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-graduation-cap"></i> Formation</h2>
+                        
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <span class="timeline-role">Cycle Ingénieur d’État</span>
+                                <span class="timeline-date">2024 – Présent</span>
                             </div>
-                            <span class="timeline-date">Juillet 2026</span>
+                            <div class="timeline-company">FST Mohammedia</div>
+                            <div class="timeline-sub">Génie Électrique et Contrôle Industriel</div>
                         </div>
-                        <div class="timeline-sub">Installation électrique – CVC / Câblage d’armoires</div>
-                        <ul class="timeline-list">
-                            <li>Participation au câblage des circuits de puissance et de commande pour installations CVC et désenfumage.</li>
-                            <li>Lecture des schémas, repérage, implantation et raccordement des protections, contacteurs, relais et borniers.</li>
-                            <li>Contrôle du câblage, serrage et conformité avant mise sous tension.</li>
-                        </ul>
-                    </div>
 
-                    <!-- EXP 2 : SRM -->
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <span class="timeline-role">Stage ingénieur</span>
-                                <div class="timeline-company">SRM Casablanca–Settat</div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <span class="timeline-role">Licence Sciences & Techniques</span>
+                                <span class="timeline-date">2021 – 2024</span>
                             </div>
-                            <span class="timeline-date">Été 2025</span>
-                        </div>
-                        <div class="timeline-sub">Maintenance électrique HTA / BT</div>
-                        <ul class="timeline-list">
-                            <li>Participation à la maintenance préventive et corrective des installations et transformateurs HTA/BT.</li>
-                            <li>Contribution au diagnostic par analyse des gaz dissous et exploitation des résultats DGA.</li>
-                            <li>Application des procédures de consignation et de sécurité électrique.</li>
-                        </ul>
-                    </div>
-
-                    <!-- EXP 3 : EM ÉNERGIE -->
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <span class="timeline-role">Stage en bureau d’études</span>
-                                <div class="timeline-company">EM Énergie</div>
+                            <div class="timeline-company">FST Settat</div>
+                            <div class="timeline-sub">Génie Électrique et Systèmes Automatisés</div>
+                            <div style="font-size:0.82rem; color:var(--gold); font-weight:800; margin-top:4px;">
+                                <i class="fas fa-star"></i> Major de promotion – Mention Très Bien
                             </div>
-                            <span class="timeline-date">2024</span>
                         </div>
-                        <div class="timeline-sub">Études électriques CFO / CFA</div>
-                        <ul class="timeline-list">
-                            <li>Élaboration de plans d’exécution, schémas unifilaires, implantations et tableaux électriques.</li>
-                            <li>Bilans de puissance, choix des protections, sections de câbles et vérification des chutes de tension.</li>
-                            <li>Études d’éclairage sous DIALux evo et préparation des livrables techniques.</li>
-                        </ul>
-                    </div>
-                </section>
+                    </section>
 
-                <!-- PROJETS D'INGÉNIERIE -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-rocket"></i> Projets d'Ingénierie</h2>
+                    <!-- LANGUES -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-language"></i> Langues</h2>
+                        <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:8px;">
+                            <span>Arabe</span> <strong style="color:var(--primary);">Natif</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:8px;">
+                            <span>Français</span> <strong style="color:var(--primary);">Professionnel</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                            <span>Anglais</span> <strong style="color:var(--primary);">Technique / Professionnel</strong>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- COLONNE DROITE -->
+                <div class="cv-right-col">
                     
-                    <div class="project-mini-card">
-                        <div class="project-mini-title">
-                            <span>SkyPharma – Pharmacie automatisée</span>
-                            <span class="project-mini-tags">Robot XYZ | Python | GRBL</span>
+                    <!-- EXPÉRIENCES PROFESSIONNELLES -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-briefcase"></i> Expériences Professionnelles</h2>
+                        
+                        <!-- EXP 1 : SOTHECA -->
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <span class="timeline-role">Stage d’application</span>
+                                    <div class="timeline-company">SOTHECA</div>
+                                </div>
+                                <span class="timeline-date">Juillet 2026</span>
+                            </div>
+                            <div class="timeline-sub">Installation électrique – CVC / Câblage d’armoires</div>
+                            <ul class="timeline-list">
+                                <li>Participation au câblage des circuits de puissance et de commande pour installations CVC et désenfumage.</li>
+                                <li>Lecture des schémas, repérage, implantation et raccordement des protections, contacteurs, relais et borniers.</li>
+                                <li>Contrôle du câblage, serrage et conformité avant mise sous tension.</li>
+                            </ul>
                         </div>
-                        <div class="project-mini-desc">
-                            Conception d’un robot cartésien XYZ pour automatiser la préparation des commandes en pharmacie. Gestion de stock logicielle et extension vers la livraison par drone.
-                        </div>
-                    </div>
 
-                    <div class="project-mini-card">
-                        <div class="project-mini-title">
-                            <span>JOWAL – Smart Tourism & Local Marketplace</span>
-                            <span class="project-mini-tags">IA | Computer Vision | Web</span>
+                        <!-- EXP 2 : SRM CASABLANCA-SETTAT -->
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <span class="timeline-role">Stage ingénieur</span>
+                                    <div class="timeline-company">SRM Casablanca–Settat</div>
+                                </div>
+                                <span class="timeline-date">Été 2025</span>
+                            </div>
+                            <div class="timeline-sub">Maintenance électrique HTA / BT</div>
+                            <ul class="timeline-list">
+                                <li>Participation à la maintenance préventive et corrective des installations et transformateurs HTA/BT.</li>
+                                <li>Contribution au diagnostic par analyse des gaz dissous et exploitation des résultats DGA.</li>
+                                <li>Application des procédures de consignation et de sécurité électrique.</li>
+                            </ul>
                         </div>
-                        <div class="project-mini-desc">
-                            Application de tourisme intelligent combinant reconnaissance de monuments, guide IA, récits culturels en 8 langues et marketplace pour guides, artisans et hébergements.
-                        </div>
-                    </div>
 
-                    <div class="project-mini-card">
-                        <div class="project-mini-title">
-                            <span>Drone anti-noyade</span>
-                            <span class="project-mini-tags">IA | Vision embarquée</span>
+                        <!-- EXP 3 : EM ÉNERGIE -->
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <span class="timeline-role">Stage en bureau d’études</span>
+                                    <div class="timeline-company">EM Énergie</div>
+                                </div>
+                                <span class="timeline-date">2024</span>
+                            </div>
+                            <div class="timeline-sub">Études électriques CFO / CFA</div>
+                            <ul class="timeline-list">
+                                <li>Élaboration de plans d’exécution, schémas unifilaires, implantations et tableaux électriques.</li>
+                                <li>Bilans de puissance, choix des protections, sections de câbles et vérification des chutes de tension.</li>
+                                <li>Études d’éclairage sous DIALux evo et préparation des livrables techniques.</li>
+                            </ul>
                         </div>
-                        <div class="project-mini-desc">
-                            Développement d’une solution autonome capable de détecter une situation de noyade par vision artificielle et de déclencher le largage d’une bouée de secours.
-                        </div>
-                    </div>
+                    </section>
 
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- PROJETS D'INGÉNIERIE -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-rocket"></i> Projets d'Ingénierie</h2>
+                        
                         <div class="project-mini-card">
-                            <div class="project-mini-title" style="font-size:0.9rem;">Drone d'inspection HT</div>
-                            <div class="project-mini-desc">Inspection automatisée de lignes électriques et détection d'anomalies par IA.</div>
+                            <div class="project-mini-title">
+                                <span>SkyPharma – Pharmacie automatisée</span>
+                                <span class="project-mini-tags">Robot XYZ | Python | GRBL</span>
+                            </div>
+                            <div class="project-mini-desc">
+                                Conception d’un robot cartésien XYZ pour automatiser la préparation des commandes en pharmacie. Développement de la gestion de stock logicielle et extension vers la livraison par drone.
+                            </div>
                         </div>
+
                         <div class="project-mini-card">
-                            <div class="project-mini-title" style="font-size:0.9rem;">Robot mobile + bras</div>
-                            <div class="project-mini-desc">Suivi de ligne, vision OpenCV, STM32 et manipulation d'objets.</div>
+                            <div class="project-mini-title">
+                                <span>JOWAL – Smart Tourism & Local Marketplace</span>
+                                <span class="project-mini-tags">IA | Computer Vision | Web</span>
+                            </div>
+                            <div class="project-mini-desc">
+                                Application de tourisme intelligent combinant reconnaissance de monuments, guide culturel IA, récits en 8 langues et marketplace reliant touristes, guides, hébergements et artisans.
+                            </div>
                         </div>
-                    </div>
-                </section>
 
-                <!-- DISTINCTIONS & COMPÉTITIONS -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-trophy"></i> Distinctions & Compétitions</h2>
-                    
-                    <div class="award-item">
-                        <span class="award-badge"><i class="fas fa-medal"></i> 1er prix :</span>
-                        <span>Compétitions techniques — ENSA Oujda | FST Mohammedia | Summer School ENSEM–FSBM.</span>
-                    </div>
+                        <div class="project-mini-card">
+                            <div class="project-mini-title">
+                                <span>Drone anti-noyade</span>
+                                <span class="project-mini-tags">IA | Vision embarquée</span>
+                            </div>
+                            <div class="project-mini-desc">
+                                Développement d’une solution autonome capable de détecter une situation de noyade par vision par ordinateur et de déclencher le largage d’une bouée de secours.
+                            </div>
+                        </div>
 
-                    <div class="award-item">
-                        <span class="award-badge"><i class="fas fa-medal"></i> 2e prix :</span>
-                        <span>Compétitions techniques — ENSA Khouribga | ENIM Rabat | ENSA El Jadida.</span>
-                    </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="project-mini-card">
+                                <div class="project-mini-title" style="font-size:0.95rem;">Drone d’inspection HT</div>
+                                <div class="project-mini-desc">Inspection automatisée de lignes électriques et détection d’anomalies par IA.</div>
+                            </div>
+                            <div class="project-mini-card">
+                                <div class="project-mini-title" style="font-size:0.95rem;">Robot mobile + bras</div>
+                                <div class="project-mini-desc">Suivi de ligne, vision OpenCV, STM32 et manipulation d’objets.</div>
+                            </div>
+                        </div>
+                    </section>
 
-                    <div class="award-item">
-                        <span class="award-badge"><i class="fas fa-medal"></i> 2e prix :</span>
-                        <span>Compétition Tourisme — Organisée par le Ministère du Tourisme et de l'Innovation.</span>
-                    </div>
+                    <!-- DISTINCTIONS & COMPÉTITIONS -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-trophy"></i> Distinctions & Compétitions</h2>
+                        
+                        <div class="award-item">
+                            <span class="award-badge"><i class="fas fa-medal"></i> 1er prix :</span>
+                            <span>Compétitions techniques — ENSA Oujda | FST Mohammedia | Summer School ENSEM–FSBM.</span>
+                        </div>
 
-                    <div class="award-item">
-                        <span class="award-badge"><i class="fas fa-medal"></i> 3e prix :</span>
-                        <span>EMI Rabat — Distinction obtenue dans le cadre d’une compétition d’innovation / robotique.</span>
-                    </div>
-                </section>
+                        <div class="award-item">
+                            <span class="award-badge"><i class="fas fa-medal"></i> 2e prix :</span>
+                            <span>Compétitions techniques — ENSA Khouribga | ENIM Rabat | ENSA El Jadida.</span>
+                        </div>
 
-                <!-- CERTIFICATIONS -->
-                <section class="cv-block">
-                    <h2 class="cv-section-title"><i class="fas fa-certificate"></i> Certifications</h2>
-                    <div style="font-size:0.85rem; color:#cbd5e1; display:flex; flex-wrap:wrap; gap:8px;">
-                        <span style="background:rgba(0,243,255,0.08); border:1px solid rgba(0,243,255,0.25); padding:4px 10px; border-radius:6px; color:var(--primary); font-family:'JetBrains Mono',monospace;">Cisco Networking Essentials</span>
-                        <span style="background:rgba(0,243,255,0.08); border:1px solid rgba(0,243,255,0.25); padding:4px 10px; border-radius:6px; color:var(--primary); font-family:'JetBrains Mono',monospace;">MATLAB Onramp</span>
-                        <span style="background:rgba(0,243,255,0.08); border:1px solid rgba(0,243,255,0.25); padding:4px 10px; border-radius:6px; color:var(--primary); font-family:'JetBrains Mono',monospace;">Simulink Onramp</span>
-                    </div>
-                </section>
+                        <div class="award-item">
+                            <span class="award-badge"><i class="fas fa-medal"></i> 2e prix :</span>
+                            <span>Compétition Tourisme — Organisée par le Ministère du Tourisme et de l’Innovation.</span>
+                        </div>
+
+                        <div class="award-item">
+                            <span class="award-badge"><i class="fas fa-medal"></i> 3e prix :</span>
+                            <span>EMI Rabat — Distinction obtenue dans le cadre d’une compétition d’innovation / robotique.</span>
+                        </div>
+                    </section>
+
+                    <!-- CERTIFICATIONS -->
+                    <section class="cv-block">
+                        <h2 class="cv-section-title"><i class="fas fa-certificate"></i> Certifications</h2>
+                        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                            <span class="cert-pill"><i class="fas fa-network-wired"></i> Cisco Networking Essentials</span>
+                            <span class="cert-pill"><i class="fas fa-calculator"></i> MATLAB Onramp</span>
+                            <span class="cert-pill"><i class="fas fa-diagram-project"></i> Simulink Onramp</span>
+                        </div>
+                    </section>
+
+                </div>
 
             </div>
 
         </div>
-
     </main>
 
-    <!-- DOCK NAVIGATION -->
+    <!-- SYNTHÉTISEUR & LECTEUR AUDIO CYBER HUD -->
+    <div id="cyber-music-deck">
+        <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" onclick="toggleAudio()">
+            <canvas id="visualizer-canvas"></canvas>
+            <div class="deck-track-info">
+                <span class="deck-track-title">Ambiance Cyber // CV</span>
+                <span class="deck-track-status" id="deck-status">AUDIO : EN LECTURE</span>
+            </div>
+        </div>
+        <button class="deck-btn" onclick="toggleAudio()" id="deck-btn-icon">
+            <i class="fas fa-pause" id="audio-icon"></i>
+        </button>
+    </div>
+
+    <!-- NAVIGATION DOCK STARGATE -->
     <nav>
         <div class="nav-dock">
             <a href="index.html" class="nav-item">
@@ -604,38 +746,169 @@
         </div>
     </nav>
 
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-box">
+        <i class="fas fa-check-circle"></i> <span id="toast-msg">Action effectuée avec succès !</span>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 700, once: true });
 
-        // Background Canvas Particles
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        let w = canvas.width = window.innerWidth;
-        let h = canvas.height = window.innerHeight;
+        /* BASCULE ENTRE VUE CYBER HUD & VUE PAPIER RECRUTEUR */
+        function setViewMode(mode) {
+            const btnCyber = document.getElementById('btn-view-cyber');
+            const btnPaper = document.getElementById('btn-view-paper');
+            if (mode === 'paper') {
+                document.body.classList.add('paper-mode');
+                btnPaper.classList.add('active');
+                btnCyber.classList.remove('active');
+                showToast("Mode Recruteur Papier Activé !");
+            } else {
+                document.body.classList.remove('paper-mode');
+                btnCyber.classList.add('active');
+                btnPaper.classList.remove('active');
+                showToast("Mode Cyber HUD Activé !");
+            }
+        }
+
+        /* COPIE EMAIL */
+        function copyEmail() {
+            navigator.clipboard.writeText('baderbarkaoui707@gmail.com').then(() => {
+                showToast("Email copié dans le presse-papier !");
+            });
+        }
+
+        /* TÉLÉCHARGEMENT FICHIER VCARD CONTACT AUTOMATIQUE */
+        function copyContactVCard() {
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+N:El Berkaoui;Bader;;;
+FN:Bader El Berkaoui
+TITLE:Élève-Ingénieur Génie Électrique & Contrôle Industriel
+ORG:FST Mohammedia
+TEL;TYPE=CELL,VOICE:+212703470415
+EMAIL;TYPE=PREF,INTERNET:baderbarkaoui707@gmail.com
+URL:https://github.com/baderbarkaoui707
+ADR;TYPE=HOME:;;Casablanca;Casablanca;;;Maroc
+END:VCARD`;
+
+            const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Bader_El_Berkaoui.vcf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Fiche contact vCard téléchargée !");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-box');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2800);
+        }
+
+        /* GESTION AUDIO D'AMBIANCE */
+        const audio = document.getElementById('ambient-audio-player');
+        let isPlaying = false;
+        let audioCtx = null;
+        let analyser = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+                try {
+                    const src = audioCtx.createMediaElementSource(audio);
+                    src.connect(analyser);
+                    analyser.connect(audioCtx.destination);
+                } catch(e) {}
+                startVisualizer();
+            }
+        }
+
+        function toggleAudio() {
+            initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                document.getElementById('audio-icon').className = 'fas fa-play';
+                document.getElementById('deck-status').innerText = 'AUDIO : EN PAUSE';
+            } else {
+                audio.volume = 0.35;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    document.getElementById('audio-icon').className = 'fas fa-pause';
+                    document.getElementById('deck-status').innerText = 'AUDIO : EN LECTURE';
+                }).catch(() => {});
+            }
+        }
+
+        function startVisualizer() {
+            const canvas = document.getElementById('visualizer-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dataArray = new Uint8Array(analyser ? analyser.frequencyBinCount : 32);
+
+            function render() {
+                requestAnimationFrame(render);
+                if (analyser && isPlaying) analyser.getByteFrequencyData(dataArray);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const barWidth = 4;
+                let x = 0;
+                for (let i = 0; i < 7; i++) {
+                    let val = isPlaying ? Math.max(3, (dataArray[i * 2] / 255) * canvas.height) : 3;
+                    ctx.fillStyle = '#00f3ff';
+                    ctx.fillRect(x, canvas.height - val, barWidth, val);
+                    x += barWidth + 3;
+                }
+            }
+            render();
+        }
+
+        window.addEventListener('click', () => {
+            if (!isPlaying && audio) {
+                audio.volume = 0.35;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    initAudio();
+                }).catch(() => {});
+            }
+        }, { once: true });
+
+        /* PARTICULES BACKGROUND */
+        const canvasBg = document.getElementById('canvas-bg');
+        const ctxBg = canvasBg.getContext('2d');
+        let bgW = canvasBg.width = window.innerWidth;
+        let bgH = canvasBg.height = window.innerHeight;
         let particles = [];
         for (let i = 0; i < 35; i++) {
             particles.push({
-                x: Math.random() * w, y: Math.random() * h,
+                x: Math.random() * bgW, y: Math.random() * bgH,
                 size: Math.random() * 2 + 0.5,
                 vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
             });
         }
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
+        function animateBg() {
+            ctxBg.clearRect(0, 0, bgW, bgH);
             for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx; p.y += p.vy;
-                if (p.x < 0 || p.x > w) p.vx *= -1;
-                if (p.y < 0 || p.y > h) p.vy *= -1;
-                ctx.fillStyle = 'rgba(0, 243, 255, 0.25)';
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                const p = particles[i];
+                p.x += p.speedX || p.vx; p.y += p.speedY || p.vy;
+                if (p.x < 0 || p.x > bgW) p.vx *= -1;
+                if (p.y < 0 || p.y > bgH) p.vy *= -1;
+                ctxBg.fillStyle = 'rgba(0, 243, 255, 0.25)';
+                ctxBg.beginPath(); ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
             }
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateBg);
         }
-        animate();
-        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+        animateBg();
+        window.addEventListener('resize', () => { bgW = canvasBg.width = window.innerWidth; bgH = canvasBg.height = window.innerHeight; });
     </script>
 </body>
 </html>
