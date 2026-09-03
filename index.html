@@ -6,7 +6,7 @@
     <title>Bader El Berkaoui | Ingénieur Génie Électrique & Automatisme</title>
     
     <!-- Meta SEO & OpenGraph -->
-    <meta name="description" content="Portfolio de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
+    <meta name="description" content="Portfolio Officiel de Bader El Berkaoui - Ingénieur Génie Électrique, Automatisme & Systèmes Embarqués (FST Mohammedia - Major LST)">
     <meta name="theme-color" content="#030712">
 
     <!-- Polices Google Cyber & Pro -->
@@ -80,9 +80,12 @@
             font-weight: 600; letter-spacing: 2px; opacity: 0; animation: fadeInTxt 0.4s 0.5s forwards;
         }
         .click-hint {
-            margin-top: 15px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+            margin-top: 15px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
             color: var(--text-muted); opacity: 0; animation: fadeInTxt 0.4s 0.8s forwards;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
+        .click-hint i { color: var(--primary); animation: pulse-audio 1.5s infinite; }
+        @keyframes pulse-audio { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
         @keyframes loadLine { 0% { width: 0; } 100% { width: min(280px, 80vw); } }
         @keyframes fadeInTxt { to { opacity: 1; } }
         .hide-welcome { opacity: 0 !important; pointer-events: none; transform: translateY(-100%); }
@@ -99,9 +102,9 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 5%; z-index: 900; pointer-events: none;
         }
+        .hud-left, .hud-right { display: flex; align-items: center; gap: 10px; pointer-events: auto; }
         .hud-btn {
-            pointer-events: auto; background: rgba(10, 16, 30, 0.85);
-            border: var(--border-glow); color: var(--primary);
+            background: rgba(10, 16, 30, 0.85); border: var(--border-glow); color: var(--primary);
             padding: 8px 16px; border-radius: 30px; font-family: 'Rajdhani', sans-serif;
             font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
             display: inline-flex; align-items: center; gap: 8px;
@@ -191,7 +194,7 @@
         .kpi-box {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 10px 18px; border-radius: 12px; border-left: 3px solid var(--primary);
-            flex: 1; min-width: 120px;
+            flex: 1; min-width: 130px;
         }
         .kpi-number {
             font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff;
@@ -346,7 +349,7 @@
         .featured-btn-link:hover { color: var(--primary); gap: 12px; }
 
         /* =========================================================================
-           SYNTHÉTISEUR & LECTEUR AUDIO CYBER HUD (MP3 + PROCEDURAL SYNTH)
+           LECTEUR AUDIO CYBERPRO AVEC VISUALISEUR ÉGALISEUR FLOTTANT
            ========================================================================= */
         #cyber-music-deck {
             position: fixed; bottom: 95px; left: 25px; z-index: 1000;
@@ -385,21 +388,19 @@
         }
         .deck-btn {
             background: rgba(0, 243, 255, 0.08); border: 1px solid rgba(0, 243, 255, 0.25);
-            color: var(--primary); width: 28px; height: 28px; border-radius: 50%;
+            color: var(--primary); width: 30px; height: 30px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            font-size: 0.72rem; transition: 0.3s;
+            font-size: 0.8rem; transition: 0.3s;
         }
         .deck-btn:hover, .deck-btn.active {
             background: var(--primary); color: #030712; transform: scale(1.1);
         }
-        .track-select-pill {
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-            color: var(--text-muted); padding: 3px 8px; border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
-            cursor: pointer; transition: 0.2s;
+        
+        .volume-control-box {
+            display: flex; align-items: center; gap: 6px; margin-left: 4px;
         }
-        .track-select-pill.active {
-            background: var(--primary); color: #030712; border-color: var(--primary);
+        .volume-slider {
+            width: 50px; height: 4px; accent-color: var(--primary); cursor: pointer;
         }
 
         /* CLI SCADA MODAL */
@@ -474,10 +475,11 @@
             .cv-btn span { display: block !important; font-size: 0.65rem; }
             
             #cyber-music-deck {
-                bottom: 75px; left: 15px; padding: 6px 12px;
+                bottom: 75px; left: 15px; padding: 6px 14px;
                 max-width: calc(100vw - 30px);
             }
             .deck-track-title { display: none; }
+            .volume-control-box { display: none; }
         }
 
         @media (max-width: 480px) {
@@ -496,19 +498,20 @@
 
     <canvas id="electric-cursor-canvas"></canvas>
 
-    <!-- ÉLÉMENT AUDIO POUR VOTRE FICHIER MP3 (ambient.mp3) -->
+    <!-- ÉLÉMENT AUDIO PRINCIPAL (Lit ambient.mp3 / ambient.m4a) -->
     <audio id="ambient-audio-player" loop preload="auto">
         <source src="ambient.mp3" type="audio/mpeg">
+        <source src="ambient.m4a" type="audio/mp4">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- ÉCRAN D'ACCUEIL AVEC ACTIVATION SONORE -->
+    <!-- ÉCRAN D'ACCUEIL AVEC DÉCLENCHEMENT AUDIO INSTANTANÉ -->
     <div id="welcome-screen" onclick="launchSystem()">
         <div class="welcome-content">
             <div class="welcome-text">INITIALISATION DU SYSTÈME</div>
             <div class="loader-line"></div>
             <div class="welcome-sub">&lt; BADER EL BERKAOUI // INGÉNIEUR SYSTÈMES &gt;</div>
-            <div class="click-hint"><i class="fas fa-volume-up"></i> Cliquer pour entrer et activer l'expérience sonore</div>
+            <div class="click-hint"><i class="fas fa-play-circle"></i> Entrer sur le portfolio avec ambiance sonore</div>
         </div>
     </div>
 
@@ -516,34 +519,37 @@
 
     <!-- TOPBAR HUD -->
     <div class="hud-topbar">
-        <button class="hud-btn" onclick="toggleTerminal()">
-            <i class="fas fa-terminal"></i> <span>CLI SCADA</span>
-        </button>
+        <div class="hud-left">
+            <button class="hud-btn" onclick="toggleTerminal()">
+                <i class="fas fa-terminal"></i> <span>CLI SCADA</span>
+            </button>
+        </div>
 
-        <div style="display: flex; gap: 10px;">
+        <div class="hud-right">
             <button class="hud-btn" onclick="copyEmail()">
                 <i class="fas fa-copy"></i> <span>COPIER EMAIL</span>
             </button>
         </div>
     </div>
 
-    <!-- SYNTHÉTISEUR CYBER WEB AUDIO & LECTEUR MP3 HYBRIDE -->
+    <!-- LECTEUR AUDIO CYBER HUD HAUTE FIDÉLITÉ -->
     <div id="cyber-music-deck">
-        <div class="deck-visualizer-box" onclick="toggleMusicPlayback()">
+        <div class="deck-visualizer-box" onclick="toggleAudioPlayback()">
             <canvas id="visualizer-canvas"></canvas>
             <div class="deck-track-info">
-                <span class="deck-track-title" id="deck-title">Ambiance // Track 01</span>
-                <span class="deck-track-status" id="deck-status">AUDIO : ON</span>
+                <span class="deck-track-title" id="deck-title">Ambiance Cyber // MP3</span>
+                <span class="deck-track-status" id="deck-status">AUDIO : ACTIF</span>
             </div>
         </div>
 
         <div class="deck-controls">
-            <button class="deck-btn" onclick="toggleMusicPlayback()" id="deck-play-btn" title="Lecture / Pause">
+            <button class="deck-btn" onclick="toggleAudioPlayback()" id="deck-play-btn" title="Lecture / Pause">
                 <i class="fas fa-pause" id="deck-icon"></i>
             </button>
-            <button class="track-select-pill active" onclick="switchTrack(1)" id="pill-1">P1</button>
-            <button class="track-select-pill" onclick="switchTrack(2)" id="pill-2">P2</button>
-            <button class="track-select-pill" onclick="switchTrack(3)" id="pill-3">P3</button>
+            <div class="volume-control-box">
+                <i class="fas fa-volume-low" style="color:var(--primary); font-size:0.75rem;"></i>
+                <input type="range" min="0" max="1" step="0.05" value="0.4" class="volume-slider" id="volume-slider" oninput="setAudioVolume(this.value)">
+            </div>
         </div>
     </div>
 
@@ -588,7 +594,7 @@
                 <i class="fas fa-bolt"></i> Ingénieur Génie Électrique & Automatisme
             </div>
 
-            <!-- KPI HIGHLIGHTS ROW -->
+            <!-- KPI HIGHLIGHTS ROW OPTIMISÉ (SANS 225KV DGA) -->
             <div class="kpi-row">
                 <div class="kpi-box">
                     <div class="kpi-number" style="color:var(--gold);">1er</div>
@@ -599,13 +605,13 @@
                     <div class="kpi-label">1ers Prix & Trophées</div>
                 </div>
                 <div class="kpi-box">
-                    <div class="kpi-number" style="color:var(--accent);">225 kV</div>
-                    <div class="kpi-label">Haute Tension DGA</div>
+                    <div class="kpi-number" style="color:var(--accent);">R&D</div>
+                    <div class="kpi-label">Contrôle & Automatisme</div>
                 </div>
             </div>
 
             <p class="description">
-                Élève-ingénieur à la <strong>FST Mohammedia</strong>. Spécialisé en <strong>distribution électrique CFO/CFA, automatismes industriels Siemens</strong>, robotique cartésienne et systèmes embarqués communicants (IoT & IA).
+                Élève-ingénieur à la <strong>FST Mohammedia</strong>. Conception de systèmes industriels intelligents, <strong>automatismes Siemens TIA Portal, robotique cartésienne XYZ</strong> et architectures communicantes (IoT & IA).
             </p>
 
             <div class="cta-group">
@@ -732,13 +738,13 @@
     <div id="scada-modal" onclick="if(event.target === this) toggleTerminal()">
         <div class="terminal-box">
             <div class="terminal-header">
-                <span><i class="fas fa-microchip"></i> BADER-OS // SCADA DIAGNOSTIC v2.8</span>
+                <span><i class="fas fa-microchip"></i> BADER-OS // SCADA DIAGNOSTIC v3.0</span>
                 <span style="cursor: pointer;" onclick="toggleTerminal()"><i class="fas fa-times"></i></span>
             </div>
             <div class="terminal-body" id="term-output">
-                <div>[SYSTEM] Connexion établie avec le poste source 225kV...</div>
+                <div>[SYSTEM] Connexion établie avec le système central...</div>
                 <div>[STATUS] Ingénieur : Bader El Berkaoui • Major LST</div>
-                <div>[AUDIO] Lecteur audio cyber & synthétiseur actifs.</div>
+                <div>[AUDIO] Lecteur d'ambiance MP3 actif.</div>
                 <div>[INFO] Tapez <span style="color:var(--primary); font-weight:bold;">help</span> pour afficher les commandes.</div>
             </div>
             <div class="terminal-input-row">
@@ -771,207 +777,149 @@
         }
 
         /* =========================================================================
-           MOTEUR AUDIO HYBRIDE : FICHIER MP3 (ambient.mp3) + SYNTHÉTISEUR WEB AUDIO
+           GESTION AUDIO MP3 ROBUSTE AVEC ÉGALISEUR EN DIRECT
            ========================================================================= */
-        const mp3Player = document.getElementById('ambient-audio-player');
+        const audioPlayer = document.getElementById('ambient-audio-player');
+        let isAudioPlaying = false;
         let audioCtx = null;
-        let isMusicPlaying = false;
-        let currentTrack = 1;
-        let synthInterval = null;
-        let masterGain = null;
         let analyser = null;
-        let hasMp3File = false;
+        let sourceNode = null;
+        let synthInterval = null;
 
-        const trackNames = {
-            1: { title: "Ambiance MP3 / Synth 432Hz", desc: "AUDIO : P1 (Cyber Chill)" },
-            2: { title: "Neon Synth Arp // 120BPM", desc: "AUDIO : P2 (Arpège Cyber)" },
-            3: { title: "Deep Grid Pulse // Sci-Fi", desc: "AUDIO : P3 (Pulse Sub-Bass)" }
-        };
-
-        if (mp3Player) {
-            mp3Player.volume = 0.35;
-            mp3Player.addEventListener('canplaythrough', () => { hasMp3File = true; });
-            mp3Player.addEventListener('error', () => { hasMp3File = false; });
-        }
-
-        function initAudioEngine() {
+        function initAudioPipeline() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                masterGain = audioCtx.createGain();
-                masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-
                 analyser = audioCtx.createAnalyser();
                 analyser.fftSize = 64;
 
-                masterGain.connect(analyser);
-                analyser.connect(audioCtx.destination);
-                startVisualizer();
-            }
-        }
-
-        // PISTE 1 : Web Audio Drone Fallback
-        function playTrack1Note() {
-            if (!isMusicPlaying || !audioCtx || hasMp3File) return;
-            const freqs = [110, 130.81, 164.81, 196.00, 220, 261.63];
-            const freq = freqs[Math.floor(Math.random() * freqs.length)];
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(600, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 3.0);
-
-            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.8);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5);
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(masterGain);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 3.5);
-        }
-
-        // PISTE 2 : Arpège Synthwave
-        let arpIndex = 0;
-        function playTrack2Note() {
-            if (!isMusicPlaying || !audioCtx) return;
-            const arpNotes = [220, 261.63, 329.63, 392.00, 440, 523.25, 392, 329.63];
-            const freq = arpNotes[arpIndex % arpNotes.length];
-            arpIndex++;
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-
-            osc.connect(gain);
-            gain.connect(masterGain);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.25);
-        }
-
-        // PISTE 3 : Sub Pulse
-        function playTrack3Note() {
-            if (!isMusicPlaying || !audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(55, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(82.4, audioCtx.currentTime + 0.6);
-
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-
-            osc.connect(gain);
-            gain.connect(masterGain);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 1.2);
-        }
-
-        function startMusicEngine() {
-            if (synthInterval) clearInterval(synthInterval);
-            isMusicPlaying = true;
-            document.getElementById('deck-icon').className = 'fas fa-pause';
-            document.getElementById('deck-status').innerText = trackNames[currentTrack].desc;
-            document.getElementById('deck-title').innerText = trackNames[currentTrack].title;
-
-            if (currentTrack === 1) {
-                if (mp3Player) {
-                    const playPromise = mp3Player.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(() => {
-                            playTrack1Note();
-                            synthInterval = setInterval(playTrack1Note, 1200);
-                        });
+                try {
+                    if (audioPlayer && !sourceNode) {
+                        sourceNode = audioCtx.createMediaElementSource(audioPlayer);
+                        sourceNode.connect(analyser);
+                        analyser.connect(audioCtx.destination);
                     }
-                } else {
-                    playTrack1Note();
-                    synthInterval = setInterval(playTrack1Note, 1200);
+                } catch(e) {
+                    // Fallback direct
                 }
-            } else {
-                if (mp3Player) mp3Player.pause();
-                if (currentTrack === 2) {
-                    synthInterval = setInterval(playTrack2Note, 220);
-                } else if (currentTrack === 3) {
-                    playTrack3Note();
-                    synthInterval = setInterval(playTrack3Note, 1400);
+                startVisualizerAnimation();
+            }
+        }
+
+        function playAudio() {
+            initAudioPipeline();
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            
+            if (audioPlayer) {
+                audioPlayer.volume = parseFloat(document.getElementById('volume-slider').value || 0.4);
+                const playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isAudioPlaying = true;
+                        updatePlayerUI(true);
+                    }).catch(() => {
+                        startSynthFallback();
+                    });
                 }
             }
         }
 
-        function pauseMusicEngine() {
-            isMusicPlaying = false;
+        function pauseAudio() {
+            if (audioPlayer) audioPlayer.pause();
             if (synthInterval) clearInterval(synthInterval);
-            if (mp3Player) mp3Player.pause();
-            document.getElementById('deck-icon').className = 'fas fa-play';
-            document.getElementById('deck-status').innerText = 'AUDIO : PAUSE';
+            isAudioPlaying = false;
+            updatePlayerUI(false);
         }
 
-        function toggleMusicPlayback() {
-            initAudioEngine();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            if (isMusicPlaying) {
-                pauseMusicEngine();
+        function toggleAudioPlayback() {
+            if (isAudioPlaying) {
+                pauseAudio();
+                playClickFeedback();
             } else {
-                startMusicEngine();
+                playAudio();
+                playClickFeedback();
             }
-            playElectricSound();
         }
 
-        function switchTrack(trackNum) {
-            initAudioEngine();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            currentTrack = trackNum;
-            document.querySelectorAll('.track-select-pill').forEach((p, idx) => {
-                p.classList.toggle('active', idx + 1 === trackNum);
-            });
-            startMusicEngine();
-            playElectricSound();
+        function setAudioVolume(val) {
+            if (audioPlayer) audioPlayer.volume = parseFloat(val);
+        }
+
+        function updatePlayerUI(playing) {
+            const icon = document.getElementById('deck-icon');
+            const status = document.getElementById('deck-status');
+            if (playing) {
+                icon.className = 'fas fa-pause';
+                status.innerText = 'AUDIO : EN LECTURE';
+            } else {
+                icon.className = 'fas fa-play';
+                status.innerText = 'AUDIO : EN PAUSE';
+            }
+        }
+
+        function startSynthFallback() {
+            isAudioPlaying = true;
+            updatePlayerUI(true);
+            function playNote() {
+                if (!isAudioPlaying || !audioCtx) return;
+                const freqs = [110, 130.81, 164.81, 196.00, 220, 261.63];
+                const freq = freqs[Math.floor(Math.random() * freqs.length)];
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(450, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.8);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.0);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 3.0);
+            }
+            playNote();
+            synthInterval = setInterval(playNote, 1400);
         }
 
         function launchSystem() {
             const welcome = document.getElementById('welcome-screen');
             if (welcome) welcome.classList.add('hide-welcome');
-            initAudioEngine();
-            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-            startMusicEngine();
+            playAudio();
         }
+
         window.addEventListener('load', () => setTimeout(() => {
             const welcome = document.getElementById('welcome-screen');
             if (welcome && !welcome.classList.contains('hide-welcome')) launchSystem();
         }, 1200));
 
-        /* VISUALISEUR DE SPECTRE SUR LE CANVAS */
-        function startVisualizer() {
+        /* VISUALISEUR DE SPECTRE CANVAS */
+        function startVisualizerAnimation() {
             const canvas = document.getElementById('visualizer-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const dataArray = new Uint8Array(analyser ? analyser.frequencyBinCount : 32);
 
             function render() {
                 requestAnimationFrame(render);
-                analyser.getByteFrequencyData(dataArray);
+                if (analyser && isAudioPlaying) {
+                    analyser.getByteFrequencyData(dataArray);
+                }
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 const barWidth = 4;
                 let x = 0;
 
                 for (let i = 0; i < 7; i++) {
-                    const val = isMusicPlaying ? (dataArray[i * 2] / 255) * canvas.height : 3;
+                    let val = 3;
+                    if (isAudioPlaying) {
+                        const raw = dataArray[i * 2] || 0;
+                        val = Math.max(3, (raw / 255) * canvas.height);
+                    }
                     ctx.fillStyle = '#00f3ff';
                     ctx.fillRect(x, canvas.height - val, barWidth, val);
                     x += barWidth + 3;
@@ -1050,15 +998,15 @@
             animateCursor();
         })();
 
-        /* SONS HAPTIQUES CLIC */
-        function playElectricSound() {
+        /* SON HAPTIQUE CLIC */
+        function playClickFeedback() {
             try {
                 if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(750, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.05);
                 gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
                 osc.connect(gain); gain.connect(audioCtx.destination);
@@ -1067,7 +1015,7 @@
         }
 
         document.querySelectorAll('.btn-glow, .btn-transparent, .nav-item, .featured-card, .hud-btn').forEach(el => {
-            el.addEventListener('mouseenter', playElectricSound);
+            el.addEventListener('mouseenter', playClickFeedback);
         });
 
         /* PARTICULES BACKGROUND */
@@ -1134,16 +1082,15 @@
                     res = `Commandes disponibles :<br>
                     - <span style="color:#00f3ff">status</span> : Statut académique & PFE<br>
                     - <span style="color:#00f3ff">projects</span> : Liste des projets phares<br>
-                    - <span style="color:#00f3ff">play 1 / 2 / 3</span> : Changer de piste audio<br>
+                    - <span style="color:#00f3ff">play / pause</span> : Contrôle audio<br>
                     - <span style="color:#00f3ff">contact</span> : Coordonnées directes<br>
                     - <span style="color:#00f3ff">clear</span> : Effacer la console`;
                     break;
                 case 'status':
-                    res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique<br>[MAJOR] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour recrutement et stages PFE.`;
+                    res = `[INGÉNIEUR] Bader El Berkaoui<br>[FORMATION] FST Mohammedia - Génie Électrique & Automatisme<br>[MAJOR] Major de Promotion LST (Mention Très Bien)<br>[PFE 2026] Disponible pour missions d'ingénierie et stages PFE.`;
                     break;
-                case 'play 1': switchTrack(1); res = `Piste 1 activée (Ambiance MP3 / Synth 432Hz).`; break;
-                case 'play 2': switchTrack(2); res = `Piste 2 activée (Neon Synth Arpège).`; break;
-                case 'play 3': switchTrack(3); res = `Piste 3 activée (Deep Sci-Fi Sub).`; break;
+                case 'play': playAudio(); res = `Lecture audio activée.`; break;
+                case 'pause': pauseAudio(); res = `Audio mis en pause.`; break;
                 case 'projects':
                     res = `1. SkyPharma (Robot cartésien XYZ & Pharmacie)<br>2. Drone AMANE (1er Prix ENSEM-FSBM)<br>3. Projet TAWFIR (1er Prix Électrogenuis)<br>4. JOWAL (2e Prix Min. Tourisme)`;
                     break;
